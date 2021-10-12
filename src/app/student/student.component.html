@@ -1,0 +1,88 @@
+
+<p-table [columns]="cols" [value]="students"  
+responsiveLayout="scroll" columnResizeMode="expand" appendTo="body" 
+sortMode="single" [scrollable]="true" scrollHeight="800px" 
+[paginator]="true" [rows]="10" sortField="students.FullName"   >
+    <ng-template  pTemplate="header" let-columns>
+        <tr >
+           
+            <th  *ngFor="let col of columns" [pSortableColumn]="col.field" [pTooltip]="col.tooltip" 
+            style="background-color: greenyellow;" >
+                
+                
+                    {{col.header}}
+                    <p-sortIcon [field]="col.field"></p-sortIcon>
+                
+            </th>
+            
+            <th></th>
+        </tr>
+        <tr>
+            <th *ngFor="let col of columns" style="background-color: fuchsia;" >
+                
+                    <p-columnFilter 
+
+                        pInputText  type="text" field="col.field">
+                    </p-columnFilter>
+                
+            </th>
+
+       
+            <th></th>
+            
+        </tr>        
+    </ng-template>
+    <ng-template pTemplate="body" let-row let-columns="columns">
+        <tr class="p-selectable-row" >
+            
+            <td *ngFor="let col of columns" pEditableColumn>
+                
+                    {{row[col.field]}}
+                
+            </td>
+            <td>
+                <button pButton pRipple  icon="pi pi-pencil" class="p-button-outlined p-button-raised p-button-success p-mr-2" (click)="editStudent(row)"></button>
+                
+                <button pButton pRipple icon="pi pi-trash" class="p-button-outlined p-button-danger p-button-raised" (click)="deleteStudent(row)"></button>
+            
+
+            </td>
+
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+        <div class="p-d-flex p-ai-center p-jc-between">
+            Batch total: {{students ? students.length : 0 }} applicants.
+        </div>
+    </ng-template>
+</p-table>
+
+
+<p-dialog [(visible)]="studentDialog" [style]="{width: '450px'}" header="Student Details" [modal]="true" styleClass="p-fluid">
+    <ng-template pTemplate="content">
+        
+        <div class="p-field ">
+            <label for="name">Name</label>
+            <input type="text" pInputText id="name" [(ngModel)]="student.FullName" required autofocus />
+            <small class="p-error" *ngIf="submitted && !student.FullName">Name is required.</small>
+        </div>
+        <div class="p-field">
+            <label for="CostCenter">Cost center</label>
+            <input type="text" pInputText id="CostCenter" [(ngModel)]="student.CostCenter" required autofocus />
+            <small class="p-error" *ngIf="submitted && !student.CostCenter">Name is required.</small>
+        </div>        
+        <div class="p-field">
+            <label for="PostingManager">PostingManager</label>
+            <input type="text" pInputText id="PostingManager" [(ngModel)]="student.PostingManager" required autofocus />
+            <small class="p-error" *ngIf="submitted && !student.PostingManager">Name is required.</small>
+        </div>
+
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+        <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveStudent()"></button>
+    </ng-template>
+</p-dialog>
+
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>         
