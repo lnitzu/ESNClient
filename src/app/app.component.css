@@ -3,7 +3,11 @@
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     font-size: 14px;
     color: #333;
-    box-sizing: border-box;
+    display:flex;
+    flex-direction:column;
+    
+    
+    
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -18,19 +22,23 @@
   }
 
   .toolbar {
-    position: fixed;
+    
     top: 0;
-    left: 0;
-    right: 0;
-    height: 60px;
+    left: 2px;
+    right: 2px;
+    margin-bottom: 2px;
+    padding-bottom: 4px;
+
+    align-items: center;
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    
     background-color: white;
-    color: blue;
+
     font-weight: 600;
     font-size: large;
-    border-bottom:darkblue;
+    
+    border-bottom:rgba(0, 0, 0, 0.15);
     border-bottom-style: ridge;
   }
 
@@ -38,20 +46,21 @@
     margin: 0 16px;
   }
 
-
-
-
-
+/*
   .content {
-    display: flex;
-    margin: 10px auto 10px;
-    padding: 0 5px;
-    /*max-width: 960px;*/
-background-color: darkgreen;
-    flex-direction:row;
+    position: relative;
+    
+    
+    background-color: aqua;
+    margin-top: 0px;
+    
+    min-height: 400px;
+    min-width: 100%;
+
+    
     align-items: center;
   }
-
+*/
   svg.material-icons {
     height: 24px;
     width: auto;
@@ -173,8 +182,7 @@ background-color: darkgreen;
   }
 
   footer {
-    margin-top: 8px;
-    display: flex;
+    text-align: right;
     align-items: center;
     line-height: 20px;
   }

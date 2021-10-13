@@ -1,45 +1,42 @@
 
 <p-table [columns]="cols" [value]="students"  
-responsiveLayout="scroll" columnResizeMode="expand" appendTo="body" 
-sortMode="single" [scrollable]="true" scrollHeight="800px" 
-[paginator]="true" [rows]="10" sortField="students.FullName"   >
+
+sortMode="single" [scrollable]="true" 
+[rows]="10" [rowHover]="true"
+[showCurrentPageReport]="true"
+currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+scrollHeight="800px" styleClass="p-datatable-sm p-datatable-striped"
+[paginator]="true" [rowsPerPageOptions]="[10,25,50]" sortField="students.FullName" >
+
     <ng-template  pTemplate="header" let-columns>
         <tr >
-           
-            <th  *ngFor="let col of columns" [pSortableColumn]="col.field" [pTooltip]="col.tooltip" 
-            style="background-color: greenyellow;" >
-                
-                
+            <ng-container *ngFor="let col of columns">
+            <th *ngIf="col.visible" [pSortableColumn]="col.field" [pTooltip]="col.tooltip" >
                     {{col.header}}
                     <p-sortIcon [field]="col.field"></p-sortIcon>
-                
+                    <p-columnFilter 
+                        [showAddButton]="false" 
+                        type="text" field={{col.field}} display="menu">
+                    </p-columnFilter>
             </th>
-            
+            </ng-container>
             <th></th>
         </tr>
-        <tr>
-            <th *ngFor="let col of columns" style="background-color: fuchsia;" >
-                
-                    <p-columnFilter 
+    
 
-                        pInputText  type="text" field="col.field">
-                    </p-columnFilter>
-                
-            </th>
-
-       
-            <th></th>
-            
-        </tr>        
     </ng-template>
+
+
+
     <ng-template pTemplate="body" let-row let-columns="columns">
         <tr class="p-selectable-row" >
-            
-            <td *ngFor="let col of columns" pEditableColumn>
-                
+           
+            <ng-container *ngFor="let col of columns">
+            <td *ngIf="col.visible" pEditableColumn>
                     {{row[col.field]}}
-                
             </td>
+            </ng-container>
+
             <td>
                 <button pButton pRipple  icon="pi pi-pencil" class="p-button-outlined p-button-raised p-button-success p-mr-2" (click)="editStudent(row)"></button>
                 
@@ -50,11 +47,7 @@ sortMode="single" [scrollable]="true" scrollHeight="800px"
 
         </tr>
     </ng-template>
-    <ng-template pTemplate="summary">
-        <div class="p-d-flex p-ai-center p-jc-between">
-            Batch total: {{students ? students.length : 0 }} applicants.
-        </div>
-    </ng-template>
+
 </p-table>
 
 
