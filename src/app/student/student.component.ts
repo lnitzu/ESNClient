@@ -6,6 +6,10 @@ import { ConfirmationService, PrimeTemplate } from 'primeng/api';
 import { Message, MessageService } from 'primeng/api';
 import { PrimeNGConfig } from 'primeng/api';
 
+
+
+
+
 @Component({
   selector: 'app-student',
   templateUrl: './student.component.html',
@@ -16,6 +20,8 @@ export class StudentComponent implements OnInit {
 
   students: any[] = [];
   student: any = {};
+
+  public innerHeight: any;
 
   studentDialog: boolean = false;
   submitted: boolean = false;
@@ -36,7 +42,7 @@ export class StudentComponent implements OnInit {
 
     this.service.getStudentList().subscribe(data => { this.students = data; });
     
-
+    this.innerHeight = window.innerHeight;
     this.cols = [
 
       { field: 'ApplicantID', header: 'Applicant ID', tooltip: "Applicant ID", visible: false},
@@ -80,7 +86,8 @@ export class StudentComponent implements OnInit {
       { field: 'SchoolName', header: 'SchoolName', tooltip: "School name" ,visible:false},
       { field: 'ModifiedOn', header: 'ModifiedOn', tooltip: "Modified date" ,visible:false},
       { field: 'ModifiedBy', header: 'ModifiedBy', tooltip: "Modified by" ,visible:false},
-      { field: 'Site', header: 'Facility', tooltip: "Facility" ,visible: true}
+      { field: 'Site', header: 'Facility', tooltip: "Facility" ,visible: true},
+      { field: 'Picture', header: 'Picture', tooltip: "Picture" ,visible: true}
 
 
     ];
