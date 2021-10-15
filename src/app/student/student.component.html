@@ -1,47 +1,63 @@
+<p-table [columns]="cols" [value]="students" class="some-custom-class-name" sortMode="single" [scrollable]="true"
+    [rows]="10" [rowHover]="true" [showCurrentPageReport]="true"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" scrollHeight="80vh"
+    styleClass="p-datatable-sm p-datatable-striped" [paginator]="true" [rowsPerPageOptions]="[10,25,50]"
+    sortField="students.FullName">
 
-<p-table [columns]="cols" [value]="students"  
-
-sortMode="single" [scrollable]="true" 
-[rows]="10" [rowHover]="true"
-[showCurrentPageReport]="true"
-currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-scrollHeight="800px" styleClass="p-datatable-sm p-datatable-striped"
-[paginator]="true" [rowsPerPageOptions]="[10,25,50]" sortField="students.FullName" >
-
-    <ng-template  pTemplate="header" let-columns>
-        <tr >
+    <ng-template pTemplate="header" let-columns>
+        <tr>
             <ng-container *ngFor="let col of columns">
-            <th *ngIf="col.visible" [pSortableColumn]="col.field" [pTooltip]="col.tooltip" >
+                <th *ngIf="col.visible" [pSortableColumn]="col.field" [pTooltip]="col.tooltip" tooltipPosition="bottom">
                     {{col.header}}
                     <p-sortIcon [field]="col.field"></p-sortIcon>
-                    <p-columnFilter 
-                        [showAddButton]="false" 
-                        type="text" field={{col.field}} display="menu">
+                    <p-columnFilter styleClass="some-custom-class-name" [showAddButton]="false" type="text"
+                        field={{col.field}} display="menu" style="color: red !important;">
                     </p-columnFilter>
-            </th>
+                </th>
             </ng-container>
             <th></th>
         </tr>
-    
+
 
     </ng-template>
 
-
+    <!--<img src="{{'data:image/jpg;base64,' + imagePath}}" />-->
 
     <ng-template pTemplate="body" let-row let-columns="columns">
-        <tr class="p-selectable-row" >
-           
-            <ng-container *ngFor="let col of columns">
-            <td *ngIf="col.visible" pEditableColumn>
-                    {{row[col.field]}}
-            </td>
+        <tr class="p-selectable-row">
+
+            <ng-container *ngFor="let col of columns" [ngSwitch]="col.field">
+                <td *ngIf="col.visible">
+
+                    <div *ngSwitchCase="'SchoolName'">
+
+
+                        <p-dropdown appendTo="body" placeholder="Select a school" [options]='SchoolMap'
+                            [(ngModel)]="row[col.field]">
+                        </p-dropdown>
+                        {{row[col.field]}}
+
+                        
+
+
+                    </div>
+                    <div *ngSwitchDefault>
+                        {{row[col.field]}}
+                    </div>
+
+
+
+                </td>
             </ng-container>
 
             <td>
-                <button pButton pRipple  icon="pi pi-pencil" class="p-button-outlined p-button-raised p-button-success p-mr-2" (click)="editStudent(row)"></button>
-                
-                <button pButton pRipple icon="pi pi-trash" class="p-button-outlined p-button-danger p-button-raised" (click)="deleteStudent(row)"></button>
-            
+                <button pButton pRipple icon="pi pi-pencil" class="p-button-outlined p-button-success p-mr-2"
+                    (click)="editStudent(row)"></button>
+
+
+                <button pButton pRipple icon="pi pi-times" class="p-button-outlined p-button-danger"
+                    (click)="deleteStudent(row)"></button>
+
 
             </td>
 
@@ -51,9 +67,10 @@ scrollHeight="800px" styleClass="p-datatable-sm p-datatable-striped"
 </p-table>
 
 
-<p-dialog [(visible)]="studentDialog" [style]="{width: '450px'}" header="Student Details" [modal]="true" styleClass="p-fluid">
+<p-dialog [(visible)]="studentDialog" [style]="{width: '450px'}" header="Student Details" [modal]="true"
+    styleClass="p-fluid">
     <ng-template pTemplate="content">
-        
+
         <div class="p-field ">
             <label for="name">Name</label>
             <input type="text" pInputText id="name" [(ngModel)]="student.FullName" required autofocus />
@@ -63,7 +80,7 @@ scrollHeight="800px" styleClass="p-datatable-sm p-datatable-striped"
             <label for="CostCenter">Cost center</label>
             <input type="text" pInputText id="CostCenter" [(ngModel)]="student.CostCenter" required autofocus />
             <small class="p-error" *ngIf="submitted && !student.CostCenter">Name is required.</small>
-        </div>        
+        </div>
         <div class="p-field">
             <label for="PostingManager">PostingManager</label>
             <input type="text" pInputText id="PostingManager" [(ngModel)]="student.PostingManager" required autofocus />
@@ -78,4 +95,4 @@ scrollHeight="800px" styleClass="p-datatable-sm p-datatable-striped"
     </ng-template>
 </p-dialog>
 
-<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>         
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>

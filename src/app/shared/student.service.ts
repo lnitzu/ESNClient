@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Applicant } from '../applicant';
 import { Observable } from 'rxjs';
 
+import { HttpHeaders } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
@@ -17,5 +18,14 @@ export class StudentService {
     return this.http.get<any>(this.ApiUrl + '/Student');
   }
   
+
+  updateJob(val: any) {
+   
+    const headers= new HttpHeaders()
+    .set('content-type', 'application/json')
+    .set('Access-Control-Allow-Origin', '*');
+    
+    return this.http.put(this.ApiUrl +'/jobs', val,{ 'headers': headers });
+  }
 
 }

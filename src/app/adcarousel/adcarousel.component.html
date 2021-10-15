@@ -1,0 +1,18 @@
+<p-carousel [value]="images" styleClass="custom-carousel" [numVisible]="1" [numScroll]="1" [circular]="true"
+    [autoplayInterval]="3000">
+
+
+    <ng-template let-img pTemplate="item">
+
+        <p></p>&nbsp;<p></p>
+        <br>
+        <p></p>
+        <div style="text-align: center;">
+            <div>
+
+                <img src={{img.src}}>
+            </div>
+
+        </div>
+    </ng-template>
+</p-carousel>

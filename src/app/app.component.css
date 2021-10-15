@@ -21,14 +21,17 @@
     flex: 1;
   }
 
+
+  
   .toolbar {
+    
     
     top: 0;
     left: 2px;
     right: 2px;
     margin-bottom: 2px;
     padding-bottom: 4px;
-
+min-height: 6vh;
     align-items: center;
     display: flex;
     justify-content: space-between;

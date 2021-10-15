@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Injectable, OnInit } from '@angular/core';
 import { Applicant } from '../applicant';
 
 import { StudentService } from '../shared/student.service';
-import { ConfirmationService, PrimeTemplate } from 'primeng/api';
+import { ConfirmationService, PrimeTemplate, SelectItem } from 'primeng/api';
 import { Message, MessageService } from 'primeng/api';
 import { PrimeNGConfig } from 'primeng/api';
 
@@ -28,11 +28,34 @@ export class StudentComponent implements OnInit {
   cols: any[] = [];
   first: number = 0;
 
+  
+
+//  colors: any[] = [];
+
+  SchooNames = [
+    { id: '1', name: 'My School' },
+    { id: '2', name: 'Black' },
+    { id: '3', name: 'Gray' },
+    { id: '4', name: 'Blue' },
+    { id: '5', name: 'Orange' },
+    { id: '6', name: 'Yellow' }
+  ];
+
+
+SchoolMap =   this.SchooNames.map((name) => {
+    return { label: name.name, value: name.id }
+  });
+
   constructor(
     private service: StudentService,
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
-    private primengConfig: PrimeNGConfig) { }
+    private primengConfig: PrimeNGConfig) { 
+
+
+
+
+    }
 
 
 
@@ -41,53 +64,52 @@ export class StudentComponent implements OnInit {
   ngOnInit(): void {
 
     this.service.getStudentList().subscribe(data => { this.students = data; });
-    
+
     this.innerHeight = window.innerHeight;
     this.cols = [
 
-      { field: 'ApplicantID', header: 'Applicant ID', tooltip: "Applicant ID", visible: false},
-      { field: 'ProfileID', header: 'Profile ID', tooltip: "Profile ID" , visible: false},
-      { field: 'ProfileType', header: 'Profile type', tooltip: "Profile type (internal/external)" ,visible: false},
-      { field: 'FirstName', header: 'First name', tooltip: "First name of the applicant" ,visible: false},
-      { field: 'LastName', header: 'Last name', tooltip: "Last name of the applicant" ,visible: false},
-      { field: 'FullName', header: 'Applicant', tooltip: "Applicant full name" ,visible: true},
+      { field: 'ApplicantID', header: 'Applicant ID', tooltip: "Applicant ID", visible: false },
+      { field: 'ProfileID', header: 'Profile ID', tooltip: "Profile ID", visible: false },
+      { field: 'ProfileType', header: 'Profile type', tooltip: "Profile type (internal/external)", visible: false },
+      { field: 'FirstName', header: 'First name', tooltip: "First name of the applicant", visible: false },
+      { field: 'LastName', header: 'Last name', tooltip: "Last name of the applicant", visible: false },
+      { field: 'FullName', header: 'Applicant', tooltip: "Applicant full name", visible: true },
       { field: 'FHAEmpNo', header: 'FHA Emp#', tooltip: "FHA Employee number", visible: false },
-      { field: 'PostingIDNum', header: 'Posting#', tooltip: "Posting number" ,visible: true},
-      { field: 'PostingIDSuffix', header: 'Posting suffix #', tooltip: "Posting sufix" , visible:false},
-      { field: 'MapToPostingID', header: 'Parent posting#', tooltip: "Parent posting #" ,visible:false},
-      { field: 'PostingDate', header: 'Posting date', tooltip: "Posting date", visible:false },
-      { field: 'CostCenter', header: 'Cost center', tooltip: "Cost center",visible: true },
-      { field: 'PostingManager', header: 'Posting mngr', tooltip: "Posting manager name",visible: true },
-      { field: 'PostingMngrADUsername', header: 'Posting manager AD', tooltip: "AD login of the posting manager" ,visible:false},
-      { field: 'DeptName', header: 'Dpt name', tooltip: "Department name",visible: true },
-      { field: "AppliedDate", header: 'Applied date', tooltip: "Application date" ,visible:false},
-      { field: 'ApprovalStatus', header: 'Approval status', tooltip: "Aproval status",visible:false },
-      { field: 'City', header: 'City', tooltip: "Applicant city",visible: true },
-      { field: 'Address1', header: 'Address', tooltip: "Applicant address" ,visible:false},
-      { field: 'Province', header: 'Province', tooltip: "Applicant province" ,visible:false},
-      { field: 'Country', header: 'Country', tooltip: "Applicant country",visible:false },
-      { field: 'PhonePrimary', header: 'Primary phone', tooltip: "Applicant primary phone",visible:false },
-      { field: 'PostalCode', header: 'Postal code', tooltip: "Applicant postal code" ,visible:false},
-      { field: 'Email', header: 'Email', tooltip: "Applicant email",visible:false },
-      { field: 'InterviewingManager', header: 'Interviewing Manager', tooltip: "InterviewingManager",visible:false },
-      { field: 'HiringFairDate', header: 'Hiring Fair Date', tooltip: "Hiring fair date",visible:false },
-      { field: 'InterviewTime', header: 'Interview time', tooltip: "Interview time",visible:false },
-      { field: 'FairAlternative', header: 'Fair alternative', tooltip: "Fair alternative" ,visible:false},
-      { field: 'OnsiteDeadline', header: 'Onsite Deadline', tooltip: "Onsite Deadline",visible:false },
-      { field: 'HireStartDate', header: 'Hire start date', tooltip: "Hire start date - setting this date triggers hire work flow" ,visible: true},
-      { field: 'FundingDate', header: 'Funding date', tooltip: "Funding date",visible:false },
-      { field: 'NurseType', header: 'Nurse type', tooltip: "Nurse type",visible:false },
-      { field: 'ProgramCompletionDate', header: 'Program completion date', tooltip: "Program completion date" ,visible:false},
-      { field: 'SecondYrCompletiondate', header: 'SecondYrCompletiondate', tooltip: "Second Year completion date" ,visible:false},
-      { field: 'Registration', header: 'Registration', tooltip: "Registration" ,visible:false},
-      { field: 'EduVerificationComplete', header: 'EduVerificationComplete', tooltip: "Education Verification Complete (Y/N)",visible:false },
-      { field: 'SchoolName', header: 'School name', tooltip: "School name",visible: true },
-      { field: 'CPR_Expiry', header: 'CPR expiry date', tooltip: "CPR Expiry date" ,visible:false},
-      { field: 'SchoolName', header: 'SchoolName', tooltip: "School name" ,visible:false},
-      { field: 'ModifiedOn', header: 'ModifiedOn', tooltip: "Modified date" ,visible:false},
-      { field: 'ModifiedBy', header: 'ModifiedBy', tooltip: "Modified by" ,visible:false},
-      { field: 'Site', header: 'Facility', tooltip: "Facility" ,visible: true},
-      { field: 'Picture', header: 'Picture', tooltip: "Picture" ,visible: true}
+      { field: 'PostingIDNum', header: 'Posting#', tooltip: "Posting number", visible: true },
+      { field: 'PostingIDSuffix', header: 'Posting suffix #', tooltip: "Posting sufix", visible: false },
+      { field: 'MapToPostingID', header: 'Parent posting#', tooltip: "Parent posting #", visible: false },
+      { field: 'PostingDate', header: 'Posting date', tooltip: "Posting date", visible: false },
+      { field: 'CostCenter', header: 'Cost center', tooltip: "Cost center", visible: true },
+      { field: 'PostingManager', header: 'Posting mngr', tooltip: "Posting manager name", visible: true },
+      { field: 'PostingMngrADUsername', header: 'Posting manager AD', tooltip: "AD login of the posting manager", visible: false },
+      { field: 'DeptName', header: 'Dpt name', tooltip: "Department name", visible: true },
+      { field: "AppliedDate", header: 'Applied date', tooltip: "Application date", visible: false },
+      { field: 'ApprovalStatus', header: 'Approval status', tooltip: "Aproval status", visible: false },
+      { field: 'City', header: 'City', tooltip: "Applicant city", visible: true },
+      { field: 'Address1', header: 'Address', tooltip: "Applicant address", visible: false },
+      { field: 'Province', header: 'Province', tooltip: "Applicant province", visible: false },
+      { field: 'Country', header: 'Country', tooltip: "Applicant country", visible: false },
+      { field: 'PhonePrimary', header: 'Primary phone', tooltip: "Applicant primary phone", visible: false },
+      { field: 'PostalCode', header: 'Postal code', tooltip: "Applicant postal code", visible: false },
+      { field: 'Email', header: 'Email', tooltip: "Applicant email", visible: false },
+      { field: 'InterviewingManager', header: 'Interviewing Manager', tooltip: "InterviewingManager", visible: false },
+      { field: 'HiringFairDate', header: 'Hiring Fair Date', tooltip: "Hiring fair date", visible: false },
+      { field: 'InterviewTime', header: 'Interview time', tooltip: "Interview time", visible: false },
+      { field: 'FairAlternative', header: 'Fair alternative', tooltip: "Fair alternative", visible: false },
+      { field: 'OnsiteDeadline', header: 'Onsite Deadline', tooltip: "Onsite Deadline", visible: false },
+      { field: 'HireStartDate', header: 'Hire start date', tooltip: "Hire start date - setting this date triggers hire work flow", visible: true },
+      { field: 'FundingDate', header: 'Funding date', tooltip: "Funding date", visible: false },
+      { field: 'NurseType', header: 'Nurse type', tooltip: "Nurse type", visible: false },
+      { field: 'ProgramCompletionDate', header: 'Program completion date', tooltip: "Program completion date", visible: false },
+      { field: 'SecondYrCompletiondate', header: 'SecondYrCompletiondate', tooltip: "Second Year completion date", visible: false },
+      { field: 'Registration', header: 'Registration', tooltip: "Registration", visible: false },
+      { field: 'EduVerificationComplete', header: 'EduVerificationComplete', tooltip: "Education Verification Complete (Y/N)", visible: false },
+      { field: 'SchoolName', header: 'School name', tooltip: "School name", visible: true },
+      { field: 'CPR_Expiry', header: 'CPR expiry date', tooltip: "CPR Expiry date", visible: false },
+      { field: 'ModifiedOn', header: 'ModifiedOn', tooltip: "Modified date", visible: false },
+      { field: 'ModifiedBy', header: 'ModifiedBy', tooltip: "Modified by", visible: false },
+      { field: 'Site', header: 'Facility', tooltip: "Facility", visible: true }
+
 
 
     ];
@@ -118,7 +140,7 @@ export class StudentComponent implements OnInit {
       }
       else {
         //this.student.ApplicantID = this.createId();
-        
+
         //this.students.push(this.student);
         //this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Created', life: 3000 });
       }
@@ -126,6 +148,9 @@ export class StudentComponent implements OnInit {
       this.students = [...this.students];
       this.studentDialog = false;
       this.student = {};
+
+      //save
+
     }
   }
   deleteStudent(_student: any) {
@@ -146,14 +171,14 @@ export class StudentComponent implements OnInit {
   findIndexById(id: string): number {
     let index = -1;
     for (let i = 0; i < this.students.length; i++) {
-        if (this.students[i].ApplicantID === id) {
-            index = i;
-            break;
-        }
+      if (this.students[i].ApplicantID === id) {
+        index = i;
+        break;
+      }
     }
 
     return index;
-}
+  }
 
 
 }

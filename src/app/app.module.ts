@@ -37,6 +37,14 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { SpeedDialModule } from 'primeng/speeddial';
 import { TooltipModule } from 'primeng/tooltip';
 import { TabMenuModule } from 'primeng/tabmenu';
+import {AvatarModule} from 'primeng/avatar';
+import {AvatarGroupModule} from 'primeng/avatargroup';
+import {CarouselModule} from 'primeng/carousel';
+
+import {MenubarModule} from 'primeng/menubar';
+import {MenuItem} from 'primeng/api';
+
+
 
 
 import { MessagesModule } from 'primeng/messages';
@@ -44,12 +52,16 @@ import { MessageModule } from 'primeng/message';
 
 import { StudentService } from './shared/student.service';
 
+import { AdcarouselComponent } from './adcarousel/adcarousel.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     UserComponent,
-    StudentComponent
+    StudentComponent,
+    
+    AdcarouselComponent
 
   ],
   imports: [
@@ -87,7 +99,10 @@ import { StudentService } from './shared/student.service';
     SpeedDialModule,
     TooltipModule,
     TabMenuModule,
-
+    AvatarModule,
+    AvatarGroupModule,
+    CarouselModule,
+    MenubarModule
   ],
   providers: [UserIdentityService, StudentService, MessageService],
 

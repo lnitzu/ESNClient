@@ -3,3 +3,39 @@
     font-size: x-small;
 }
 
+.some-custom-class-name::ng-deep th {
+    background-color:rgb(80, 80, 80 ) !important;
+    color: yellowgreen !important;
+}
+
+/*
+pi-sort-alt
+pi-sort-amount-up
+pi-sort-amount-down
+pi-sort-amount-down-alt
+pi-sort-amount-up-alt
+*/
+
+svg.pi-sort-alt{
+    color: red !important;
+    background-color: yellowgreen !important;
+    
+}
+svg.pi-sort-amount-up{
+
+color: red !important;
+background-color: yellowgreen !important;
+
+}
+
+.pi-sort-amount-up {
+    color: red !important;
+    background-color: yellowgreen !important;
+    
+}
+
+
+
+
+
+
