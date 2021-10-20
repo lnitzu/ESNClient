@@ -1,5 +1,5 @@
 import { Component, Injectable, OnInit } from '@angular/core';
-import { Applicant } from '../applicant';
+
 
 import { StudentService } from '../shared/student.service';
 import { ConfirmationService, PrimeTemplate, SelectItem } from 'primeng/api';
@@ -32,18 +32,20 @@ export class StudentComponent implements OnInit {
 
 //  colors: any[] = [];
 
-  SchooNames = [
-    { id: '1', name: 'My School' },
-    { id: '2', name: 'Black' },
-    { id: '3', name: 'Gray' },
-    { id: '4', name: 'Blue' },
-    { id: '5', name: 'Orange' },
-    { id: '6', name: 'Yellow' }
+  SchoolNames = [
+    { SchoolID: 1, name: 'My School' },
+    { SchoolID: 2, name: 'Black' },
+    { SchoolID: 3, name: 'Gray' },
+    { SchoolID: 4, name: 'Blue' },
+    { SchoolID: 5, name: 'Orange' },
+    { SchoolID: 6, name: 'Yellow' },
+    { SchoolID: null, name:'' }
+
   ];
 
 
-SchoolMap =   this.SchooNames.map((name) => {
-    return { label: name.name, value: name.id }
+SchoolMap =   this.SchoolNames.map((name) => {
+    return { label: name.name, value: name.SchoolID }
   });
 
   constructor(
@@ -52,13 +54,14 @@ SchoolMap =   this.SchooNames.map((name) => {
     private messageService: MessageService,
     private primengConfig: PrimeNGConfig) { 
 
-
-
-
     }
 
+    //   <!-- {{SchoolMap.filter(val => val.id == row[col.field] ) }}-->
 
 
+    getSchoolByID(val:number):string{
+      return (this.SchoolNames.filter( u=> u.SchoolID ==val)[0].name);
+    }
 
 
   ngOnInit(): void {
@@ -104,7 +107,7 @@ SchoolMap =   this.SchooNames.map((name) => {
       { field: 'SecondYrCompletiondate', header: 'SecondYrCompletiondate', tooltip: "Second Year completion date", visible: false },
       { field: 'Registration', header: 'Registration', tooltip: "Registration", visible: false },
       { field: 'EduVerificationComplete', header: 'EduVerificationComplete', tooltip: "Education Verification Complete (Y/N)", visible: false },
-      { field: 'SchoolName', header: 'School name', tooltip: "School name", visible: true },
+      { field: 'SchoolID', header: 'School name', tooltip: "School name", visible: true },
       { field: 'CPR_Expiry', header: 'CPR expiry date', tooltip: "CPR Expiry date", visible: false },
       { field: 'ModifiedOn', header: 'ModifiedOn', tooltip: "Modified date", visible: false },
       { field: 'ModifiedBy', header: 'ModifiedBy', tooltip: "Modified by", visible: false },

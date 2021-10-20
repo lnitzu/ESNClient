@@ -29,20 +29,17 @@
             <ng-container *ngFor="let col of columns" [ngSwitch]="col.field">
                 <td *ngIf="col.visible">
 
-                    <div *ngSwitchCase="'SchoolName'">
+                    <div *ngSwitchCase="'SchoolID'">
+                     
+                        {{ getSchoolByID(row[col.field])  }}
 
-
-                        <p-dropdown appendTo="body" placeholder="Select a school" [options]='SchoolMap'
-                            [(ngModel)]="row[col.field]">
-                        </p-dropdown>
-                        {{row[col.field]}}
-
-                        
+                        <!-- {{SchoolMap.filter(val => val.id == row[col.field] ) }}-->
 
 
                     </div>
                     <div *ngSwitchDefault>
                         {{row[col.field]}}
+                        
                     </div>
 
 
@@ -51,12 +48,12 @@
             </ng-container>
 
             <td>
-                <button pButton pRipple icon="pi pi-pencil" class="p-button-outlined p-button-success p-mr-2"
-                    (click)="editStudent(row)"></button>
+                <i class="pi pi-pencil" style="color: blue;"
+                    (click)="editStudent(row)" ></i>
 
-
-                <button pButton pRipple icon="pi pi-times" class="p-button-outlined p-button-danger"
-                    (click)="deleteStudent(row)"></button>
+&nbsp;
+                <i class="pi pi-trash" style="color: red;"
+                    (click)="deleteStudent(row)"></i>
 
 
             </td>
@@ -67,25 +64,68 @@
 </p-table>
 
 
-<p-dialog [(visible)]="studentDialog" [style]="{width: '450px'}" header="Student Details" [modal]="true"
-    styleClass="p-fluid">
+<p-dialog [(visible)]="studentDialog" [style]="{width: '450px'}" header="Edit Student Details" [modal]="true"
+    styleClass="p-fluid p-grid" >
+
+
     <ng-template pTemplate="content">
 
-        <div class="p-field ">
-            <label for="name">Name</label>
-            <input type="text" pInputText id="name" [(ngModel)]="student.FullName" required autofocus />
-            <small class="p-error" *ngIf="submitted && !student.FullName">Name is required.</small>
+        <div class="p-field p-col-12 p-md-4">
+            <span class="p-float-label">
+                <input type="text" id="FirstName" pInputText [(ngModel)]="student.FirstName" required autofocus>
+                <label for="FirstName">First name</label>
+                <small class="p-error" *ngIf="submitted && !student.FullName">First name is required.</small>
+            </span>
         </div>
-        <div class="p-field">
-            <label for="CostCenter">Cost center</label>
-            <input type="text" pInputText id="CostCenter" [(ngModel)]="student.CostCenter" required autofocus />
-            <small class="p-error" *ngIf="submitted && !student.CostCenter">Name is required.</small>
+
+        <div class="p-field p-col-12 p-md-4">
+            <span class="p-float-label">
+                <input type="text" id="LastName" pInputText [(ngModel)]="student.LastName" required autofocus>
+                <label for="LastName">Last name</label>
+                <small class="p-error" *ngIf="submitted && !student.LastName">Last name is required.</small>
+            </span>
         </div>
-        <div class="p-field">
-            <label for="PostingManager">PostingManager</label>
-            <input type="text" pInputText id="PostingManager" [(ngModel)]="student.PostingManager" required autofocus />
-            <small class="p-error" *ngIf="submitted && !student.PostingManager">Name is required.</small>
+
+
+        <div class="p-field p-col-12 p-md-4">
+            <span class="p-float-label">
+                <input type="text" id="CostCenter" pInputText [(ngModel)]="student.CostCenter" required autofocus>
+                <label for="CostCenter">Cost Center</label>
+                <small class="p-error" *ngIf="submitted && !student.CostCenter">Cost Center is required.</small>
+            </span>
         </div>
+
+        <div class="p-field p-col-12 p-md-4">
+            <span class="p-float-label">
+                <input type="text" id="PostingManager" pInputText [(ngModel)]="student.PostingManager">
+                <label for="PostingManager">PostingManager</label>
+                <small class="p-error" *ngIf="submitted && !student.PostingManager">PostingManager is required.</small>
+            </span>
+        </div>
+
+
+        <div class="p-field p-col-12 p-md-4">
+            
+            <span class="p-float-label">
+
+                <p-dropdown [style]="{'width':'100%'}" appendTo="body" 
+                    [options]='SchoolMap' [(ngModel)]='student.SchoolID' >
+                </p-dropdown>
+
+
+
+
+
+
+                <label for="SchoolName">School Name</label>
+
+            </span>
+        </div>
+
+
+
+
+
 
     </ng-template>
 
@@ -93,6 +133,7 @@
         <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
         <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveStudent()"></button>
     </ng-template>
+
 </p-dialog>
 
 <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
