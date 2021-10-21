@@ -36,10 +36,16 @@
                         <!-- {{SchoolMap.filter(val => val.id == row[col.field] ) }}-->
 
 
+
+
+
+
                     </div>
                     <div *ngSwitchDefault>
                         {{row[col.field]}}
                         
+                        
+
                     </div>
 
 
@@ -48,12 +54,12 @@
             </ng-container>
 
             <td>
-                <i class="pi pi-pencil" style="color: blue;"
-                    (click)="editStudent(row)" ></i>
+                <button class="fa fa-pencil" style="color: blue; border:0;"
+                    (click)="editStudent(row)" ></button>
 
 &nbsp;
-                <i class="pi pi-trash" style="color: red;"
-                    (click)="deleteStudent(row)"></i>
+                <button class="fa fa-trash" style="color: red; border:0 ;"
+                    (click)="deleteStudent(row)"></button>
 
 
             </td>
@@ -107,23 +113,16 @@
         <div class="p-field p-col-12 p-md-4">
             
             <span class="p-float-label">
-
-                <p-dropdown [style]="{'width':'100%'}" appendTo="body" 
-                    [options]='SchoolMap' [(ngModel)]='student.SchoolID' >
+                <p-dropdown [style]="{'width':'100%'}" appendTo="body" id="SchoolName" optionLabel="SchoolName"
+                [showClear]="true"
+                    [options]='this.schools' [(ngModel)]='student.SchoolID ' >
                 </p-dropdown>
-
-
-
-
-
-
                 <label for="SchoolName">School Name</label>
-
             </span>
         </div>
 
 
-
+      
 
 
 
