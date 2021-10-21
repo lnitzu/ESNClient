@@ -8,20 +8,36 @@ import { PrimeNGConfig } from 'primeng/api';
 
 
 
+import { Observable } from "rxjs/";
+
+import { LookupService } from '../shared/lookup.service';
+//import { ISchool } from '../ischool'; } from '../ischool';
+
+import {INurse} from '../inurse';
+import { ILookup } from '../ilookup';
+import { ISchool } from '../ischool';
+
 
 
 @Component({
   selector: 'app-student',
   templateUrl: './student.component.html',
   styleUrls: ['./student.component.css'],
-  providers: [MessageService, ConfirmationService]
+  providers: [MessageService, ConfirmationService, LookupService]
 })
+
+
+
+
+
 export class StudentComponent implements OnInit {
 
   students: any[] = [];
   student: any = {};
 
-  public innerHeight: any;
+  nurses : INurse[]=[];
+  schools: ISchool[]=[];
+
 
   studentDialog: boolean = false;
   submitted: boolean = false;
@@ -30,45 +46,85 @@ export class StudentComponent implements OnInit {
 
   
 
-//  colors: any[] = [];
-
   SchoolNames = [
     { SchoolID: 1, name: 'My School' },
-    { SchoolID: 2, name: 'Black' },
-    { SchoolID: 3, name: 'Gray' },
-    { SchoolID: 4, name: 'Blue' },
-    { SchoolID: 5, name: 'Orange' },
-    { SchoolID: 6, name: 'Yellow' },
+    { SchoolID: 2, name: 'Black school' },
+    { SchoolID: 3, name: 'Gray school' },
+    { SchoolID: 4, name: 'Blue school' },
+    { SchoolID: 5, name: 'Orange school' },
+    { SchoolID: 6, name: 'Yellow school' },
     { SchoolID: null, name:'' }
 
   ];
 
 
+  p : Array<any>=[];
+
 SchoolMap =   this.SchoolNames.map((name) => {
-    return { label: name.name, value: name.SchoolID }
+    return { label: name.name, x: name.SchoolID }
   });
 
   constructor(
     private service: StudentService,
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
-    private primengConfig: PrimeNGConfig) { 
+    private primengConfig: PrimeNGConfig,
+    private lookupService : LookupService) { 
 
     }
 
     //   <!-- {{SchoolMap.filter(val => val.id == row[col.field] ) }}-->
 
 
-    getSchoolByID(val:number):string{
-      return (this.SchoolNames.filter( u=> u.SchoolID ==val)[0].name);
+    getSchoolByID(val:number):any{
+      if (val!=null)
+      {
+        return (this.schools.filter( u=> u.ID ==val)[0]).SchoolName;
+      }
     }
 
+
+    
 
   ngOnInit(): void {
 
     this.service.getStudentList().subscribe(data => { this.students = data; });
+    this.lookupService.getLookupValues().subscribe(data => { 
+      [data].map((name) => {
+        //console.log(JSON.parse(JSON.stringify(name)));
+        this.nurses = JSON.parse(JSON.stringify(name)).nurse;
+        this.schools= JSON.parse(JSON.stringify(name)).school;
+        console.log(this.schools);
 
-    this.innerHeight = window.innerHeight;
+        
+
+
+      })
+    
+    });
+    
+    
+/*
+    this.nurses = this.lookupValues.map((valz: any)=>{
+        return {'nursa' : valz.Nurse}
+    });
+*/
+
+      
+      
+      
+
+  //  console.log(typeof this.lookupValues.nurse);
+           
+
+
+
+
+   
+  
+
+
+ 
     this.cols = [
 
       { field: 'ApplicantID', header: 'Applicant ID', tooltip: "Applicant ID", visible: false },
@@ -107,7 +163,7 @@ SchoolMap =   this.SchoolNames.map((name) => {
       { field: 'SecondYrCompletiondate', header: 'SecondYrCompletiondate', tooltip: "Second Year completion date", visible: false },
       { field: 'Registration', header: 'Registration', tooltip: "Registration", visible: false },
       { field: 'EduVerificationComplete', header: 'EduVerificationComplete', tooltip: "Education Verification Complete (Y/N)", visible: false },
-      { field: 'SchoolID', header: 'School name', tooltip: "School name", visible: true },
+      { field: 'SchoolID', header: 'School', tooltip: "School name", visible: true },
       { field: 'CPR_Expiry', header: 'CPR expiry date', tooltip: "CPR Expiry date", visible: false },
       { field: 'ModifiedOn', header: 'ModifiedOn', tooltip: "Modified date", visible: false },
       { field: 'ModifiedBy', header: 'ModifiedBy', tooltip: "Modified by", visible: false },
@@ -182,6 +238,8 @@ SchoolMap =   this.SchoolNames.map((name) => {
 
     return index;
   }
+
+
 
 
 }
