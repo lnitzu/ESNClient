@@ -1,6 +1,6 @@
 export interface ISchool {
     ID?: number;
-	SchoolName? : string;
+	SchoolName :'' ;
 	Address? : string;
 	City?: string;
 	PostalCode? : string;

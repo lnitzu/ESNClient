@@ -30,16 +30,7 @@
                 <td *ngIf="col.visible">
 
                     <div *ngSwitchCase="'SchoolID'">
-                     
-                        {{ getSchoolByID(row[col.field])  }}
-
-                        <!-- {{SchoolMap.filter(val => val.id == row[col.field] ) }}-->
-
-
-
-
-
-
+                        {{row[col.field]!=null ? this.schools[row[col.field]-1].SchoolName:'' }}
                     </div>
                     <div *ngSwitchDefault>
                         {{row[col.field]}}
@@ -73,7 +64,7 @@
 <p-dialog [(visible)]="studentDialog" [style]="{width: '450px'}" header="Edit Student Details" [modal]="true"
     styleClass="p-fluid p-grid" >
 
-
+{{student.SchoolID}}
     <ng-template pTemplate="content">
 
         <div class="p-field p-col-12 p-md-4">
@@ -113,9 +104,8 @@
         <div class="p-field p-col-12 p-md-4">
             
             <span class="p-float-label">
-                <p-dropdown [style]="{'width':'100%'}" appendTo="body" id="SchoolName" optionLabel="SchoolName"
-                [showClear]="true"
-                    [options]='this.schools' [(ngModel)]='student.SchoolID ' >
+                <p-dropdown [style]="{'width':'100%'}" appendTo="body" id="SchoolName" [showClear]='true'  
+                    [options]=schools  [(ngModel)]="student.SchoolID"  optionLabel="SchoolName" optionValue="ID" >
                 </p-dropdown>
                 <label for="SchoolName">School Name</label>
             </span>

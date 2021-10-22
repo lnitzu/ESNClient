@@ -13,7 +13,7 @@ import { Observable } from "rxjs/";
 import { LookupService } from '../shared/lookup.service';
 //import { ISchool } from '../ischool'; } from '../ischool';
 
-import {INurse} from '../inurse';
+import { INurse } from '../inurse';
 import { ILookup } from '../ilookup';
 import { ISchool } from '../ischool';
 
@@ -31,12 +31,13 @@ import { ISchool } from '../ischool';
 
 
 export class StudentComponent implements OnInit {
+ 
 
   students: any[] = [];
   student: any = {};
 
-  nurses : INurse[]=[];
-  schools: ISchool[]=[];
+  nurses: INurse[] = [];
+  schools: any[] = [];
 
 
   studentDialog: boolean = false;
@@ -44,87 +45,45 @@ export class StudentComponent implements OnInit {
   cols: any[] = [];
   first: number = 0;
 
+
+
+ 
+
   
 
-  SchoolNames = [
-    { SchoolID: 1, name: 'My School' },
-    { SchoolID: 2, name: 'Black school' },
-    { SchoolID: 3, name: 'Gray school' },
-    { SchoolID: 4, name: 'Blue school' },
-    { SchoolID: 5, name: 'Orange school' },
-    { SchoolID: 6, name: 'Yellow school' },
-    { SchoolID: null, name:'' }
-
-  ];
 
 
-  p : Array<any>=[];
 
-SchoolMap =   this.SchoolNames.map((name) => {
-    return { label: name.name, x: name.SchoolID }
-  });
+
+  
 
   constructor(
     private service: StudentService,
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
     private primengConfig: PrimeNGConfig,
-    private lookupService : LookupService) { 
-
-    }
-
-    //   <!-- {{SchoolMap.filter(val => val.id == row[col.field] ) }}-->
+    private lookupService: LookupService) {
 
 
-    getSchoolByID(val:number):any{
-      if (val!=null)
-      {
-        return (this.schools.filter( u=> u.ID ==val)[0]).SchoolName;
-      }
-    }
 
+  }
 
-    
+ 
 
   ngOnInit(): void {
 
     this.service.getStudentList().subscribe(data => { this.students = data; });
-    this.lookupService.getLookupValues().subscribe(data => { 
+    this.lookupService.getLookupValues().subscribe(data => {
       [data].map((name) => {
-        //console.log(JSON.parse(JSON.stringify(name)));
-        this.nurses = JSON.parse(JSON.stringify(name)).nurse;
-        this.schools= JSON.parse(JSON.stringify(name)).school;
-        console.log(this.schools);
-
         
-
-
+        this.nurses = JSON.parse(JSON.stringify(name)).nurse;
+        this.schools = JSON.parse(JSON.stringify(name)).school;
+        this.schools.push({ID:null, SchoolName:''})
+        //console.log(this.schools);
+        
       })
-    
     });
-    
-    
-/*
-    this.nurses = this.lookupValues.map((valz: any)=>{
-        return {'nursa' : valz.Nurse}
-    });
-*/
 
-      
-      
-      
-
-  //  console.log(typeof this.lookupValues.nurse);
-           
-
-
-
-
-   
-  
-
-
- 
     this.cols = [
 
       { field: 'ApplicantID', header: 'Applicant ID', tooltip: "Applicant ID", visible: false },
@@ -175,7 +134,8 @@ SchoolMap =   this.SchoolNames.map((name) => {
     this.primengConfig.ripple = true;
 
 
-
+  
+  
   }
 
   hideDialog() {
@@ -187,6 +147,7 @@ SchoolMap =   this.SchoolNames.map((name) => {
     this.student = { ..._student };
     this.studentDialog = true;
   }
+
 
 
   saveStudent() {
@@ -227,7 +188,7 @@ SchoolMap =   this.SchoolNames.map((name) => {
     });
   }
 
-  findIndexById(id: string): number {
+  findIndexById(id: number): number {
     let index = -1;
     for (let i = 0; i < this.students.length; i++) {
       if (this.students[i].ApplicantID === id) {
