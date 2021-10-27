@@ -1,7 +1,17 @@
 :host {
     
     font-size: x-small;
+    
 }
+
+.lbl{
+    color: blue;
+    font-weight: bold;
+}
+
+
+
+.custom-height:{height:100px;}
 
 .some-custom-class-name::ng-deep th {
     background-color:rgb(80, 80, 80 ) !important;
@@ -34,8 +44,20 @@ background-color: yellowgreen !important;
     
 }
 
+/*ui-dialog - Container element of dialog*/
 
+/*Title bar
+.ui-dialog-titlebar
+ */
 
+/*Header text
+.ui-dialog-title-dialog{
 
-
+    background-color: blueviolet;
+}
+*/
+/*
+.ui-dialog-titlebar-close - Close icon
+.ui-dialog-content Dialog - body
+*/
 

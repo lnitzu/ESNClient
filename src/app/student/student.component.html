@@ -1,3 +1,5 @@
+<p-toast></p-toast>
+
 <p-table [columns]="cols" [value]="students" class="some-custom-class-name" sortMode="single" [scrollable]="true"
     [rows]="10" [rowHover]="true" [showCurrentPageReport]="true"
     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" scrollHeight="80vh"
@@ -30,12 +32,19 @@
                 <td *ngIf="col.visible">
 
                     <div *ngSwitchCase="'SchoolID'">
+
                         {{row[col.field]!=null ? this.schools[row[col.field]-1].SchoolName:'' }}
                     </div>
+
+                    <div *ngSwitchCase="'HireStartDate'">
+                        {{row[col.field] | date : 'EE MMM d, y' }}
+
+                    </div>
+
                     <div *ngSwitchDefault>
                         {{row[col.field]}}
-                        
-                        
+
+
 
                     </div>
 
@@ -45,12 +54,10 @@
             </ng-container>
 
             <td>
-                <button class="fa fa-pencil" style="color: blue; border:0;"
-                    (click)="editStudent(row)" ></button>
+                <button class="fa fa-pencil" style="color: blue; border:0;" (click)="editStudent(row)"></button>
 
-&nbsp;
-                <button class="fa fa-trash" style="color: red; border:0 ;"
-                    (click)="deleteStudent(row)"></button>
+                &nbsp;
+                <button class="fa fa-trash" style="color: red; border:0 ;" (click)="deleteStudent(row)"></button>
 
 
             </td>
@@ -61,66 +68,362 @@
 </p-table>
 
 
-<p-dialog [(visible)]="studentDialog" [style]="{width: '450px'}" header="Edit Student Details" [modal]="true"
-    styleClass="p-fluid p-grid" >
+<p-dialog [(visible)]="studentDialog" [style]="{width: '1050px'}" header="Edit Student Details: {{student.FullName}}"
+    [modal]="true" styleClass="p-fluid p-grid">
 
-{{student.SchoolID}}
+    <ng-template pTemplate="header">
+        <span>
+            EDIT STUDENT: &nbsp;
+            <span style="font-weight: bolder;"> {{student.FullName}} {{student.FHAEmpNo}}</span>
+            <br />
+            <span> Adress: <b>{{student.Address1}}</b>&nbsp;<b>{{student.City}}</b>&nbsp;
+                <b>{{student.Province}}</b>&nbsp;<b>{{student.Country}}</b></span>
+            <span *ngIf="student.PhonePrimary">&nbsp; <i class="fa fa-phone-square">&nbsp;</i> {{student.PhonePrimary}}
+            </span>
+            <span *ngIf="student.Email">&nbsp; <i class="fa fa-envelope-square">&nbsp;</i> {{student.Email}} </span>
+        </span>
+    </ng-template>
+
+
     <ng-template pTemplate="content">
 
-        <div class="p-field p-col-12 p-md-4">
-            <span class="p-float-label">
-                <input type="text" id="FirstName" pInputText [(ngModel)]="student.FirstName" required autofocus>
-                <label for="FirstName">First name</label>
-                <small class="p-error" *ngIf="submitted && !student.FullName">First name is required.</small>
-            </span>
+        <div class="p-grid">
+
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="p-field p-md-1" card>
+                            <span>
+                                <label for="CostCenter">Cost Center: &nbsp;</label>
+                                <span class="lbl" id="CostCenter">{{student.CostCenter}} </span>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-4">
+                        <div class="p-field p-md-1" card>
+                            <span>
+                                <label for="PostingIDNum">Posting#: &nbsp;</label>
+                                <span class="lbl" id="PostingIDNum">{{student.PostingIDNum}}{{student.PostingIDSuffix}}
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="p-field p-md-1" card>
+                            <span>
+                                <label for="PostingDate">Posting date: &nbsp;</label>
+                                <span class="lbl" id="PostingDate">{{student.PostingDate | date}} </span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="p-field p-md-1" card>
+                            <span>
+                                <label for="AppliedDate">Applied date: &nbsp;</label>
+                                <span class="lbl" id="AppliedDate">{{student.AppliedDate | date }} </span>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-4">
+                        <div class="p-field p-md-1" card>
+                            <span>
+                                <label for="ApprovalStatus">Approval status: &nbsp;</label>
+                                <span class="lbl" id="ApprovalStatus">{{student.ApprovalStatus}}</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="p-field p-md-1" card>
+                            <span>
+                                <label for="PostingManager">Posting Manager: &nbsp;</label>
+                                <span class="lbl" id="PostingManager">{{student.PostingManager }} </span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <hr>
+                    </div>
+                </div>
+
+
+
+                <!-- now editing data-->
+
+
+
+                <div class="row">
+
+                    <div class="col-sm-4">
+                        <div class="p-field p-md-4">
+                            <span class="p-float-label">
+                                <input type="text" id="InterviewingManager" pInputText
+                                    [(ngModel)]="student.InterviewingManager" required autofocus>
+                                <label for="InterviewingManager">Interviewing Manager</label>
+                                <small class="p-error"
+                                    *ngIf="submitted && !student.InterviewingManager">InterviewingManager is required
+                                    .</small>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="p-field p-md-4">
+                            <span class="p-float-label">
+
+                                <p-calendar [(ngModel)]="student.HiringFairDate" id="HiringFairDate" [showIcon]="true"
+                                    inputId="icon" appendTo="body">
+
+                                </p-calendar>
+                                <label for="HiringFairDate">Hiring fair date</label>
+
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-4">
+                        <div class="p-field p-md-4">
+                            <span class="p-float-label">
+                                <p-calendar [(ngModel)]="student.InterviewTime" id="InterviewTime" [showIcon]="true"
+                                    inputId="icon" [timeOnly]="true" appendTo="body">
+
+                                </p-calendar>
+                                <label for="InterviewTime">Interview time</label>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="row">
+
+
+
+                    <div class="col-sm-4">
+                        <div class="p-field p-md-4">
+                            <span class="p-float-label">
+                                <input type="text" id="FairAlternative" pInputText [(ngModel)]="student.FairAlternative"
+                                    required autofocus>
+                                <label for="FairAlternative">Fair alternative</label>
+                                <small class="p-error" *ngIf="submitted && !student.FairAlternative">FairAlternative is
+                                    required.</small>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="p-field p-md-4" card>
+
+                            <span class="p-float-label">
+
+
+
+
+                                <p-calendar [(ngModel)]="student.OnsiteDeadline" id="OnsiteDeadline" [showIcon]="true"
+                                    inputId="icon" appendTo="body">
+
+                                </p-calendar>
+                                <label for="OnsiteDeadline">Onsite deadline</label>
+
+                            </span>
+
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="p-field p-md-4">
+                            <span class="p-float-label">
+
+                                <p-calendar [(ngModel)]="student.HireStartDate" id="HireStartDate" [showIcon]="true"
+                                    appendTo="body" inputId="icon">
+
+                                </p-calendar>
+                                <label for="HireStartDate">Hire startDate</label>
+
+
+
+                            </span>
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+                <div class="row">
+
+
+
+                    <div class="col-sm-4">
+                        <div class="p-field p-md-4">
+                            <span class="p-float-label">
+                                <p-calendar [(ngModel)]="student.FundingDate" id="FundingDate" [showIcon]="true"
+                                    inputId="icon" appendTo="body">
+
+                                </p-calendar>
+                                <label for="FundingDate">Funding date</label>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+
+
+                        <div class="p-field  p-md-4">
+
+                            <span class="p-float-label">
+                                <p-dropdown [style]="{'width':'100%'}" appendTo="body" id="NurseType" [showClear]='true'
+                                    [options]=nurses [(ngModel)]="student.NurseTypeID" optionLabel="NurseTypeName"
+                                    optionValue="ID">
+                                </p-dropdown>
+                                <label for="NurseType">Nurse Type</label>
+                            </span>
+                        </div>
+
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="p-field p-md-4">
+                            <span class="p-float-label">
+
+                                <p-calendar [(ngModel)]="student.ProgramCompletionDate" id="ProgramCompletionDate"
+                                    [showIcon]="true" inputId="icon" appendTo="body">
+
+                                </p-calendar>
+                                <label for="ProgramCompletionDate">Program completion date</label>
+
+
+                            </span>
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+
+                <div class="row">
+
+
+
+                    <div class="col-sm-4">
+                        <div class="p-field p-md-4">
+                            <span class="p-float-label">
+
+
+                                <p-calendar [(ngModel)]="student.SecondYrCompletiondate" id="SecondYrCompletiondate"
+                                    [showIcon]="true" inputId="icon" appendTo="body">
+
+                                </p-calendar>
+                                <label for="SecondYrCompletiondate">Second Yr completion date</label>
+
+
+
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+
+
+                        <div class="p-field  p-md-4">
+
+                            <span class="p-float-label">
+
+                                <span class="p-float-label">
+                                    <input type="text" id="Registration" pInputText [(ngModel)]="student.Registration"
+                                        required autofocus>
+                                    <label for="Registration">Registration</label>
+                                    <small class="p-error" *ngIf="submitted && !student.Registration">Registration is
+                                        required
+                                        .</small>
+                                </span>
+                            </span>
+                        </div>
+
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="p-field p-md-4">
+                            <span class="p-float-label">
+                                <label for="EduVerificationComplete">Edu Verification Complete</label>
+                                <p-checkbox [(ngModel)]="student.EduVerificationComplete"
+                                id="EduVerificationComplete" appendTo="body" 
+                                
+                                 [binary]="true" style="margin: 0 230px; flex-direction: row-reverse" >
+                                </p-checkbox>
+
+                                
+                                    
+                               
+                      
+                            </span>
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+
+                <div class="row">
+
+
+
+                    <div class="col-sm-4">
+
+
+                        <div class="p-field  p-md-4">
+
+                            <span class="p-float-label">
+                                <p-dropdown [style]="{'width':'100%'}" appendTo="body" id="School" [showClear]='true'
+                                    [options]=schools [(ngModel)]="student.SchoolID" optionLabel="SchoolName"
+                                    optionValue="ID">
+                                </p-dropdown>
+                                <label for="School">School</label>
+                            </span>
+                        </div>
+
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="p-field p-md-4">
+                            <span class="p-float-label">
+
+                                <p-calendar [styleClass]="'custom-height'" [(ngModel)]="student.CPR_Expiry"
+                                    id="CPR_Expiry" [showIcon]="true" appendTo="body" inputId="icon">
+
+                                </p-calendar>
+                                <label for="CPR_Expiry">CPR_Expiry</label>
+
+
+                            </span>
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </div>
+
         </div>
 
-        <div class="p-field p-col-12 p-md-4">
-            <span class="p-float-label">
-                <input type="text" id="LastName" pInputText [(ngModel)]="student.LastName" required autofocus>
-                <label for="LastName">Last name</label>
-                <small class="p-error" *ngIf="submitted && !student.LastName">Last name is required.</small>
-            </span>
-        </div>
 
 
-        <div class="p-field p-col-12 p-md-4">
-            <span class="p-float-label">
-                <input type="text" id="CostCenter" pInputText [(ngModel)]="student.CostCenter" required autofocus>
-                <label for="CostCenter">Cost Center</label>
-                <small class="p-error" *ngIf="submitted && !student.CostCenter">Cost Center is required.</small>
-            </span>
-        </div>
 
-        <div class="p-field p-col-12 p-md-4">
-            <span class="p-float-label">
-                <input type="text" id="PostingManager" pInputText [(ngModel)]="student.PostingManager">
-                <label for="PostingManager">PostingManager</label>
-                <small class="p-error" *ngIf="submitted && !student.PostingManager">PostingManager is required.</small>
-            </span>
-        </div>
-
-
-        <div class="p-field p-col-12 p-md-4">
-            
-            <span class="p-float-label">
-                <p-dropdown [style]="{'width':'100%'}" appendTo="body" id="SchoolName" [showClear]='true'  
-                    [options]=schools  [(ngModel)]="student.SchoolID"  optionLabel="SchoolName" optionValue="ID" >
-                </p-dropdown>
-                <label for="SchoolName">School Name</label>
-            </span>
-        </div>
-
-
-      
 
 
 
     </ng-template>
 
     <ng-template pTemplate="footer">
-        <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
-        <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveStudent()"></button>
+        <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" style="color: red;"
+            (click)="hideDialog()"></button>
+        <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" style="color: green;"
+            (click)="saveStudent()"></button>
     </ng-template>
 
 </p-dialog>

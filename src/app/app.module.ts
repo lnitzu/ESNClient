@@ -30,6 +30,7 @@ import { ToolbarModule } from 'primeng/toolbar';
 import { RatingModule } from 'primeng/rating';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { InputNumberModule } from 'primeng/inputnumber';
+import {CheckboxModule} from 'primeng/checkbox';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService } from 'primeng/api';
 import { MessageService } from 'primeng/api';
@@ -37,6 +38,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { SpeedDialModule } from 'primeng/speeddial';
 import { TooltipModule } from 'primeng/tooltip';
 import { TabMenuModule } from 'primeng/tabmenu';
+import {MegaMenuModule} from 'primeng/megamenu';
 import {AvatarModule} from 'primeng/avatar';
 import {AvatarGroupModule} from 'primeng/avatargroup';
 import {CarouselModule} from 'primeng/carousel';
@@ -53,6 +55,7 @@ import { MessageModule } from 'primeng/message';
 import { StudentService } from './shared/student.service';
 
 import { AdcarouselComponent } from './adcarousel/adcarousel.component';
+import { SettingsComponent } from './settings/settings.component';
 
 
 @NgModule({
@@ -61,7 +64,8 @@ import { AdcarouselComponent } from './adcarousel/adcarousel.component';
     UserComponent,
     StudentComponent,
     
-    AdcarouselComponent
+    AdcarouselComponent,
+         SettingsComponent
 
   ],
   imports: [
@@ -75,7 +79,7 @@ import { AdcarouselComponent } from './adcarousel/adcarousel.component';
 
     MessagesModule,
     MessageModule,
-
+    CheckboxModule,
     TableModule,
     CalendarModule,
     SliderModule,
@@ -102,7 +106,8 @@ import { AdcarouselComponent } from './adcarousel/adcarousel.component';
     AvatarModule,
     AvatarGroupModule,
     CarouselModule,
-    MenubarModule
+    MenubarModule,
+    MegaMenuModule
   ],
   providers: [UserIdentityService, StudentService, MessageService],
 

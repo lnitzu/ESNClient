@@ -36,7 +36,7 @@ export class StudentComponent implements OnInit {
   students: any[] = [];
   student: any = {};
 
-  nurses: INurse[] = [];
+  nurses: any[] = [];
   schools: any[] = [];
 
 
@@ -49,7 +49,8 @@ export class StudentComponent implements OnInit {
 
  
 
-  
+  leftLimit(): number { return Math.floor(this.cols.length / 2) +1;}
+  rightLimit(): number { return Math.floor(this.cols.length / 2);}
 
 
 
@@ -77,6 +78,7 @@ export class StudentComponent implements OnInit {
       [data].map((name) => {
         
         this.nurses = JSON.parse(JSON.stringify(name)).nurse;
+        this.nurses.push({ID:null, NurseTyeName:''});
         this.schools = JSON.parse(JSON.stringify(name)).school;
         this.schools.push({ID:null, SchoolName:''})
         //console.log(this.schools);
@@ -183,7 +185,7 @@ export class StudentComponent implements OnInit {
         this.students = this.students.filter(val => val.ApplicantID !== _student.ApplicantID);
 
         //this.student = {};
-        this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Student Deleted', life: 13000 });
+        this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Student Deleted', life: 3300 });
       }
     });
   }
