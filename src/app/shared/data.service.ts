@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 import { UserComponent } from '../user/user.component';
 
 
@@ -75,30 +75,23 @@ export class DataService {
     return this.http.delete<any>(this.ApiUrl + '/Data/1', { 'headers': headers });
   }
 
-  /*
-    const headers = { 'content-type': 'application/json'}  
-    const body=JSON.stringify(person);
-    console.log(body)
-    return this.http.post(this.baseURL + 'people', body,{'headers':headers})
   
-    mergeData(): Observable<any[]>{
-      return this.http.post<any>(this.ApiUrl+'/Data');
-    }
-  */
+
+  downloadLink(): Observable<HttpResponse<Blob>> {
+    return this.http.get<Blob>(this.ApiUrl+'/Data/Export2Excel', {
+      observe: 'response',
+      responseType: 'blob' as 'json'
+    });
+  }
+
+
   export2Excel(): Observable<any> {
     const headers = new HttpHeaders()
       .set('content-type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
       .set('Access-Control-Allow-Origin', '*')
-      .set('Access-Control-Allow-Methods', "*")
+      .set('Access-Control-Expose-Headers','*')
+      .set('Access-Control-Allow-Methods', "*");
       
-      .set('Access-Control-Allow-Headers', "*");
-      //.set('Access-Control-Allow-Headers: Content-Type');
-      
-      //options: {  'headers': headers, responseType: } 
-      const requestOptions: Object = {
-        /* other options here */
-        responseType: 'blob'
-      }
-      return this.http.get(this.ApiUrl+'/Data/Export2Excel',{'headers': headers ,responseType: 'blob'});
+      return this.http.get(this.ApiUrl+'/Data/Export2Excel',{'headers': headers , responseType:'blob'});
   }
 }
