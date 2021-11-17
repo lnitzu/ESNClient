@@ -19,6 +19,7 @@ import { ISchool } from '../ischool';
 
 
 
+
 @Component({
   selector: 'app-student',
   templateUrl: './student.component.html',
@@ -46,7 +47,7 @@ export class StudentComponent implements OnInit {
   first: number = 0;
 
 
-
+  message:any='';
  
 
   leftLimit(): number { return Math.floor(this.cols.length / 2) +1;}
@@ -158,20 +159,33 @@ export class StudentComponent implements OnInit {
     if (this.student.FullName.trim()) {
       if (this.student.ApplicantID) {
         this.students[this.findIndexById(this.student.ApplicantID)] = this.student;
-        this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Student Updated', life: 3000 });
+        //this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Student Updated', life: 3000 });
       }
       else {
-        //this.student.ApplicantID = this.createId();
 
         //this.students.push(this.student);
         //this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Created', life: 3000 });
       }
 
-      this.students = [...this.students];
+      
+
+      //save
+      this.service.updateStudent(this.student).subscribe( 
+        
+        (data)=>{
+        this.message= data,
+        this.messageService.add({ severity: 'success', summary: 'Successful', detail: this.message, life: 4000 });
+        this.students = [...this.students];
+      },
+      (err)=>{
+        this.message= err.error;
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: this.message.Message, life: 4000 });
+      });
+      
       this.studentDialog = false;
       this.student = {};
 
-      //save
+      
 
     }
   }
@@ -182,10 +196,24 @@ export class StudentComponent implements OnInit {
       header: 'Confirm student delete',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-        this.students = this.students.filter(val => val.ApplicantID !== _student.ApplicantID);
+        
+
+        this.service.deleteStudent(_student).subscribe( 
+        
+          (data)=>{
+          this.message= data,
+          this.messageService.add({ severity: 'success', summary: 'Successful', detail: this.message, life: 4000 });
+          this.students = this.students.filter(val => val.ApplicantID !== _student.ApplicantID);
+        },
+        (err)=>{
+          this.message= err.error;
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: this.message.Message, life: 4000 });
+        });
+
+      
 
         //this.student = {};
-        this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Student Deleted', life: 3300 });
+        //this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Student Deleted', life: 4000 });
       }
     });
   }

@@ -11,7 +11,6 @@
 
 
 
-.custom-height:{height:100px;}
 
 .some-custom-class-name::ng-deep th {
     background-color:rgb(80, 80, 80 ) !important;
@@ -60,4 +59,11 @@ background-color: yellowgreen !important;
 .ui-dialog-titlebar-close - Close icon
 .ui-dialog-content Dialog - body
 */
+
+
+
+.newfont-styles .ui-toast-message {
+    font-family: 'proxima nova';
+    color:"red"
+    }
 

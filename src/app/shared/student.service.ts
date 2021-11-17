@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 
@@ -19,13 +19,32 @@ export class StudentService {
   }
   
 
-  updateJob(val: any) {
+  updateStudent(val: any)  {
    
     const headers= new HttpHeaders()
     .set('content-type', 'application/json')
     .set('Access-Control-Allow-Origin', '*');
-    
-    return this.http.put(this.ApiUrl +'/jobs', val,{ 'headers': headers });
+
+    return this.http.put(this.ApiUrl +'/Student', val,{ 'headers': headers  });
+  }
+
+  deleteStudent(val:any){
+    const headers= new HttpHeaders()
+    .set('content-type', 'application/json')
+    .set('Access-Control-Allow-Origin', '*');
+
+    const options = {
+      headers: new HttpHeaders(
+        {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*' 
+      }),
+      body: { student: val }
+    };
+
+    //return this.http.delete(this.ApiUrl +'/Student', val ,{ 'headers': headers  });
+    return this.http.delete(this.ApiUrl +'/Student/'+ val.RecID, options);
+
   }
 
 }

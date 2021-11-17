@@ -22,11 +22,6 @@ export class LookupService {
   constructor(private http: HttpClient) { }
 
 
-
-
-
-
-  //getLookupValues(): Observable<any[]>{
     getLookupValues(): Observable<any[]>{
   
     return this.http.get<any>(this.ApiUrl+"/Lookup");

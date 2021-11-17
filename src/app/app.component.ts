@@ -31,8 +31,8 @@ export class AppComponent {
       { label: 'Settings', icon: 'pi pi-fw pi-cog',
     
       items: [
-        {label: 'New feed', icon: 'pi pi-cloud-download'},
-        {label: 'Refresh', icon: 'pi pi-fw pi-refresh'}
+        {label: 'Data', icon: 'pi pi-cloud-download', routerLink: ['/settings']},
+        {label: 'Refresh', icon: 'pi pi-fw pi-refresh', routerLink: ['/refresh']}
     ]
     },
 

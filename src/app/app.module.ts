@@ -43,14 +43,20 @@ import {AvatarModule} from 'primeng/avatar';
 import {AvatarGroupModule} from 'primeng/avatargroup';
 import {CarouselModule} from 'primeng/carousel';
 
+import {TreeModule} from 'primeng/tree';
+
+
 import {MenubarModule} from 'primeng/menubar';
 import {MenuItem} from 'primeng/api';
+import {ListboxModule} from 'primeng/listbox';
 
-
-
+import {VirtualScrollerModule} from 'primeng/virtualscroller';
+import {CardModule} from 'primeng/card';
 
 import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from 'primeng/message';
+
+
 
 import { StudentService } from './shared/student.service';
 
@@ -76,7 +82,7 @@ import { SettingsComponent } from './settings/settings.component';
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
-
+    TreeModule,
     MessagesModule,
     MessageModule,
     CheckboxModule,
@@ -107,7 +113,10 @@ import { SettingsComponent } from './settings/settings.component';
     AvatarGroupModule,
     CarouselModule,
     MenubarModule,
-    MegaMenuModule
+    MegaMenuModule, 
+    CardModule,
+    ListboxModule,
+    VirtualScrollerModule
   ],
   providers: [UserIdentityService, StudentService, MessageService],
 

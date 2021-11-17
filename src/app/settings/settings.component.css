@@ -1,0 +1,20 @@
+.center {
+    display: flex;
+    height: 80vh;
+    /*background-color: #ff1124;*/
+    justify-content: center;
+    align-items: center;
+}  
+
+.box {
+    min-height: 100px;
+    min-width: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    margin: 2rem;
+    border-radius: 4px;
+    max-width: 1200px;
+  }
+

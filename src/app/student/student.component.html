@@ -1,4 +1,6 @@
-<p-toast></p-toast>
+<p-toast class="newfont-styles"></p-toast>
+
+
 
 <p-table [columns]="cols" [value]="students" class="some-custom-class-name" sortMode="single" [scrollable]="true"
     [rows]="10" [rowHover]="true" [showCurrentPageReport]="true"
@@ -68,24 +70,27 @@
 </p-table>
 
 
-<p-dialog [(visible)]="studentDialog" [style]="{width: '1050px'}" header="Edit Student Details: {{student.FullName}}"
+<p-dialog [(visible)]="studentDialog" [style]="{width: '80%'}" header="Edit Student Details: {{student.FullName}}"
     [modal]="true" styleClass="p-fluid p-grid">
 
-    <ng-template pTemplate="header">
+    <ng-template pTemplate="header" >
         <span>
-            EDIT STUDENT: &nbsp;
-            <span style="font-weight: bolder;"> {{student.FullName}} {{student.FHAEmpNo}}</span>
+            <span style="font-weight: bolder; font-size:larger"> {{student.FullName}} {{student.FHAEmpNo}}</span>
             <br />
             <span> Adress: <b>{{student.Address1}}</b>&nbsp;<b>{{student.City}}</b>&nbsp;
                 <b>{{student.Province}}</b>&nbsp;<b>{{student.Country}}</b></span>
             <span *ngIf="student.PhonePrimary">&nbsp; <i class="fa fa-phone-square">&nbsp;</i> {{student.PhonePrimary}}
             </span>
             <span *ngIf="student.Email">&nbsp; <i class="fa fa-envelope-square">&nbsp;</i> {{student.Email}} </span>
+            
+            
         </span>
+        
+        
     </ng-template>
 
 
-    <ng-template pTemplate="content">
+    <ng-template pTemplate="content" style="width: '100%'; background-color: lawngreen;">
 
         <div class="p-grid">
 
@@ -96,7 +101,8 @@
                         <div class="p-field p-md-1" card>
                             <span>
                                 <label for="CostCenter">Cost Center: &nbsp;</label>
-                                <span class="lbl" id="CostCenter">{{student.CostCenter}} </span>
+                                <span class="lbl" id="CostCenter">{{student.CostCenter}}</span>
+                                <span class="lbl" *ngIf="student.DeptName">&nbsp;{{student.DeptName}}</span>
                             </span>
                         </div>
                     </div>
@@ -350,16 +356,18 @@
                     <div class="col-sm-4">
                         <div class="p-field p-md-4">
                             <span class="p-float-label">
+                               
                                 <label for="EduVerificationComplete">Edu Verification Complete</label>
                                 <p-checkbox [(ngModel)]="student.EduVerificationComplete"
                                 id="EduVerificationComplete" appendTo="body" 
-                                
+                                name="groupname"
                                  [binary]="true" style="margin: 0 230px; flex-direction: row-reverse" >
                                 </p-checkbox>
 
-                                
+
+                           
                                     
-                               
+                           
                       
                             </span>
                         </div>
@@ -397,7 +405,7 @@
                                     id="CPR_Expiry" [showIcon]="true" appendTo="body" inputId="icon">
 
                                 </p-calendar>
-                                <label for="CPR_Expiry">CPR_Expiry</label>
+                                <label for="CPR_Expiry">CPR Expiry</label>
 
 
                             </span>
