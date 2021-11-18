@@ -6,8 +6,7 @@
 :host ::ng-deep .pi-sort-alt:before {
     
     color: chartreuse;
-  }
-
+}
 
   :host ::ng-deep .pi-sort-alt:after {
     
@@ -41,4 +40,18 @@ pi-sort-amount-down-alt
 pi-sort-amount-up-alt
 */
 
-
+:host ::ng-deep .p-dialog-header {
+    /*background-color: crimson;
+    color: chartreuse;*/
+  }
+  :host ::ng-deep .p-dialog-content {
+    /*background-color:darkcyan;
+    width: 100%;
+    color: chartreuse;*/
+  }
+  :host ::ng-deep .container {
+    /*background-color:darkorange;
+    width: 100%;*/
+    min-width: 100%;
+    /*color: chartreuse;*/
+  }

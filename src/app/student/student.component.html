@@ -73,7 +73,7 @@
 <p-dialog [(visible)]="studentDialog" [style]="{width: '80%'}" header="Edit Student Details: {{student.FullName}}"
     [modal]="true" styleClass="p-fluid p-grid"  >
 
-    <ng-template pTemplate="header" >
+    <ng-template pTemplate="header" [style]="{'color':'red'}"  >
         <span>
             <span style="font-weight: bolder; font-size:larger"> {{student.FullName}} {{student.FHAEmpNo}}</span>
             <br />
@@ -90,7 +90,7 @@
     </ng-template>
 
 
-    <ng-template pTemplate="content" [style]="{width: '100%'}" >
+    <ng-template pTemplate="content" [style]="{'color':'red'}" >
 
         <div class="p-grid">
 
