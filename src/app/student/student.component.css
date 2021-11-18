@@ -3,6 +3,22 @@
     font-size: x-small;
     
 }
+:host ::ng-deep .pi-sort-alt:before {
+    
+    color: chartreuse;
+  }
+
+
+  :host ::ng-deep .pi-sort-alt:after {
+    
+    color: chartreuse;
+  }
+
+  :host ::ng-deep .pi-sort-alt::content{
+    
+    color: chartreuse;
+  }
+
 
 .lbl{
     color: blue;
@@ -12,7 +28,7 @@
 
 
 
-.some-custom-class-name::ng-deep th {
+.studentClass::ng-deep th {
     background-color:rgb(80, 80, 80 ) !important;
     color: yellowgreen !important;
 }
@@ -25,45 +41,4 @@ pi-sort-amount-down-alt
 pi-sort-amount-up-alt
 */
 
-svg.pi-sort-alt{
-    color: red !important;
-    background-color: yellowgreen !important;
-    
-}
-svg.pi-sort-amount-up{
-
-color: red !important;
-background-color: yellowgreen !important;
-
-}
-
-.pi-sort-amount-up {
-    color: red !important;
-    background-color: yellowgreen !important;
-    
-}
-
-/*ui-dialog - Container element of dialog*/
-
-/*Title bar
-.ui-dialog-titlebar
- */
-
-/*Header text
-.ui-dialog-title-dialog{
-
-    background-color: blueviolet;
-}
-*/
-/*
-.ui-dialog-titlebar-close - Close icon
-.ui-dialog-content Dialog - body
-*/
-
-
-
-.newfont-styles .ui-toast-message {
-    font-family: 'proxima nova';
-    color:"red"
-    }
 

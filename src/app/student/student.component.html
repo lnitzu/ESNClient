@@ -1,8 +1,8 @@
-<p-toast class="newfont-styles"></p-toast>
+<p-toast ></p-toast>
 
 
 
-<p-table [columns]="cols" [value]="students" class="some-custom-class-name" sortMode="single" [scrollable]="true"
+<p-table [columns]="cols" [value]="students" class="studentClass" sortMode="single" [scrollable]="true"
     [rows]="10" [rowHover]="true" [showCurrentPageReport]="true"
     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" scrollHeight="80vh"
     styleClass="p-datatable-sm p-datatable-striped" [paginator]="true" [rowsPerPageOptions]="[10,25,50]"
@@ -71,7 +71,7 @@
 
 
 <p-dialog [(visible)]="studentDialog" [style]="{width: '80%'}" header="Edit Student Details: {{student.FullName}}"
-    [modal]="true" styleClass="p-fluid p-grid">
+    [modal]="true" styleClass="p-fluid p-grid"  >
 
     <ng-template pTemplate="header" >
         <span>
@@ -90,7 +90,7 @@
     </ng-template>
 
 
-    <ng-template pTemplate="content" style="width: '100%'; background-color: lawngreen;">
+    <ng-template pTemplate="content" [style]="{width: '100%'}" >
 
         <div class="p-grid">
 
@@ -154,6 +154,35 @@
                         </div>
                     </div>
                 </div>
+
+
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="p-field p-md-1" card>
+                            <span>
+                                <label for="Site">Site: &nbsp;</label>
+                                <span class="lbl" id="Site">{{student.Site }} </span>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-4">
+                        <div class="p-field p-md-1" card>
+                            <span>
+                                <label for="ProfileType">Profile type: &nbsp;</label>
+                                <span class="lbl" id="ProfileType">{{student.ProfileType}}</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="p-field p-md-1" card>
+                            <!--span>
+                                <label for="PostingManager">Posting Manager: &nbsp;</label>
+                                <span class="lbl" id="PostingManager">{{student.PostingManager }} </span>
+                            </span-->
+                        </div>
+                    </div>
+                </div>       
 
 
                 <div class="row">
