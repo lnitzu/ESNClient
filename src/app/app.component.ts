@@ -25,7 +25,7 @@ export class AppComponent {
 
     this.items = [
       { label: 'Current list', icon: 'pi pi-fw pi-folder-open', routerLink: ['/crtlist'], queryParams: { 'recent': 'true' } },
-      { label: 'Letters', icon: 'pi pi-fw pi-file' ,routerLink: ['/letters']},
+      { label: 'Letters', icon: 'pi pi-fw pi-file' ,routerLink: ['/letter']},
       { label: 'Edit', icon: 'pi pi-fw pi-pencil' },
       { label: 'Documentation', icon: 'pi pi-fw pi-file' },
       { label: 'Settings', icon: 'pi pi-fw pi-cog',

@@ -1,4 +1,4 @@
-<p-toast ></p-toast>
+<p-toast></p-toast>
 
 
 
@@ -6,7 +6,7 @@
     [rows]="10" [rowHover]="true" [showCurrentPageReport]="true"
     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" scrollHeight="80vh"
     styleClass="p-datatable-sm p-datatable-striped" [paginator]="true" [rowsPerPageOptions]="[10,25,50]"
-    sortField="students.FullName">
+    sortField="FullName">
 
     <ng-template pTemplate="header" let-columns>
         <tr>
@@ -14,8 +14,8 @@
                 <th *ngIf="col.visible" [pSortableColumn]="col.field" [pTooltip]="col.tooltip" tooltipPosition="bottom">
                     {{col.header}}
                     <p-sortIcon [field]="col.field"></p-sortIcon>
-                    <p-columnFilter styleClass="some-custom-class-name" [showAddButton]="false" type="text"
-                        field={{col.field}} display="menu" style="color: red !important;">
+                    <p-columnFilter  [showAddButton]="false" type="text"
+                        field={{col.field}} display="menu" >
                     </p-columnFilter>
                 </th>
             </ng-container>
@@ -73,7 +73,7 @@
 <p-dialog [(visible)]="studentDialog" [style]="{width: '80%'}" header="Edit Student Details: {{student.FullName}}"
     [modal]="true" styleClass="p-fluid p-grid"  >
 
-    <ng-template pTemplate="header" [style]="{'color':'red'}"  >
+    <ng-template pTemplate="header"   >
         <span>
             <span style="font-weight: bolder; font-size:larger"> {{student.FullName}} {{student.FHAEmpNo}}</span>
             <br />
@@ -90,8 +90,8 @@
     </ng-template>
 
 
-    <ng-template pTemplate="content" [style]="{'color':'red'}" >
-
+    <ng-template pTemplate="content"  >
+        
         <div class="p-grid">
 
 
@@ -459,7 +459,7 @@
     <ng-template pTemplate="footer">
         <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" style="color: red;"
             (click)="hideDialog()"></button>
-        <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" style="color: green;"
+        <button pButton pRipple label="Save"  icon="pi pi-check" class="p-button-text" style="color: green;"
             (click)="saveStudent()"></button>
     </ng-template>
 

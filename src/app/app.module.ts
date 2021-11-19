@@ -42,9 +42,10 @@ import {MegaMenuModule} from 'primeng/megamenu';
 import {AvatarModule} from 'primeng/avatar';
 import {AvatarGroupModule} from 'primeng/avatargroup';
 import {CarouselModule} from 'primeng/carousel';
-
+import {PickListModule} from 'primeng/picklist';
 import {TreeModule} from 'primeng/tree';
 
+import { FieldsetModule } from 'primeng/fieldset';
 
 import {MenubarModule} from 'primeng/menubar';
 import {MenuItem} from 'primeng/api';
@@ -56,12 +57,13 @@ import {CardModule} from 'primeng/card';
 import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from 'primeng/message';
 
-
+import {BadgeModule} from 'primeng/badge';
 
 import { StudentService } from './shared/student.service';
 
 import { AdcarouselComponent } from './adcarousel/adcarousel.component';
 import { SettingsComponent } from './settings/settings.component';
+import { LetterComponent } from './letter/letter.component';
 
 
 @NgModule({
@@ -71,7 +73,8 @@ import { SettingsComponent } from './settings/settings.component';
     StudentComponent,
     
     AdcarouselComponent,
-         SettingsComponent
+         SettingsComponent,
+         LetterComponent
 
   ],
   imports: [
@@ -116,7 +119,11 @@ import { SettingsComponent } from './settings/settings.component';
     MegaMenuModule, 
     CardModule,
     ListboxModule,
-    VirtualScrollerModule
+    VirtualScrollerModule,
+    PickListModule,
+    FieldsetModule,
+    BadgeModule
+
   ],
   providers: [UserIdentityService, StudentService, MessageService],
 

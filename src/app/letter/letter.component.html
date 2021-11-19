@@ -1,0 +1,54 @@
+<div class="p-grid" >
+    <div class="p-col-12 p-sm-3" style="padding-bottom: 0px; margin-bottom: 0px; ">
+        <div class="box" style="text-align: right; margin-right: 60px; margin-bottom: 0px;">
+            <p-dropdown [options]="letterTemplates" [(ngModel)]="selectedLetterTemplate" optionLabel="TemplateName"
+                optionValue="TemplateID">
+            </p-dropdown>
+
+            <button pButton type="button" label="Generate" class="p-button-success" (click)="generate()"></button>
+
+        </div>
+    </div>
+
+
+    <div class="p-col-12 " style="margin-top: 0px;">
+        <div class="box">
+
+            <p-pickList [source]="availableCandidates" [target]="selectedCandidates" sourceHeader="Available" targetHeader="Selected"
+                [responsive]="true" [sourceStyle]="{'height':'30rem'}" [targetStyle]="{'height':'30rem'}"
+                filterBy="FullName" sourceFilterPlaceholder="Search by name" targetFilterPlaceholder="Search by name"
+                [dragdrop]="true">
+
+
+                <ng-template let-student pTemplate="item">
+                    <div class="product-item">
+                        <div class="image-container">
+                            <!--img src="assets/showcase/images/demo/product/{{product.image}}" [alt]="product.name" class="product-image" /-->
+                        </div>
+                        <div class="product-list-detail">
+                            <h5 class="p-mb-2">{{student.FullName}}</h5>
+                            <i class="fa fa-map-marker"></i>&nbsp;{{student.Site}}
+                        </div>
+                        <div class="product-list-action" style="text-align:end;">
+                            <h5 class="p-mb-2">{{student.AppliedDate | date}}</h5>
+                            
+                            <p-badge value="{{student.ApprovalStatus.toUpperCase()}}" size="large" severity="warning"></p-badge>
+                        </div>
+                    </div>
+                </ng-template>>
+                
+            </p-pickList>
+            
+
+        </div>
+    </div>
+
+    <div class="p-col-12 p-sm-3" style="padding-bottom: 0px; margin-bottom: 0px; ">
+        <div class="box" style="text-align: right; margin-right: 60px; margin-bottom: 0px;">
+    
+            
+            <p-button label="Total selected: " icon="pi pi-envelope" styleClass="p-button-info" badge={{selectedCandidates.length}} badgeClass="p-badge-danger"></p-button>
+        </div>
+    </div>
+
+</div>

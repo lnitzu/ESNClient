@@ -41,17 +41,25 @@ pi-sort-amount-up-alt
 */
 
 :host ::ng-deep .p-dialog-header {
-    /*background-color: crimson;
-    color: chartreuse;*/
-  }
-  :host ::ng-deep .p-dialog-content {
-    /*background-color:darkcyan;
-    width: 100%;
-    color: chartreuse;*/
-  }
-  :host ::ng-deep .container {
-    /*background-color:darkorange;
-    width: 100%;*/
-    min-width: 100%;
+    background-color:whitesmoke ;
     /*color: chartreuse;*/
+  }
+
+  :host ::ng-deep .p-dialog-footer {
+    background-color:whitesmoke ;
+    /*color: chartreuse;*/
+  }
+  :host ::ng-deep .p-dialog-footer .pi-times .pi-check .p-button-label {
+    
+    font-weight:bolder;
+  }
+
+ 
+
+  :host ::ng-deep .p-dialog-content {
+    background-color:white;
+  }
+
+  :host ::ng-deep .container {
+   min-width: 100%;
   }

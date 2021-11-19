@@ -10,7 +10,7 @@
 
 &nbsp;
 
-<button pButton type="button" label="Reset data" class="p-button-danger" (click)="archiveCurrentSet()"></button>
+<button pButton type="button" label="Reset data" class="p-button-danger" (click)="showConfirm()"></button>
 
 &nbsp;
 
@@ -32,3 +32,27 @@
         </span>
     </ng-template>
 </p-dialog>
+
+
+
+<p-toast position="center" key="c" (onClose)="onReject()" [baseZIndex]="5000">
+    <ng-template let-message pTemplate="message">
+        <div class="p-flex p-flex-column" style="flex: 1">
+            <div class="p-text-center">
+                <i class="pi pi-exclamation-triangle" style="font-size: 3rem; float: right;"></i>
+                <h4>{{message.summary}}</h4>
+                <p style="font-weight: bolder; font-size: large; text-transform: uppercase;">{{message.detail}}</p>
+            </div>
+            <div class="p-grid p-fluid">
+                <div class="p-col-6">
+                    <button type="button" pButton (click)="onConfirm()" label="Yes" class="p-button-success"></button>
+                </div>
+                <div class="p-col-6">
+                    <button type="button" pButton (click)="onReject()" label="No" class="p-button-secondary"></button>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</p-toast>
+
+<div class="card">
