@@ -7,7 +7,7 @@ import { PrimeNGConfig } from 'primeng/api';
 @Component({
   selector: 'app-letter',
   templateUrl: './letter.component.html',
-  styleUrls: ['./letter.component.css'],
+  styleUrls: ['./letter.component.scss'],
   providers: [LetterService, DropdownModule]
 
 })
