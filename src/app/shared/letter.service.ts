@@ -33,7 +33,7 @@ export class LetterService {
   }
 
 
-  generateLetters(list:any[], selectedLetterTemplate: number ): Observable<any> {
+  generateLetters(list:any[], selectedLetterTemplate: number, overWrite:boolean ): Observable<any> {
     const headers = new HttpHeaders()
     .set('content-type', 'application/json')
       .set('Access-Control-Allow-Origin', '*')
@@ -41,7 +41,7 @@ export class LetterService {
       .set('Access-Control-Allow-Methods', "*");
       
       
-      return this.http.post<any>(this.ApiUrl + '/Letter/Generate/'+selectedLetterTemplate, JSON.stringify(list), { 'headers': headers });
+      return this.http.post<any>(this.ApiUrl + '/Letter/Generate/'+selectedLetterTemplate + '/'+overWrite , JSON.stringify(list), { 'headers': headers });
   }
 
 }

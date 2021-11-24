@@ -2,7 +2,7 @@
 
 
 
-<p-table [columns]="cols" [value]="students" class="studentClass" sortMode="single" [scrollable]="true"
+<p-table [columns]="selectedColumns" [value]="students" class="studentClass" sortMode="single" [scrollable]="true"
     [rows]="10" [rowHover]="true" [showCurrentPageReport]="true"
     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" scrollHeight="80vh"
     styleClass="p-datatable-sm p-datatable-striped" [paginator]="true" [rowsPerPageOptions]="[10,25,50]"

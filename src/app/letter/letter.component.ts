@@ -16,7 +16,7 @@ export class LetterComponent implements OnInit {
   availableCandidates: any[] = [];
   letterTemplates: any[] = [];
   selectedCandidates: any[] = [];
-  overWrite: boolean=true;
+  overWrite: boolean=false;
   selectedLetterTemplate: number = 1;
 
   message:any='';
@@ -38,7 +38,7 @@ export class LetterComponent implements OnInit {
     
 
 
-    this.letterService.generateLetters(a, this.selectedLetterTemplate).subscribe(
+    this.letterService.generateLetters(a, this.selectedLetterTemplate, this.overWrite).subscribe(
       
 
       (data)=>{
