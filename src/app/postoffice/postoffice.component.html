@@ -1,0 +1,22 @@
+<p>postoffice works!</p>
+
+<p-toast></p-toast>
+
+
+
+<p-contextMenu #cm [model]="items"></p-contextMenu>
+
+<div class="card">
+    <p-table [value]="letters" [contextMenu]="cm" dataKey="code" responsiveLayout="scroll">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Applicant</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-letter>
+            <tr [pContextMenuRow]="letter">
+                <td>{{letter.FullName}}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>

@@ -8,6 +8,12 @@
     styleClass="p-datatable-sm p-datatable-striped" [paginator]="true" [rowsPerPageOptions]="[10,25,50]"
     sortField="FullName">
 
+    <ng-template pTemplate="caption">
+        Applicants view: &nbsp;
+        <p-multiSelect [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header"
+            selectedItemsLabel="{0} columns selected" [style]="{minWidth: '200px'}" placeholder="Choose Columns to display"></p-multiSelect>
+    </ng-template> 
+
     <ng-template pTemplate="header" let-columns>
         <tr>
             <ng-container *ngFor="let col of columns">
@@ -185,11 +191,7 @@
                 </div>       
 
 
-                <div class="row">
-                    <div class="col-sm-12">
-                        <hr>
-                    </div>
-                </div>
+             
 
 
 
@@ -264,7 +266,7 @@
 
 
                                 <p-calendar [(ngModel)]="student.OnsiteDeadline" id="OnsiteDeadline" [showIcon]="true"
-                                    inputId="icon" appendTo="body">
+                                    inputId="OnsiteDeadline" appendTo="body">
 
                                 </p-calendar>
                                 <label for="OnsiteDeadline">Onsite deadline</label>
@@ -277,8 +279,8 @@
                         <div class="p-field p-md-4">
                             <span class="p-float-label">
 
-                                <p-calendar [(ngModel)]="student.HireStartDate" id="HireStartDate" [showIcon]="true"
-                                    appendTo="body" inputId="icon">
+                                <p-calendar [(ngModel)]="student.HireStartDate" id="HireStartDate" [showIcon]="true" [showTime] =false    
+                                    appendTo="body" inputId="HireStartDate">
 
                                 </p-calendar>
                                 <label for="HireStartDate">Hire startDate</label>

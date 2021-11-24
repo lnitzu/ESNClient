@@ -1,8 +1,16 @@
+<p-toast></p-toast>
+
 <div class="p-grid" >
     <div class="p-col-12 p-sm-3" style="padding-bottom: 0px; margin-bottom: 0px; ">
         <div class="box" style="text-align: right; margin-right: 60px; margin-bottom: 0px;">
+
+            {{selectedLetterTemplate}}
+            
+            <p-button label="Total selected: " icon="pi pi-envelope" styleClass="p-button-info" badge={{selectedCandidates.length}} badgeClass="p-badge-danger"></p-button>
+
+
             <p-dropdown [options]="letterTemplates" [(ngModel)]="selectedLetterTemplate" optionLabel="TemplateName"
-                optionValue="TemplateID" >
+                optionValue="TemplateID" (onChange)="onChangeTemplate($event)" >
             </p-dropdown>
 
             <button pButton type="button" label="Generate" [disabled]="selectedCandidates.length==0" class="p-button-success" (click)="generate()"></button>
@@ -26,7 +34,9 @@
                             <!--img src="assets/showcase/images/demo/product/{{product.image}}" [alt]="product.name" class="product-image" /-->
                         </div>
                         <div class="product-list-detail">
-                            <h5 class="p-mb-2">{{student.FullName}}</h5>
+                            <h5 class="p-mb-2">{{student.FullName}}&nbsp; 
+                                <p-badge *ngIf="student.letter_count!=null" value="{{student.letter_count}}" size="medium" severity="success"></p-badge>                
+                                        </h5> 
                             <i class="fa fa-map-marker"></i>&nbsp;{{student.Site}}
                         </div>
                         <div class="product-list-action" >
@@ -34,6 +44,8 @@
                             
                             <p-badge *ngIf="student.ApprovalStatus.toUpperCase() == 'APPROVED'" value="{{student.ApprovalStatus.toUpperCase()}}" size="medium" severity="success"></p-badge>
                             <p-badge *ngIf="student.ApprovalStatus.toUpperCase() != 'APPROVED'" value="{{student.ApprovalStatus.toUpperCase()}}" size="medium" severity="warning"></p-badge>
+
+                            
                         </div>
                     </div>
                 </ng-template>>
@@ -44,12 +56,5 @@
         </div>
     </div>
 
-    <div class="p-col-12 p-sm-3" style="padding-bottom: 0px; margin-bottom: 0px; ">
-        <div class="box" style="text-align: right; margin-right: 60px; margin-bottom: 0px;">
-    
-            
-            <p-button label="Total selected: " icon="pi pi-envelope" styleClass="p-button-info" badge={{selectedCandidates.length}} badgeClass="p-badge-danger"></p-button>
-        </div>
-    </div>
 
 </div>

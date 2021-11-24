@@ -18,6 +18,10 @@
     color: chartreuse;
   }
 
+  :host ::ng-deep .pi-filter-icon{
+    
+    color:cornflowerblue;
+  }
 
 .lbl{
     color: blue;

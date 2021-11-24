@@ -34,6 +34,7 @@ import { ISchool } from '../ischool';
 export class StudentComponent implements OnInit {
  
 
+
   students: any[] = [];
   student: any = {};
 
@@ -45,7 +46,7 @@ export class StudentComponent implements OnInit {
   submitted: boolean = false;
   cols: any[] = [];
   first: number = 0;
-
+  selectedColumns:any[]=[];
 
   message:any='';
  
@@ -74,7 +75,16 @@ export class StudentComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.service.getStudentList().subscribe(data => { this.students = data; });
+    this.service.getStudentList().subscribe( data => 
+      
+      {   
+        this.students = data;  
+        
+      
+      }      
+
+
+      )   ;
     this.lookupService.getLookupValues().subscribe(data => {
       [data].map((name) => {
         
@@ -148,6 +158,9 @@ export class StudentComponent implements OnInit {
 
   editStudent(_student: any) {
     this.student = { ..._student };
+    
+    //calendar control needs proper date
+    if (this.student.HireStartDate!=null) this.student.HireStartDate = new Date(this.student.HireStartDate);
     this.studentDialog = true;
   }
 

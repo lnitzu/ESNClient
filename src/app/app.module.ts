@@ -64,6 +64,7 @@ import { StudentService } from './shared/student.service';
 import { AdcarouselComponent } from './adcarousel/adcarousel.component';
 import { SettingsComponent } from './settings/settings.component';
 import { LetterComponent } from './letter/letter.component';
+import { PostofficeComponent } from './postoffice/postoffice.component';
 
 
 @NgModule({
@@ -74,7 +75,8 @@ import { LetterComponent } from './letter/letter.component';
     
     AdcarouselComponent,
          SettingsComponent,
-         LetterComponent
+         LetterComponent,
+         PostofficeComponent
 
   ],
   imports: [

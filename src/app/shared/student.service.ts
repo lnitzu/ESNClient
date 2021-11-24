@@ -41,8 +41,6 @@ export class StudentService {
       }),
       body: { student: val }
     };
-
-    //return this.http.delete(this.ApiUrl +'/Student', val ,{ 'headers': headers  });
     return this.http.delete(this.ApiUrl +'/Student/'+ val.RecID, options);
 
   }

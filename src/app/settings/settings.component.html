@@ -20,17 +20,17 @@
 
 
 
-<p-dialog [(visible)]="!ready" [style]="{width: '50%'}" header="Bring new data" [modal]="true"
+<p-dialog [(visible)]="!ready" [style]="{width: '50%'}" header="Bringing new data..." [modal]="true"
     styleClass="p-fluid p-grid">
 
-    <ng-template pTemplate="content" style="width: '20%';">
-        <span *ngIf="!ready">
-            <p-card>
+    <ng-template pTemplate="content" >
+        <span *ngIf="!ready" >
+            <p-card [style]="{'background-color': 'cornsilk'}">
 
-                <p-progressBar mode="indeterminate" [style]="{'width': '800px'}"></p-progressBar>
+                <p-progressBar  mode="indeterminate" [style]="{'width': '100%'}"></p-progressBar>
             </p-card>
         </span>
-    </ng-template>
+    </ng-template> 
 </p-dialog>
 
 
