@@ -47,12 +47,16 @@
                 <ng-template let-student pTemplate="item">
                     <div class="product-item">
                         <div class="image-container">
-                            <!--img src="assets/showcase/images/demo/product/{{product.image}}" [alt]="product.name" class="product-image" /-->
+                            <!--img src="assets/showcase/images/demo/product/{{letter.image}}" [alt]="letter.name" class="letter-image" /-->
                         </div>
                         <div class="product-list-detail">
                             <h5 class="p-mb-2">{{student.FullName}}&nbsp; 
-                                <p-badge *ngIf="student.letter_count!=null" value="{{student.letter_count}}" size="medium" severity="success"></p-badge>                
-                                        </h5> 
+                                
+
+                                <i *ngIf="student.letter_count!=null" class="pi pi-envelope  p-mr-4 p-text-secondary" pBadge 
+                                  style="font-size: 1.3rem; color: red; background-color: salmon;"  value={{student.letter_count}}></i>
+
+                            </h5> 
                             <i class="fa fa-map-marker"></i>&nbsp;{{student.Site}}
                         </div>
                         <div class="product-list-action" >

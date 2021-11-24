@@ -62,7 +62,10 @@ reset(){
 
 
   resetData() {
-    if (this.checked==true)    this.export2Excel();
+    if (this.checked==true)    {
+      this.export2Excel();
+      //generate the  letters and archive them in a zip
+    }
     this.resetDialog=false;
     this.datafeed.archiveIntake(this.user.Username).toPromise().then
     (

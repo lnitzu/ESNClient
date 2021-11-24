@@ -161,6 +161,12 @@ export class StudentComponent implements OnInit {
     
     //calendar control needs proper date
     if (this.student.HireStartDate!=null) this.student.HireStartDate = new Date(this.student.HireStartDate);
+    if (this.student.FundingDate!=null) this.student.FundingDate = new Date(this.student.FundingDate);
+    if (this.student.PostingDate!=null) this.student.PostingDate = new Date(this.student.PostingDate);
+    if (this.student.AppliedDate!=null) this.student.AppliedDate = new Date(this.student.AppliedDate);
+    if (this.student.HiringFairDate!=null) this.student.HiringFairDate = new Date(this.student.HiringFairDate);
+    
+    
     this.studentDialog = true;
   }
 
