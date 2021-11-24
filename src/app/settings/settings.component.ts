@@ -3,8 +3,10 @@ import { DataService } from '../shared/data.service';
 
 import { UserIdentityService } from '../shared/user-identity.service';
 
-
+import { ConfirmationService, PrimeTemplate, SelectItem } from 'primeng/api';
 import { ExchangeService } from '../shared/exchange.service';
+
+
 
 
 import { TreeNode } from 'primeng/api';
@@ -16,7 +18,7 @@ import { Message, MessageService } from 'primeng/api';
   selector: 'app-settings',
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.css'],
-  providers: [DataService, MessageService]
+  providers: [DataService, MessageService, ConfirmationService]
 
 })
 export class SettingsComponent implements OnInit {
@@ -26,14 +28,16 @@ export class SettingsComponent implements OnInit {
 
   constructor(private datafeed: DataService,
     private userService: UserIdentityService,
-    private messageService: MessageService) { }
+    private messageService: MessageService, private confirmationService: ConfirmationService) { }
 
 
   ready: boolean = true;
   postings: TreeNode[] = [];
   user: any;
-
+  checked: boolean=true;
+  resetDialog: boolean=false;
   file: any = [];
+/*
   showConfirm() {
     this.messageService.clear();
     this.messageService.add({ key: 'c', sticky: true, severity: 'warn', summary: 'Are you sure?', detail: 'This will reset all data!'});
@@ -42,10 +46,36 @@ export class SettingsComponent implements OnInit {
     this.archiveCurrentSet();
     this.messageService.clear('c');
   }
-
   onReject() {
     this.messageService.clear('c');
   }
+*/
+
+hideDialog() {
+  this.resetDialog = false;
+  
+}
+
+reset(){
+  this.resetDialog=true;
+}
+
+
+  resetData() {
+    if (this.checked==true)    this.export2Excel();
+    this.resetDialog=false;
+    this.datafeed.archiveIntake(this.user.Username).toPromise().then
+    (
+      data => {
+
+        this.postings = <TreeNode[]>data.postTree;
+      }
+    ).catch(
+
+    );
+  }
+
+
   archiveCurrentSet() {
 
 

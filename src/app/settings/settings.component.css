@@ -18,3 +18,10 @@
     max-width: 1200px;
   }
 
+
+
+:host ::ng-deep .p-dialog-content {
+    background-color:red;
+
+    color: white;
+  }

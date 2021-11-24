@@ -202,6 +202,8 @@ export class StudentComponent implements OnInit {
 
     }
   }
+
+  
   deleteStudent(_student: any) {
 
     this.confirmationService.confirm({

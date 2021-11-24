@@ -16,7 +16,7 @@ export class LetterComponent implements OnInit {
   availableCandidates: any[] = [];
   letterTemplates: any[] = [];
   selectedCandidates: any[] = [];
-
+  overWrite: boolean=true;
   selectedLetterTemplate: number = 1;
 
   message:any='';

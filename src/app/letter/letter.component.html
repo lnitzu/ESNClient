@@ -1,12 +1,28 @@
 <p-toast></p-toast>
 
 <div class="p-grid" >
+    
     <div class="p-col-12 p-sm-3" style="padding-bottom: 0px; margin-bottom: 0px; ">
+        
         <div class="box" style="text-align: right; margin-right: 60px; margin-bottom: 0px;">
 
-            {{selectedLetterTemplate}}
+            <div style="float: left; margin-left: 60px;">
             
-            <p-button label="Total selected: " icon="pi pi-envelope" styleClass="p-button-info" badge={{selectedCandidates.length}} badgeClass="p-badge-danger"></p-button>
+                <div class="p-field-checkbox" >
+                    <label style="font-size:x-large; font-weight: bolder; " for="binary">Overwrite existing letters: </label>
+                    &nbsp;&nbsp;&nbsp;
+                    <p-checkbox [(ngModel)]="overWrite" [binary]="true"   inputId="binary"></p-checkbox>
+                    
+                </div>
+            </div>
+
+
+            <i class="pi pi-envelope  p-mr-4 p-text-secondary" pBadge   style="font-size: 1.7rem; margin-right: 30px;"
+             value={{selectedCandidates.length}}></i>
+
+
+
+
 
 
             <p-dropdown [options]="letterTemplates" [(ngModel)]="selectedLetterTemplate" optionLabel="TemplateName"

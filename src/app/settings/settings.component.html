@@ -10,7 +10,7 @@
 
 &nbsp;
 
-<button pButton type="button" label="Reset data" class="p-button-danger" (click)="showConfirm()"></button>
+<button pButton type="button" label="Reset data" class="p-button-danger" (click)="reset()"></button>
 
 &nbsp;
 
@@ -20,7 +20,7 @@
 
 
 
-<p-dialog [(visible)]="!ready" [style]="{width: '50%'}" header="Bringing new data..." [modal]="true"
+<p-dialog [(visible)]="!ready" [style]="{width: '50%'}" header="Updating data..." [modal]="true"
     styleClass="p-fluid p-grid">
 
     <ng-template pTemplate="content" >
@@ -35,24 +35,43 @@
 
 
 
-<p-toast position="center" key="c" (onClose)="onReject()" [baseZIndex]="5000">
-    <ng-template let-message pTemplate="message">
-        <div class="p-flex p-flex-column" style="flex: 1">
-            <div class="p-text-center">
-                <i class="pi pi-exclamation-triangle" style="font-size: 3rem; float: right;"></i>
-                <h4>{{message.summary}}</h4>
-                <p style="font-weight: bolder; font-size: large; text-transform: uppercase;">{{message.detail}}</p>
-            </div>
-            <div class="p-grid p-fluid">
-                <div class="p-col-6">
-                    <button type="button" pButton (click)="onConfirm()" label="Yes" class="p-button-success"></button>
-                </div>
-                <div class="p-col-6">
-                    <button type="button" pButton (click)="onReject()" label="No" class="p-button-secondary"></button>
-                </div>
-            </div>
-        </div>
-    </ng-template>
-</p-toast>
 
-<div class="card">
+
+<p-dialog [(visible)]="resetDialog" [style]="{width: '20%'}" header="Confirm reset"
+    [modal]="true" styleClass="p-fluid p-grid"  >
+    <ng-template pTemplate="content"  >
+        <div class="p-grid">
+            <div class="container" >
+                <div class="row" >
+
+                    <div class="col-sm-12" >
+                        <div class="p-field-checkbox" >
+                            <label style="font-size: larger; font-weight: bolder; " for="binary">Create backup?</label>
+                            &nbsp;&nbsp;&nbsp;
+                            <p-checkbox [(ngModel)]="checked" [binary]="true"  inputId="binary"></p-checkbox>
+                            
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+
+
+
+
+
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" style="color: red;"
+            (click)="hideDialog()"></button>
+        <button pButton pRipple label="OK"  icon="pi pi-check" class="p-button-text" style="color: green;"
+            (click)="resetData()"></button>
+    </ng-template>
+
+</p-dialog>
