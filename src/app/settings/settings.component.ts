@@ -124,7 +124,7 @@ reset(){
 
     this.datafeed.downloadLink().subscribe(
       (resp: HttpResponse<Blob>) => {
-        console.log(resp.headers.get('content-disposition'));
+       // console.log(resp.headers.get('content-disposition'));
         let x = resp.headers.get('content-disposition');
         if (x === null) return;
 

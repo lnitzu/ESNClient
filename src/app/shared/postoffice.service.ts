@@ -16,7 +16,7 @@ export class PostofficeService {
 
   getLetters(): Observable<any[]> {
 
-    return this.http.get<any>(this.ApiUrl + "/PostOffice/1");
+    return this.http.get<any>(this.ApiUrl + "/PostOffice");
 
   }
 

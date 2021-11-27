@@ -29,7 +29,8 @@ export class LetterService {
       .set('Access-Control-Expose-Headers','*')
       .set('Access-Control-Allow-Methods', "*");
       
-      return this.http.get(this.ApiUrl+'/Letter/'+selectedLetterTemplate,{'headers': headers });
+      //return this.http.get(this.ApiUrl+'/Letter/'+selectedLetterTemplate,{'headers': headers });
+      return this.http.get(this.ApiUrl+'/Letter',{'headers': headers });
   }
 
 

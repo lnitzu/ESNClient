@@ -2,21 +2,31 @@
 
 <p-toast></p-toast>
 
+<p-multiSelect [options]="letterTemplates" [(ngModel)]="multiselectedLetters" defaultLabel="Select a letter" optionLabel="TemplateName"
+optionValue = "TemplateID" display="chip" style="width: 100%;"></p-multiSelect>
 
+
+<h5>Basic</h5>
+<button pButton type="button"  icon="pi pi-plus" (click)="expandNodes(files)"></button>
+<button pButton type="button"  icon="pi pi-minus" (click)="collapseNodes(files)"></button>
+
+
+<p-treeTable [value]="files" [columns]="cols" dataKey="name" [(contextMenuSelection)]="selectedNode" [contextMenu]="cm">
+    <ng-template pTemplate="header" let-columns>
+        <tr>
+            <th *ngFor="let col of columns">
+                {{col.header}}
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns" >
+        <tr [ttContextMenuRow]="rowNode"  >
+            <td *ngFor="let col of columns; let i = index">
+                <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
+                {{rowData[col.field]}}  
+            </td>
+        </tr>
+    </ng-template>
+</p-treeTable>
 
 <p-contextMenu #cm [model]="items"></p-contextMenu>
-
-<div class="card">
-    <p-table [value]="letters" [contextMenu]="cm" dataKey="code" responsiveLayout="scroll">
-        <ng-template pTemplate="header">
-            <tr>
-                <th>Applicant</th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-letter>
-            <tr [pContextMenuRow]="letter">
-                <td>{{letter.FullName}}</td>
-            </tr>
-        </ng-template>
-    </p-table>
-</div>

@@ -47,6 +47,11 @@ import {CarouselModule} from 'primeng/carousel';
 import {PickListModule} from 'primeng/picklist';
 import {TreeModule} from 'primeng/tree';
 
+
+
+import {TreeTableModule} from 'primeng/treetable';
+import {TreeNode} from 'primeng/api';
+
 import { FieldsetModule } from 'primeng/fieldset';
 
 import {MenubarModule} from 'primeng/menubar';
@@ -126,8 +131,10 @@ import { PostofficeComponent } from './postoffice/postoffice.component';
     VirtualScrollerModule,
     PickListModule,
     FieldsetModule,
-    BadgeModule
-
+    BadgeModule,
+    TreeTableModule
+    
+    
   ],
   providers: [UserIdentityService, StudentService, MessageService],
 

@@ -2,17 +2,12 @@
 
 
 
-<p-table [columns]="selectedColumns" [value]="students" class="studentClass" sortMode="single" [scrollable]="true"
+<p-table [columns]="cols" [value]="students" class="studentClass" sortMode="single" [scrollable]="true"
     [rows]="10" [rowHover]="true" [showCurrentPageReport]="true"
     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" scrollHeight="80vh"
     styleClass="p-datatable-sm p-datatable-striped" [paginator]="true" [rowsPerPageOptions]="[10,25,50]"
     sortField="FullName">
 
-    <ng-template pTemplate="caption">
-        Applicants view: &nbsp;
-        <p-multiSelect [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header"
-            selectedItemsLabel="{0} columns selected" [style]="{minWidth: '200px'}" placeholder="Choose Columns to display"></p-multiSelect>
-    </ng-template> 
 
     <ng-template pTemplate="header" let-columns>
         <tr>

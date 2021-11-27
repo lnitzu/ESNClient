@@ -1,6 +1,7 @@
 <p-toast></p-toast>
 
-<div class="p-grid" >
+
+<div class="p-grid"  >
     
     <div class="p-col-12 p-sm-3" style="padding-bottom: 0px; margin-bottom: 0px; ">
         
@@ -29,35 +30,44 @@
                 optionValue="TemplateID" (onChange)="onChangeTemplate($event)" >
             </p-dropdown>
 
-            <button pButton type="button" label="Generate" [disabled]="selectedCandidates.length==0" class="p-button-success" (click)="generate()"></button>
+            <button pButton type="button" label="Generate" [disabled]="selectedCandidates.length==0" 
+            class="p-button-success" (click)="generate()"></button>
 
         </div>
     </div>
 
 
     <div class="p-col-12 " style="margin-top: 0px;">
-        <div class="box">
+        <div class="box" >
 
             <p-pickList [source]="availableCandidates" [target]="selectedCandidates" sourceHeader="Available" targetHeader="Selected"
                 [responsive]="true" [sourceStyle]="{'height':'30rem'}" [targetStyle]="{'height':'30rem'}"
                 filterBy="FullName" sourceFilterPlaceholder="Search by name" targetFilterPlaceholder="Search by name"
-                [dragdrop]="true">
+                [dragdrop]="true"  >
 
 
-                <ng-template let-student pTemplate="item">
-                    <div class="product-item">
-                        <div class="image-container">
+                <ng-template let-student pTemplate="item"  >
+                    
+                    <div class="product-item"   >
+                        <div class="image-container" >
                             <!--img src="assets/showcase/images/demo/product/{{letter.image}}" [alt]="letter.name" class="letter-image" /-->
                         </div>
-                        <div class="product-list-detail">
+                        <div class="product-list-detail"     >
                             <h5 class="p-mb-2">{{student.FullName}}&nbsp; 
+                              
+
                                 
-
-                                <i *ngIf="student.letter_count!=null" class="pi pi-envelope  p-mr-4 p-text-secondary" pBadge 
-                                  style="font-size: 1.3rem; color: red; background-color:orange;"  value={{student.letter_count}}></i>
-
-                            </h5> 
+                                <i *ngIf="student.wll.length!=0" class="pi pi-envelope  p-mr-4 p-text-secondary " pBadge 
+                                  style="font-size: 1.3rem; color: red; background-color:orange;" 
+                                  value={{student.wll.length}}
+                                  [pTooltip]="tip(student.wll)" appendTo="body" tooltipPosition="bottom" [escape]="false" 
+                                  tooltipStyleClass ="tooltip"
+                                  >
+                                  
+                                </i>
+                             </h5> 
                             <i class="fa fa-map-marker"></i>&nbsp;{{student.Site}}
+                       
                         </div>
                         <div class="product-list-action" >
                             <h5 class="p-mb-2">{{student.AppliedDate | date}}</h5>

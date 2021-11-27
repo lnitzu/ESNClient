@@ -46,9 +46,7 @@ export class StudentComponent implements OnInit {
   submitted: boolean = false;
   cols: any[] = [];
   first: number = 0;
-  //selectedColumns:any[]=[];
 
-  _selectedColumns: any[]=[];
 
 
   message:any='';
@@ -59,16 +57,6 @@ export class StudentComponent implements OnInit {
 
 
 
- @Input() get selectedColumns(): any[] {
-        return this._selectedColumns;
-    }
-
-    set selectedColumns(val: any[]) {
-        //restore original order
-        this._selectedColumns = this.cols.filter(col => val.includes(col));
-    }
-
-  
 
   constructor(
     private service: StudentService,
@@ -89,8 +77,6 @@ export class StudentComponent implements OnInit {
       
       {   
         this.students = data;  
-        
-      
       }      
 
 
