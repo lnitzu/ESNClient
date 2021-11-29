@@ -20,8 +20,3 @@
 
 
 
-:host ::ng-deep .p-dialog-content {
-    background-color:red;
-
-    color: white;
-  }

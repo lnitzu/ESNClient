@@ -9,3 +9,16 @@ body {
     font-size: 10px;
   }
 
+ .p-tooltip-text {
+
+  width: 500px;
+    color: #244062 !important;
+    box-shadow: 5px 10px rgba(136,136,136,.375) !important;
+  border: 1px solid !important;
+  border-radius: 25px !important;
+  background: rgba(255, 255, 255, 0.9) !important;
+  padding: 20px !important;
+  height: auto;
+  font-size: large;
+  }
+  

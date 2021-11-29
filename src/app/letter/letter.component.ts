@@ -34,25 +34,43 @@ export class LetterComponent implements OnInit {
   tip (v : any) : string{
     //this.students[0].wll[0].TemplateFile
     let x:string;
-    x='';
+    x="<ul>";
     for (var k=0; k<v.length; k++)
     {
-      x  =  x + v[k].TemplateName + '<br/>';
+      x  =  x + '<li>'+ v[k].TemplateName + ' ' + this.formatDate(v[k].CreateDate) + '</li>';
     }
-    return x;
+    return x+'</ul></span>';
 
   }
 
-  ngAfterViewInit() {
-  //  this.primarySampleComponent.listViewSourceChild.nativeElement.querySelector('cdk-drop-list')
-   //                             .addEventListener('click', this.onClick.bind(this));
+  formatDate(date_obj: Date){
+  let date_ob = new Date(date_obj);
 
-   // console.log('Values on ngAfterViewInit():');
-    //console.log("primaryColorSample:", this.primarySampleComponent.listViewSourceChild.nativeElement.querySelector('ul#cdk-drop-list-0.cdk-drop-list.p-picklist-list.p-picklist-source'));
-  }  
-  onClick(event:any) {
-    //console.log(event);
+  // adjust 0 before single digit date
+  let date = ("0" + date_ob.getDate()).slice(-2);
+  
+  // current month
+  let month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
+  
+  // current year
+  let year = date_ob.getFullYear();
+  
+  // current hours
+  let hours = date_ob.getHours();
+  
+  // current minutes
+  let minutes =   ("0" + (date_ob.getMinutes() + 1)).slice(-2);   
+  
+  // current seconds
+  //let seconds = date_ob.getSeconds();
+  
+  // prints date & time in YYYY-MM-DD HH:MM:SS format
+  //console.log(year + "-" + month + "-" + date + " " + hours + ":" + minutes + ":" + seconds);
+  return (year + "-" + month + "-" + date + " " + hours + ":" + minutes );
   }
+
+
+
   generate() {
 
     var responseJson = JSON.parse(JSON.stringify(this.selectedCandidates));

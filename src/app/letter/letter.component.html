@@ -8,12 +8,13 @@
         <div class="box" style="text-align: right; margin-right: 60px; margin-bottom: 0px;">
 
             <div style="float: left; margin-left: 60px;">
-            
-                <div class="p-field-checkbox" >
-                    <label style="font-size:x-large; font-weight: bolder; " for="binary">Overwrite existing letters: </label>
-                    &nbsp;&nbsp;&nbsp;
-                    <p-checkbox [(ngModel)]="overWrite" [binary]="true"   inputId="binary"></p-checkbox>
-                    
+                <div class="p-inputgroup">
+                    <span class="p-inputgroup-addon">
+                        <label style="font-size: large; font-weight: bolder; " for="binary">Overwrite existing letters: </label>
+                        &nbsp;
+                        <p-checkbox [(ngModel)]="overWrite" [binary]="true"   inputId="binary"></p-checkbox>         
+                    </span>
+
                 </div>
             </div>
 
@@ -46,23 +47,21 @@
                 [dragdrop]="true"  >
 
 
-                <ng-template let-student pTemplate="item"  >
+                <ng-template let-student pTemplate="item" id="x">
                     
-                    <div class="product-item"   >
+                    <div class="product-item"     >
                         <div class="image-container" >
                             <!--img src="assets/showcase/images/demo/product/{{letter.image}}" [alt]="letter.name" class="letter-image" /-->
                         </div>
-                        <div class="product-list-detail"     >
-                            <h5 class="p-mb-2">{{student.FullName}}&nbsp; 
+                        <div class="product-list-detail"      >
+                            <h5  class="p-mb-2">{{student.FullName}}&nbsp; 
                               
 
                                 
                                 <i *ngIf="student.wll.length!=0" class="pi pi-envelope  p-mr-4 p-text-secondary " pBadge 
                                   style="font-size: 1.3rem; color: red; background-color:orange;" 
                                   value={{student.wll.length}}
-                                  [pTooltip]="tip(student.wll)" appendTo="body" tooltipPosition="bottom" [escape]="false" 
-                                  tooltipStyleClass ="tooltip"
-                                  >
+                                  [pTooltip]="tip(student.wll)"  tooltipPosition="bottom" [escape]="false"  >
                                   
                                 </i>
                              </h5> 
