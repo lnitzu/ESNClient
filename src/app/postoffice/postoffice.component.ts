@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MenuItem, TreeNode } from 'primeng/api';
 import { PostofficeService } from '../shared/postoffice.service';
 import { LetterService } from '../shared/letter.service';
+import { Tree } from 'primeng/tree';
 @Component({
   selector: 'app-postoffice',
   templateUrl: './postoffice.component.html',
@@ -10,17 +11,22 @@ import { LetterService } from '../shared/letter.service';
 export class PostofficeComponent implements OnInit {
 
   items: MenuItem[] = [];
-  letters: any[] = [];
-  selectedLetter: any = '';
+  //letters: any[] = [];
+  //letters: any[] = [];
+  //letters: any[] = [];
+  //letters: any[] = [];
+  selectedLetter!: TreeNode; 
 
   multiselectedLetters: any[] = [];
 
-  writtenLetters: any[] = [];
+  //writtenLetters: any[] = [];
 
   letterTemplates: any[] = [];
 
 
-  //files: TreeNode[] = [];
+  files: TreeNode[] = []
+
+
   selectedNode: any = ''
   cols: any[] =  [];
 
@@ -28,25 +34,37 @@ export class PostofficeComponent implements OnInit {
 
 
 
+  nodeSelect(event: any) {
+    //if(!event.node.children) {
+      this.selectedLetter = event.node.data;
+      console.log(this.selectedLetter);
+      //this.getParentDetails(event.node)
+      alert('fff');
+    //}
+  }
 
-
-  viewLetter(id: number) {
-
-
+  viewLetter(letter : TreeNode) {
+   // this.messageService.add({severity: 'info', summary: 'Product Selected', detail: product.name });
+//alert(letter);
+console.log(letter);
 
   }
 
-  deleteLetter(id: number) {
+  deleteLetter(id: any) {
 
   }
   ngOnInit(): void {
 
+    //get the applicants with letters
     this.poService.getLetters().subscribe(
+
       data => {
-        this.letters = data;
+        this.files = <TreeNode[]>data;
+        //console.log(this.files);
       }
 
     );
+    
 
     this.letterService.getLetterTemplates().subscribe(
       data => {this.letterTemplates = data;  }
@@ -59,9 +77,9 @@ export class PostofficeComponent implements OnInit {
     ];
 
     this.cols = [
-      { field: "name", header: "Name" },
-      { field: "size", header: "Size" },
-      { field: "type", header: "Type" }
+      { field: "name", header: "FullName" ,icon: "icon"}
+      //{ field: "size", header: "Size" },
+      //{ field: "type", header: "Type" }
     ];
  
   }
@@ -80,62 +98,6 @@ export class PostofficeComponent implements OnInit {
     }
     this.files = [...this.files];
   }
-
-
-
-  files : TreeNode[]=
-  [  
-      {  
-          "data":{  
-              "name":"Level 1a",
-              "size":"200mb",
-              "type":"Folder"
-          },
-          "children":[  
-              {  
-                  "data":{  
-                      "name":"Level 2a",
-                      "size":"25mb",
-                      "type":"Folder"
-                  }
-              },
-              {  
-                  "data":{  
-                      "name":"Level 2b",
-                      "size":"25mb",
-                      "type":"Application"
-                  }
-              }
-
-          ]
-      },
-      {  
-          "data":{  
-              "name":"Level 1b",
-              "size":"20mb",
-              "type":"Folder"
-          },
-          "children":[  
-              {  
-                  "data":{  
-                      "name":"Level 2d",
-                      "size":"10mb",
-                      "type":"Zip"
-                  }
-              },
-              {  
-                  "data":{  
-                      "name":"Level 2e",
-                      "size":"10mb",
-                      "type":"Zip"
-                  }
-              }
-          ]
-      }
-
-
-  ]
-
 
 
 

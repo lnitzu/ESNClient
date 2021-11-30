@@ -11,7 +11,8 @@ body {
 
  .p-tooltip-text {
 
-  width: 500px;
+  
+  min-width: max-content;
     color: #244062 !important;
     box-shadow: 5px 10px rgba(136,136,136,.375) !important;
   border: 1px solid !important;
