@@ -71,7 +71,35 @@ export class LetterComponent implements OnInit {
 
 
 delete(){
-  
+  var responseJson = JSON.parse(JSON.stringify(this.selectedCandidates));
+    var a = [];
+    for (var i = 0; i < responseJson.length; i++) {
+      var counter = responseJson[i];
+      for (let k=0; k < counter.wll.length; k++)
+      {
+        a.push(counter.wll[k].RecID);
+      }
+      //var schID = counter.RecID
+      //a.push(schID)
+    }
+
+  this.letterService.deleteLetters(this.selectedLetterTemplate, a).subscribe(
+
+    (data) => {
+      this.message = data.message;
+      this.availableCandidates = data.candidates;
+      this.selectedCandidates = [];
+      this.messageService.add({ severity: 'success', summary: 'Successful', detail: this.message, life: 4000 });
+
+    },
+    (err) => {
+      this.message = err.error;
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: this.message.Message, life: 4000 });
+    }
+
+
+    
+  )
 }
   generate() {
 
@@ -104,18 +132,7 @@ delete(){
 
   }
   
- viewDoc()
- {
 
- }
-  editDoc()
-   {}
-
-
-showMenu(e:any){
-  alert(e);
-//console.log(e);
-   }
 
 
 
@@ -141,11 +158,6 @@ showMenu(e:any){
       //this.availableCandidates.splice(0,1);
       //this.selectedCandidates.push(this.availableCandidates[0]);
 
-
-      this.contextMenu = [
-          {label: 'View', icon: 'fa-search', command: (event) => this.viewDoc()},
-          {label: 'Edit', icon: 'fa-close', command: (event) => this.editDoc()}
-      ];
 
 
     });

@@ -6,15 +6,15 @@
 
 
 
-<button pButton type="button"  icon="pi pi-plus" (click)="expandNodes(files)"></button>
+<button style="margin-left: 20px" pButton type="button"  icon="pi pi-plus" (click)="expandNodes(files)"></button>
 <button pButton type="button"  icon="pi pi-minus" (click)="collapseNodes(files)"></button>
 
 
-<span class="p-buttonset">
+<span class="p-buttonset" style="display: block;float:right; margin-right: 20px;">
+ 
 
-
-    <button pButton pRipple  [disabled]="selectedLetter==undefined" label="View" icon="pi pi-eye" (click)="viewLetter();"></button>
-    <button pButton pRipple label="Delete" icon="pi pi-trash"></button>
+    <button pButton pRipple  [disabled]="selectedLetter.length==0" label="View" icon="pi pi-eye" (click)="viewLetter();"></button>
+    
     <p-multiSelect [options]="letterTemplates" [(ngModel)]="multiselectedLetters" defaultLabel="Select a letter" 
     optionLabel="TemplateName" 
     optionValue = "TemplateID"  [maxSelectedLabels]="2" [selectedItemsLabel]="'{0} items selected'" >
@@ -27,11 +27,8 @@
 <!--(onNodeSelect)="nodeSelect($event)"-->
 
 
-<span *ngFor="let l of selectedLetter">
-    {{l.data.name}}
-</span>
-<p-treeTable [value]="files" [columns]="cols" selectionMode="checkbox" [(selection)]="selectedLetter"
-[contextMenu]="cm" [(contextMenuSelection)]="selectedNode" >
+
+<p-treeTable [value]="files" [columns]="cols" selectionMode="checkbox" [(selection)]="selectedLetter" >
 
     <ng-template pTemplate="caption">
         <div class="p-d-flex">
@@ -51,10 +48,10 @@
             <td *ngFor="let col of columns; let i = index">
                 <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
                 <p-treeTableCheckbox [value]="rowNode" *ngIf="i == 0"></p-treeTableCheckbox>
+            
                  {{rowData[col.field]}}
             </td>
         </tr>
     </ng-template>
 </p-treeTable>
 
-<p-contextMenu #cm [model]="items"></p-contextMenu>

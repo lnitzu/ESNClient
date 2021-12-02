@@ -48,6 +48,8 @@ export class PostofficeService {
   }
   
   viewLetter(list:number[]) :Observable<any>{
+
+    if (list.length==0) return null as any;
     const headers = new HttpHeaders()
     .set('content-type', 'application/json')
     
@@ -64,14 +66,9 @@ export class PostofficeService {
   
 
     
-    let params = new HttpParams().set('values', JSON.stringify(list))
+    //let params = new HttpParams().set('values', JSON.stringify(list))
     
 
-//    return this.http.post(this.ApiUrl + '/PostOffice/ViewLetters', {'headers': headers, 'params': params , 'responseType': blob});
-    //return this.http.post<any>(this.ApiUrl + '/PostOffice/ViewLetters' , JSON.stringify(list), { 'headers': headers, 'responseType':arraybuffer} });
-    //return this.http.get(this.ApiUrl+'/PostOffice/ViewLetter',{'headers': headers ,'params': params , responseType:'blob'});
-    
-    //return this.http.post(this.ApiUrl + '/PostOffice/', JSON.stringify(list), { 'headers': headers, responseType:'blob' });
     return this.http.post(this.ApiUrl + '/PostOffice/', JSON.stringify(list), {headers: headers, observe: "response",responseType: 'blob'});
 
   }

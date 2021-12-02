@@ -12,15 +12,10 @@ import { HttpResponse } from '@angular/common/http';
 export class PostofficeComponent implements OnInit {
 
   items: MenuItem[] = [];
-  //letters: any[] = [];
-  //letters: any[] = [];
-  //letters: any[] = [];
-  //letters: any[] = [];
+
   selectedLetter: TreeNode[] = [];
 
   multiselectedLetters: any[] = [];
-
-  //writtenLetters: any[] = [];
 
   letterTemplates: any[] = [];
 
@@ -98,18 +93,10 @@ export class PostofficeComponent implements OnInit {
     this.letterService.getLetterTemplates().subscribe(
       data => { this.letterTemplates = data; }
     );
-    /*
-    
-        this.items = [
-          { label: 'View letter', icon: 'pi pi-fw pi-search', command: () => this.viewLetter(this.selectedLetter) },
-          { label: 'Delete letter', icon: 'pi pi-fw pi-times', command: () => this.deleteLetter(this.selectedLetter) }
-        ];
-        */
+
 
     this.cols = [
-      { field: "name", header: "FullName", icon: "icon" }
-      //{ field: "size", header: "Size" },
-      //{ field: "type", header: "Type" }
+      { field: "name", header: "Applicant Name", icon: "icon" }
     ];
 
   }
