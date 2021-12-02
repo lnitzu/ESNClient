@@ -70,7 +70,9 @@ export class LetterComponent implements OnInit {
   }
 
 
-
+delete(){
+  
+}
   generate() {
 
     var responseJson = JSON.parse(JSON.stringify(this.selectedCandidates));

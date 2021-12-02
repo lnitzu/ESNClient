@@ -31,7 +31,7 @@ import { RatingModule } from 'primeng/rating';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { InputNumberModule } from 'primeng/inputnumber';
 import {CheckboxModule} from 'primeng/checkbox';
-
+import {ToggleButtonModule} from 'primeng/togglebutton';
 
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService } from 'primeng/api';
@@ -132,8 +132,8 @@ import { PostofficeComponent } from './postoffice/postoffice.component';
     PickListModule,
     FieldsetModule,
     BadgeModule,
-    TreeTableModule
-    
+    TreeTableModule,
+    ToggleButtonModule
     
   ],
   providers: [UserIdentityService, StudentService, MessageService],

@@ -8,14 +8,12 @@
         <div class="box" style="text-align: right; margin-right: 60px; margin-bottom: 0px;">
 
             <div style="float: left; margin-left: 60px;">
-                <div class="p-inputgroup">
-                    <span class="p-inputgroup-addon">
-                        <label style="font-size: large; font-weight: bolder; " for="binary">Overwrite existing letters: </label>
-                        &nbsp;
-                        <p-checkbox [(ngModel)]="overWrite" [binary]="true"   inputId="binary"></p-checkbox>         
-                    </span>
 
-                </div>
+
+                <p-toggleButton onLabel="Overwrite existing letters" offLabel="Do not overwrite existing letters"
+                onIcon="pi pi-check" offIcon="pi pi-times" [(ngModel)]="overWrite"></p-toggleButton>
+    
+
             </div>
 
 
@@ -34,6 +32,9 @@
             <button pButton type="button" label="Generate" [disabled]="selectedCandidates.length==0" 
             class="p-button-success" (click)="generate()"></button>
 
+            
+            <button pButton type="button" label="Delete" [disabled]="selectedCandidates.length==0" 
+            class="p-button-danger" (click)="delete()"></button>
         </div>
     </div>
 

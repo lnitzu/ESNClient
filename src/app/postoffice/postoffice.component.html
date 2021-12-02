@@ -2,8 +2,7 @@
 
 <p-toast></p-toast>
 
-<p-multiSelect [options]="letterTemplates" [(ngModel)]="multiselectedLetters" defaultLabel="Select a letter" optionLabel="TemplateName"
-optionValue = "TemplateID" display="chip" ></p-multiSelect>
+
 
 
 
@@ -11,39 +10,51 @@ optionValue = "TemplateID" display="chip" ></p-multiSelect>
 <button pButton type="button"  icon="pi pi-minus" (click)="collapseNodes(files)"></button>
 
 
+<span class="p-buttonset">
 
-<p-treeTable [value]="files" [columns]="cols"  dataKey="name" 
-[(contextMenuSelection)]="selectedNode" selectionMode="single"
-[(selection)]="selectedLetter" (onNodeSelect)="nodeSelect($event)"
-[contextMenu]="cm">
+
+    <button pButton pRipple  [disabled]="selectedLetter==undefined" label="View" icon="pi pi-eye" (click)="viewLetter();"></button>
+    <button pButton pRipple label="Delete" icon="pi pi-trash"></button>
+    <p-multiSelect [options]="letterTemplates" [(ngModel)]="multiselectedLetters" defaultLabel="Select a letter" 
+    optionLabel="TemplateName" 
+    optionValue = "TemplateID"  [maxSelectedLabels]="2" [selectedItemsLabel]="'{0} items selected'" >
+
+    </p-multiSelect>
     
     
+</span>
+
+<!--(onNodeSelect)="nodeSelect($event)"-->
+
+
+<span *ngFor="let l of selectedLetter">
+    {{l.data.name}}
+</span>
+<p-treeTable [value]="files" [columns]="cols" selectionMode="checkbox" [(selection)]="selectedLetter"
+[contextMenu]="cm" [(contextMenuSelection)]="selectedNode" >
+
+    <ng-template pTemplate="caption">
+        <div class="p-d-flex">
+            <p-treeTableHeaderCheckbox></p-treeTableHeaderCheckbox>
+            <span class="p-ml-2"> &nbsp; Toggle All</span>
+        </div>
+    </ng-template>
     <ng-template pTemplate="header" let-columns>
         <tr>
-            <th >
-                selected:  {{selectedLetter}}            
+            <th *ngFor="let col of columns">
+                {{col.header}}
             </th>
         </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns" >
-        <tr [ttContextMenuRow]="rowNode"  >
-            <td *ngFor="let col of columns; let i = index" [ngClass]="{'kb-cell': col.field === 'icon'}" >
-                <p-treeTableToggler  [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
-                
-                {{rowData[col.field]}}  
-                
+    <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+        <tr>
+            <td *ngFor="let col of columns; let i = index">
+                <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
+                <p-treeTableCheckbox [value]="rowNode" *ngIf="i == 0"></p-treeTableCheckbox>
+                 {{rowData[col.field]}}
             </td>
         </tr>
     </ng-template>
-
-
-    <ng-template pTemplate="emptymessage" let-columns>
-        <tr>
-            <td [attr.colspan]="columns.length">
-                No records found
-            </td>
-        </tr>
-    </ng-template> 
 </p-treeTable>
 
 <p-contextMenu #cm [model]="items"></p-contextMenu>

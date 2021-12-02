@@ -94,4 +94,5 @@ export class DataService {
       
       return this.http.get(this.ApiUrl+'/Data/Export2Excel',{'headers': headers , responseType:'blob'});
   }
+  
 }

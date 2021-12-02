@@ -34,48 +34,48 @@ export class SettingsComponent implements OnInit {
   ready: boolean = true;
   postings: TreeNode[] = [];
   user: any;
-  checked: boolean=true;
-  resetDialog: boolean=false;
+  checked: boolean = true;
+  resetDialog: boolean = false;
   file: any = [];
-/*
-  showConfirm() {
-    this.messageService.clear();
-    this.messageService.add({ key: 'c', sticky: true, severity: 'warn', summary: 'Are you sure?', detail: 'This will reset all data!'});
-  }
-  onConfirm() {
-    this.archiveCurrentSet();
-    this.messageService.clear('c');
-  }
-  onReject() {
-    this.messageService.clear('c');
-  }
-*/
+  /*
+    showConfirm() {
+      this.messageService.clear();
+      this.messageService.add({ key: 'c', sticky: true, severity: 'warn', summary: 'Are you sure?', detail: 'This will reset all data!'});
+    }
+    onConfirm() {
+      this.archiveCurrentSet();
+      this.messageService.clear('c');
+    }
+    onReject() {
+      this.messageService.clear('c');
+    }
+  */
 
-hideDialog() {
-  this.resetDialog = false;
-  
-}
+  hideDialog() {
+    this.resetDialog = false;
 
-reset(){
-  this.resetDialog=true;
-}
+  }
+
+  reset() {
+    this.resetDialog = true;
+  }
 
 
   resetData() {
-    if (this.checked==true)    {
+    if (this.checked == true) {
       this.export2Excel();
       //generate the  letters and archive them in a zip
     }
-    this.resetDialog=false;
+    this.resetDialog = false;
     this.datafeed.archiveIntake(this.user.Username).toPromise().then
-    (
-      data => {
+      (
+        data => {
 
-        this.postings = <TreeNode[]>data.postTree;
-      }
-    ).catch(
+          this.postings = <TreeNode[]>data.postTree;
+        }
+      ).catch(
 
-    );
+      );
   }
 
 
@@ -124,7 +124,7 @@ reset(){
 
     this.datafeed.downloadLink().subscribe(
       (resp: HttpResponse<Blob>) => {
-       // console.log(resp.headers.get('content-disposition'));
+        // console.log(resp.headers.get('content-disposition'));
         let x = resp.headers.get('content-disposition');
         if (x === null) return;
 

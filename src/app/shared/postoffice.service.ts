@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
@@ -32,4 +32,49 @@ export class PostofficeService {
  
 
   }
+
+
+
+
+  downloadLink(list: number[]): Observable<HttpResponse<Blob>> {
+
+    
+
+    return this.http.get<Blob>(this.ApiUrl+'/PostOffice/ViewLetters', {
+      observe: 'response',
+      responseType: 'blob' as 'json'
+    });
+    
+  }
+  
+  viewLetter(list:number[]) :Observable<any>{
+    const headers = new HttpHeaders()
+    .set('content-type', 'application/json')
+    
+    .set('Access-Control-Allow-Origin', '*')
+    .set('Access-Control-Expose-Headers','*')
+    .set('Access-Control-Allow-Methods', "*");
+
+
+    const options = {
+      headers: headers,
+      observe: "response" as 'body', // to display the full response & as 'body' for type cast
+      responseType: "json"
+  };
+  
+
+    
+    let params = new HttpParams().set('values', JSON.stringify(list))
+    
+
+//    return this.http.post(this.ApiUrl + '/PostOffice/ViewLetters', {'headers': headers, 'params': params , 'responseType': blob});
+    //return this.http.post<any>(this.ApiUrl + '/PostOffice/ViewLetters' , JSON.stringify(list), { 'headers': headers, 'responseType':arraybuffer} });
+    //return this.http.get(this.ApiUrl+'/PostOffice/ViewLetter',{'headers': headers ,'params': params , responseType:'blob'});
+    
+    //return this.http.post(this.ApiUrl + '/PostOffice/', JSON.stringify(list), { 'headers': headers, responseType:'blob' });
+    return this.http.post(this.ApiUrl + '/PostOffice/', JSON.stringify(list), {headers: headers, observe: "response",responseType: 'blob'});
+
+  }
+
+
 }
