@@ -6,19 +6,20 @@
 
 
 
-<button style="margin-left: 20px" pButton type="button"  icon="pi pi-plus" (click)="expandNodes(files)"></button>
-<button pButton type="button"  icon="pi pi-minus" (click)="collapseNodes(files)"></button>
+<button style="margin-left: 20px" pButton type="button"  icon="pi pi-chevron-down" (click)="expandNodes(files)"></button>
+<button pButton type="button"  icon="pi pi-chevron-right" (click)="collapseNodes(files)"></button>
 
 
 <span class="p-buttonset" style="display: block;float:right; margin-right: 20px;">
  
 
-    <button pButton pRipple  [disabled]="selectedLetter.length==0" label="View" icon="pi pi-eye" (click)="viewLetter();"></button>
+    <button pButton pRipple  [disabled]="selectedLetter.length==0" label="View/Print" icon="pi pi-eye" (click)="viewLetter();"></button>
     
     <p-multiSelect [options]="letterTemplates" [(ngModel)]="multiselectedLetters" defaultLabel="Select a letter" 
-    optionLabel="TemplateName" 
-    optionValue = "TemplateID"  [maxSelectedLabels]="2" [selectedItemsLabel]="'{0} items selected'" >
-
+    optionLabel="TemplateName" [style]="{'min-width':'300px'}"
+    optionValue = "TemplateID"  [maxSelectedLabels]="2" [selectedItemsLabel]="'{0} items selected'"
+     >
+    
     </p-multiSelect>
     
     
@@ -28,17 +29,23 @@
 
 
 
-<p-treeTable [value]="files" [columns]="cols" selectionMode="checkbox" [(selection)]="selectedLetter" >
+<p-treeTable #tt [value]="files" [columns]="cols" selectionMode="checkbox" [(selection)]="selectedLetter"  >
 
     <ng-template pTemplate="caption">
         <div class="p-d-flex">
             <p-treeTableHeaderCheckbox></p-treeTableHeaderCheckbox>
             <span class="p-ml-2"> &nbsp; Toggle All</span>
         </div>
+        <div style="text-align: right">        
+            <i class="pi pi-search" style="margin:4px 4px 0 0"></i>
+            <input type="text" pInputText size="50" placeholder="Global Filter" (input)="tt.filterGlobal($any($event.target).value, 'contains')" style="width:auto">
+        </div>
+
     </ng-template>
     <ng-template pTemplate="header" let-columns>
         <tr>
-            <th *ngFor="let col of columns">
+            <th *ngFor="let col of columns" >
+                              
                 {{col.header}}
             </th>
         </tr>
@@ -53,5 +60,10 @@
             </td>
         </tr>
     </ng-template>
+    <ng-template pTemplate="emptymessage">
+        <tr>        
+            <td [attr.colspan]="cols.length">No data found.</td>
+        </tr>
+    </ng-template>    
 </p-treeTable>
 

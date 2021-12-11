@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MenuItem, TreeNode } from 'primeng/api';
 import { PostofficeService } from '../shared/postoffice.service';
 import { LetterService } from '../shared/letter.service';
@@ -10,6 +10,9 @@ import { HttpResponse } from '@angular/common/http';
   styleUrls: ['./postoffice.component.css']
 })
 export class PostofficeComponent implements OnInit {
+
+
+  @ViewChild('tt',{read: '',static:true}) dt: any;
 
   items: MenuItem[] = [];
 
@@ -100,6 +103,7 @@ export class PostofficeComponent implements OnInit {
     ];
 
   }
+
 
 
   expandNodes(nodes: any) {
