@@ -4,6 +4,7 @@ import { PostofficeService } from '../shared/postoffice.service';
 import { LetterService } from '../shared/letter.service';
 import { Tree } from 'primeng/tree';
 import { HttpResponse } from '@angular/common/http';
+
 @Component({
   selector: 'app-postoffice',
   templateUrl: './postoffice.component.html',
@@ -31,6 +32,10 @@ export class PostofficeComponent implements OnInit {
 
   constructor(private poService: PostofficeService, private letterService: LetterService) { }
 
+//doChange(event:any)
+//{
+//  alert(event);//
+//}
 
 
   nodeSelect(event: any) {

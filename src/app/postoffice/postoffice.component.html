@@ -5,26 +5,6 @@
 
 
 
-
-<button style="margin-left: 20px" pButton type="button"  icon="pi pi-chevron-down" (click)="expandNodes(files)"></button>
-<button pButton type="button"  icon="pi pi-chevron-right" (click)="collapseNodes(files)"></button>
-
-
-<span class="p-buttonset" style="display: block;float:right; margin-right: 20px;">
- 
-
-    <button pButton pRipple  [disabled]="selectedLetter.length==0" label="View/Print" icon="pi pi-eye" (click)="viewLetter();"></button>
-    
-    <p-multiSelect [options]="letterTemplates" [(ngModel)]="multiselectedLetters" defaultLabel="Select a letter" 
-    optionLabel="TemplateName" [style]="{'min-width':'300px'}"
-    optionValue = "TemplateID"  [maxSelectedLabels]="2" [selectedItemsLabel]="'{0} items selected'"
-     >
-    
-    </p-multiSelect>
-    
-    
-</span>
-
 <!--(onNodeSelect)="nodeSelect($event)"-->
 
 
@@ -32,13 +12,43 @@
 <p-treeTable #tt [value]="files" [columns]="cols" selectionMode="checkbox" [(selection)]="selectedLetter"  >
 
     <ng-template pTemplate="caption">
-        <div class="p-d-flex">
-            <p-treeTableHeaderCheckbox></p-treeTableHeaderCheckbox>
-            <span class="p-ml-2"> &nbsp; Toggle All</span>
-        </div>
-        <div style="text-align: right">        
-            <i class="pi pi-search" style="margin:4px 4px 0 0"></i>
-            <input type="text" pInputText size="50" placeholder="Global Filter" (input)="tt.filterGlobal($any($event.target).value, 'contains')" style="width:auto">
+        
+        
+
+
+        <div class="p-inputgroup">
+            <span class="p-inputgroup-addon"> 
+                <button style="margin-left: 20px" pButton type="button"  icon="pi pi-chevron-down" (click)="expandNodes(files)"></button>
+                <button pButton type="button"  icon="pi pi-chevron-right" (click)="collapseNodes(files)"></button>
+                
+
+            </span>
+            <span class="p-inputgroup-addon"><p-treeTableHeaderCheckbox></p-treeTableHeaderCheckbox>&nbsp; Toggle All</span>
+            
+        
+            <div class="p-inputgroup-addon" >        
+                <i class="pi pi-search" style="margin:4px 4px 0 0"></i>
+                <input type="text" pInputText size="50" placeholder="Global Filter" (input)="tt.filterGlobal($any($event.target).value, 'contains')" style="width:auto">
+            </div>
+
+            <div class="p-inputgroup-addon">
+
+
+                <span class="p-buttonset" style=" margin-right: 20px;">
+ 
+
+                    <button pButton pRipple  [disabled]="selectedLetter.length==0" label="View/Print" icon="pi pi-eye" (click)="viewLetter();"></button>
+                    
+                    <p-multiSelect [options]="letterTemplates" [(ngModel)]="multiselectedLetters" defaultLabel="Select a letter" 
+                    optionLabel="TemplateName" [style]="{'min-width':'300px'}" 
+                    optionValue = "TemplateID"  [maxSelectedLabels]="2" [selectedItemsLabel]="'{0} items selected'" >
+                    
+                    </p-multiSelect>
+                    
+                    
+                </span>                
+            </div>
+            
         </div>
 
     </ng-template>
