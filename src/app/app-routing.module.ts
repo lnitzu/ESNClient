@@ -5,6 +5,8 @@ import { StudentComponent } from './student/student.component';
 import { SettingsComponent } from './settings/settings.component';
 import { LetterComponent } from './letter/letter.component';
 import { PostofficeComponent } from './postoffice/postoffice.component';
+import { SchoolComponent } from './school/school.component';
+import { NurseComponent } from './nurse/nurse.component';
 
 const routes: Routes = [
   
@@ -12,8 +14,9 @@ const routes: Routes = [
   {path:'crtlist', component:StudentComponent},
   {path:'letter', component:LetterComponent},
   {path:'settings', component:SettingsComponent},
-  {path:'postoffice', component:PostofficeComponent}
-
+  {path:'postoffice', component:PostofficeComponent},
+  {path:'schools', component:SchoolComponent},
+  {path:'nurses', component:NurseComponent}
 ];
 
 @NgModule({

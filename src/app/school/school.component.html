@@ -1,0 +1,88 @@
+
+<p-toast></p-toast>
+
+<div class="card">
+    <p-toolbar styleClass="p-mb-4">
+        <ng-template pTemplate="right">
+            <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success p-mr-2" (click)="openNew()"></button>
+            <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedSchools()" [disabled]="!selectedSchools || !selectedSchools.length"></button>
+        </ng-template>
+
+    </p-toolbar>
+
+    <p-table #dt [value]="schools" [rows]="10" [paginator]="true" [globalFilterFields]="['SchoolName','Address']" responsiveLayout="scroll"
+        [(selection)]="selectedSchools" [rowHover]="true" dataKey="id"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
+        <ng-template pTemplate="caption">
+            <div class="p-d-flex p-ai-center p-jc-between">
+                <h5 class="p-m-0">Manage Schools</h5>
+                <span class="p-input-icon-left">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" (input)="dt.filterGlobal($any($event.target).value, 'contains')" placeholder="Search..." />
+                </span>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width: 3rem">
+                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                </th>
+                <th pSortableColumn="name">Name <p-sortIcon field="SchoolName"></p-sortIcon></th>
+                
+                <th pSortableColumn="Address">Address <p-sortIcon field="Address"></p-sortIcon></th>
+                <th pSortableColumn="City">City <p-sortIcon field="City"></p-sortIcon></th>
+                <th pSortableColumn="PostalCode">Postal Code <p-sortIcon field="PostalCode"></p-sortIcon></th>
+                <th pSortableColumn="PrimaryEmail">Primary Email <p-sortIcon field="PrimaryEmail"></p-sortIcon></th>
+                <th pSortableColumn="SecondaryEmail">Secondary Email <p-sortIcon field="SecondaryEmail"></p-sortIcon></th>
+                <th></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-school>
+            <tr>
+                <td>
+                    <p-tableCheckbox [value]="school"></p-tableCheckbox>
+                </td>
+                <td>{{school.SchoolName}}</td>
+                <td>{{school.Address}}</td>
+                <td>{{school.City}}</td>
+                <td>{{school.PostalCode}}</td>
+                <td>{{school.PrimaryEmail}}</td>
+                <td>{{school.SecondaryEmail}}</td>
+                <td>
+                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2" (click)="editSchool(school)"></button>
+                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger" (click)="deleteSchool(school)"></button>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+            <div class="p-d-flex p-ai-center p-jc-between">
+                In total there are {{schools ? schools.length : 0 }} schools.
+            </div>
+        </ng-template>
+    </p-table>
+</div>
+
+<p-dialog [(visible)]="schoolDialog" [style]="{width: '450px'}" header="School Details" [modal]="true" styleClass="p-fluid">
+    <ng-template pTemplate="content">
+        
+        <div class="p-field">
+            <label for="name">Name</label>
+            <input type="text" pInputText id="name" [(ngModel)]="school.SchoolName" required autofocus />
+            <small class="p-error" *ngIf="submitted && !school.SchoolName">Name is required.</small>
+        </div>
+        <div class="p-field">
+            <label for="address">Adddress</label>
+            <textarea id="address" pInputTextarea [(ngModel)]="school.Address" required rows="3" cols="20"></textarea>
+        </div>
+
+
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+        <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveSchool()"></button>
+    </ng-template>
+</p-dialog>
+
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+

@@ -19,18 +19,17 @@
         <div class="p-inputgroup">
             <span class="p-inputgroup-addon"> 
                 <button style="margin-left: 20px" pButton type="button"  icon="pi pi-chevron-down" (click)="expandNodes(files)"></button>
-                <button pButton type="button"  icon="pi pi-chevron-right" (click)="collapseNodes(files)"></button>
-                
-
-            </span>
+                <button pButton type="button"  icon="pi pi-chevron-up" (click)="collapseNodes(files)"></button>
+           </span>
+           <span>&nbsp;</span>
             <span class="p-inputgroup-addon"><p-treeTableHeaderCheckbox></p-treeTableHeaderCheckbox>&nbsp; Toggle All</span>
             
-        
+            <span>&nbsp;</span>
             <div class="p-inputgroup-addon" >        
                 <i class="pi pi-search" style="margin:4px 4px 0 0"></i>
-                <input type="text" pInputText size="50" placeholder="Global Filter" (input)="tt.filterGlobal($any($event.target).value, 'contains')" style="width:auto">
+                <input type="text" pInputText size="50" placeholder="Filter letler" (input)="tt.filterGlobal($any($event.target).value, 'contains')" style="width:auto">
             </div>
-
+            <span>&nbsp;</span>
             <div class="p-inputgroup-addon">
 
 
@@ -38,13 +37,9 @@
  
 
                     <button pButton pRipple  [disabled]="selectedLetter.length==0" label="View/Print" icon="pi pi-eye" (click)="viewLetter();"></button>
-                    
-                    <p-multiSelect [options]="letterTemplates" [(ngModel)]="multiselectedLetters" defaultLabel="Select a letter" 
-                    optionLabel="TemplateName" [style]="{'min-width':'300px'}" 
-                    optionValue = "TemplateID"  [maxSelectedLabels]="2" [selectedItemsLabel]="'{0} items selected'" >
-                    
-                    </p-multiSelect>
-                    
+                    <span>&nbsp;</span>
+                    <button pButton pRipple  [disabled]="selectedLetter.length==0" label="Email" icon="pi pi-envelope" (click)="viewLetter();"></button>
+              
                     
                 </span>                
             </div>

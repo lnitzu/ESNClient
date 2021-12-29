@@ -23,7 +23,7 @@ export class AppComponent {
 
     this.items = [
       { label: 'Current list', icon: 'pi pi-fw pi-folder-open', routerLink: ['/crtlist'], queryParams: { 'recent': 'true' } },
-      { label: 'Letters', icon: 'pi pi-fw pi-file', routerLink: ['/letter'] },
+      { label: 'Studio', icon: 'pi pi-fw pi-file', routerLink: ['/letter'] },
       { label: 'Post office', icon: 'pi pi-fw pi-envelope', routerLink: ['/postoffice'] },
 
       {
