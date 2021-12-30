@@ -25,7 +25,9 @@ export class SchoolComponent implements OnInit {
     private messageService: MessageService,
     private fb: FormBuilder,
     private lookupService: LookupService) { 
-
+      this.schoolForm = this.fb.group({
+        postalcode: ['', Validators.required ]
+        });
     }
 
   ngOnInit(): void {
@@ -109,7 +111,16 @@ export class SchoolComponent implements OnInit {
 
   saveSchool() {
     this.submitted = true;
-    if (this.school.SchoolName.trim()) {
+
+  if (this.submitted && ( !this.school.PostalCode || !this.school.City || !this.school.SchoolName
+    || !this.school.PrimaryEmail || !this.school.SecondaryEmail || !this.school.ContactPerson)
+    )
+  {
+    return;
+  }
+
+
+    if ( this.school.SchoolName.trim()) {
      
         this.schools[this.findIndexById(this.school.ID)] = this.school;
         this.lookupService.updateSchool(this.school).subscribe(
@@ -134,7 +145,9 @@ export class SchoolComponent implements OnInit {
     }
   }
 
-
+isEmptyObject(obj:any) {
+    return !Object.keys(obj).length;
+}
 
 
   findIndexById(id: string): number {
