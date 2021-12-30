@@ -3,136 +3,150 @@ import { ConfirmationService, PrimeTemplate, SelectItem } from 'primeng/api';
 import { Message, MessageService } from 'primeng/api';
 import { LookupService } from '../shared/lookup.service';
 
+
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+
+
 @Component({
   selector: 'app-school',
   templateUrl: './school.component.html',
   styleUrls: ['./school.component.css'],
-  providers: [MessageService, ConfirmationService, LookupService] 
+  providers: [MessageService, ConfirmationService, LookupService]
 })
 
 
 export class SchoolComponent implements OnInit {
 
+
+  schoolForm!: FormGroup;
+
   constructor(
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
-    
-    private lookupService: LookupService) { }
+    private fb: FormBuilder,
+    private lookupService: LookupService) { 
+
+    }
 
   ngOnInit(): void {
     this.lookupService.getLookupValues().subscribe(data => {
       [data].map((name) => {
-        
         this.schools = JSON.parse(JSON.stringify(name)).school;
-        this.schools.push({ID:null, SchoolName:''})
-
-        
       })
-    });    
+    });
+  
+
+
+
+    this.schoolForm = this.fb.group({
+      postalcode: ['', Validators.required]
+     });
+
   }
 
 
-  schoolDialog: boolean = false;
-  schools: any[]=[];
-  school: any='';
-  selectedSchools: any[]=[];
-  submitted: boolean=false;
 
- 
+  schoolDialog: boolean = false;
+  schools: any[] = [];
+  school: any = '';
+  selectedSchools: any[] = [];
+  submitted: boolean = false;
+  message: any = '';
+
+  
+
   openNew() {
     this.school = {};
     this.submitted = false;
     this.schoolDialog = true;
-}
+  }
+
+  editSchool(school: any) {
+    this.school = { ...school };
+    this.schoolDialog = true;
+
+  }
 
 
 
-deleteSelectedSchools() {
-  this.confirmationService.confirm({
-      message: 'Are you sure you want to delete the selected products?',
+  deleteSchool(school: any) {
+    this.school = { ...school };
+
+    this.confirmationService.confirm({
+      message: 'Are you sure you want to delete ' + this.school.SchoolName + '?',
       header: 'Confirm',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-          this.schools = this.schools.filter(val => !this.selectedSchools.includes(val));
-          this.selectedSchools = [];
-          this.messageService.add({severity:'success', summary: 'Successful', detail: 'Products Deleted', life: 3000});
+        
+        
+        this.lookupService.deleteSchool(this.school).subscribe(
+
+          (data) => {
+            this.message = data,
+              this.messageService.add({ severity: 'success', summary: 'Successful', detail: this.message, life: 4000 });
+
+            this.lookupService.getLookupValues().subscribe(data => {
+              [data].map((name) => {
+                this.schools = JSON.parse(JSON.stringify(name)).school;
+              })
+            });
+          },
+          (err) => {
+            this.message = err.error;
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: this.message.Message, life: 4000 });
+          });        
+ 
       }
-  });
-}
-
-editSchool(product: any) {
-  this.school = {...product};
-  this.schoolDialog = true;
-}
+    });
+  }
 
 
-
-deleteSchool(product: any) {
-  this.confirmationService.confirm({
-      message: 'Are you sure you want to delete ' + product.name + '?',
-      header: 'Confirm',
-      icon: 'pi pi-exclamation-triangle',
-      accept: () => {
-          this.schools = this.schools.filter(val => val.id !== this.school.id);
-          this.school = {};
-          this.messageService.add({severity:'success', summary: 'Successful', detail: 'Product Deleted', life: 3000});
-      }
-  });
-}
+  hideDialog() {
+    this.schoolDialog = false;
+    this.submitted = false;
+  }
 
 
-hideDialog() {
-  this.schoolDialog = false;
-  this.submitted = false;
-}
+  saveSchool() {
+    this.submitted = true;
+    if (this.school.SchoolName.trim()) {
+     
+        this.schools[this.findIndexById(this.school.ID)] = this.school;
+        this.lookupService.updateSchool(this.school).subscribe(
+          (data) => {
+            this.message = data,
+              this.messageService.add({ severity: 'success', summary: 'Successful', detail: this.message, life: 4000 });
 
-
-saveSchool() {
-  this.submitted = true;
-
-  if (this.school.SchoolName.trim()) {
-      if (this.school.ID) {
-          this.schools[this.findIndexById(this.school.ID)] = this.school;                
-          this.messageService.add({severity:'success', summary: 'Successful', detail: 'Product Updated', life: 3000});
-      }
-      else {
-          this.school.id = this.createId();
-          
-          this.schools.push(this.school);
-          this.messageService.add({severity:'success', summary: 'Successful', detail: 'Product Created', life: 3000});
-      }
-
+            this.lookupService.getLookupValues().subscribe(data => {
+              [data].map((name) => {
+                this.schools = JSON.parse(JSON.stringify(name)).school;
+              })
+            });
+          },
+          (err) => {
+            this.message = err.error;
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: this.message.Message, life: 4000 });
+          });
+      
       this.schools = [...this.schools];
       this.schoolDialog = false;
       this.school = {};
+    }
   }
-}
 
 
 
 
-findIndexById(id: string): number {
-  let index = -1;
-  for (let i = 0; i < this.schools.length; i++) {
+  findIndexById(id: string): number {
+    let index = -1;
+    for (let i = 0; i < this.schools.length; i++) {
       if (this.schools[i].id === id) {
-          index = i;
-          break;
+        index = i;
+        break;
       }
+    }
+
+    return index;
   }
-
-  return index;
-}
-
-createId(): string {
-  let id = '';
-  var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  for ( var i = 0; i < 5; i++ ) {
-      id += chars.charAt(Math.floor(Math.random() * chars.length));
-  }
-  return id;
-}
-
-
-
 
 }

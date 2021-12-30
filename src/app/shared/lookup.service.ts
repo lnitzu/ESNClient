@@ -20,19 +20,37 @@ export class LookupService {
 
 
   constructor(private http: HttpClient) { }
-
-
     getLookupValues(): Observable<any[]>{
-  
     return this.http.get<any>(this.ApiUrl+"/Lookup");
-
-
-    /*
-    An Observable is basically a function that can return a stream 
-    of values to an observer over time, this can either be synchronously 
-    or asynchronously. 
-    The data values returned can go from zero to an infinite range of values.
-    */
-    
   }
+
+
+
+  updateSchool(val: any)  {
+   
+    const headers= new HttpHeaders()
+    .set('content-type', 'application/json')
+    .set('Access-Control-Allow-Origin', '*');
+    return this.http.put(this.ApiUrl +'/Lookup/UpdateSchool', val,{ 'headers': headers  });
+  }
+
+
+  deleteSchool(val:any){
+ 
+
+    const options = {
+      headers: new HttpHeaders(
+        {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*' 
+      }),
+      body: { school: val }
+    };
+    return this.http.delete(this.ApiUrl +'/Lookup/DeleteSchool/'+ val.ID, options);
+    
+
+  }
+
+
+
 }

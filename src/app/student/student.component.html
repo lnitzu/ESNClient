@@ -57,10 +57,15 @@
             </ng-container>
 
             <td>
-                <button class="fa fa-pencil" style="color: blue; border:0;" (click)="editStudent(row)"></button>
+                
 
-                &nbsp;
-                <button class="fa fa-trash" style="color: red; border:0 ;" (click)="deleteStudent(row)"></button>
+
+                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-raised p-button-success p-mr-2" (click)="editStudent(row)"></button>
+                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger p-button-raised" (click)="deleteStudent(row)"></button>
+
+
+                
+                
 
 
             </td>

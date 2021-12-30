@@ -29,9 +29,7 @@ export class StudentService {
   }
 
   deleteStudent(val:any){
-    const headers= new HttpHeaders()
-    .set('content-type', 'application/json')
-    .set('Access-Control-Allow-Origin', '*');
+
 
     const options = {
       headers: new HttpHeaders(
