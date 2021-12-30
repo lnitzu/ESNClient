@@ -38,12 +38,6 @@ export class SchoolComponent implements OnInit {
     });
   
 
-
-
-    this.schoolForm = this.fb.group({
-      postalcode: ['', Validators.required]
-     });
-
   }
 
 

@@ -51,6 +51,27 @@ export class LookupService {
 
   }
 
+  updateNurse(val: any)  {
+   
+    const headers= new HttpHeaders()
+    .set('content-type', 'application/json')
+    .set('Access-Control-Allow-Origin', '*');
+    return this.http.put(this.ApiUrl +'/Lookup/UpdateNurse', val,{ 'headers': headers  });
+  }
 
+  deleteNurse(val:any){
+ 
 
+    const options = {
+      headers: new HttpHeaders(
+        {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*' 
+      }),
+      body: { school: val }
+    };
+    return this.http.delete(this.ApiUrl +'/Lookup/DeleteNurse/'+ val.ID, options);
+    
+
+  }
 }

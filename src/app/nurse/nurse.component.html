@@ -1,1 +1,98 @@
-<p>nurse works!</p>
+<p-toast></p-toast>
+
+<div class="card">
+
+
+    <p-table #dt [value]="nurses" [rows]="10" [paginator]="true" [globalFilterFields]="['NurseTypeName']"
+        responsiveLayout="scroll" [paginator]="true" [rowsPerPageOptions]="[10,25,50]" [scrollable]="true"
+        scrollHeight="60vh" [(selection)]="selectedNurses" [rowHover]="true" dataKey="id"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true"
+        sortField="NurseTypeName" >
+        <ng-template pTemplate="caption" >
+            <div class="p-d-flex p-ai-center p-jc-between">
+
+                <div class="p-inputgroup">
+
+
+
+                    <span class="p-inputgroup-addon" style="color:green; font-size: 26px; font-family:'Alumni Sans', -apple-system, 
+                    BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;">
+                        Manage Nurse Types
+                    </span>
+                    <span class="p-inputgroup-addon p-input-icon-right">
+                        <i class="pi pi-search" style="margin-right: 10px;"></i>
+                        <input style="width: 100%;" pInputText type="text"
+                            (input)="dt.filterGlobal($any($event.target).value, 'contains')"
+                            placeholder="Search nurse types..." />
+
+
+                    </span>
+                    <span class="p-inputgroup-addon">
+                        <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success p-mr-2"
+                            (click)="openNew()"></button>
+                    </span>
+                </div>
+
+
+            </div>
+            
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+
+                <th pSortableColumn="NurseTypeName">Name <p-sortIcon field="NurseTypeName"></p-sortIcon>
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-nurse>
+            <tr>
+
+
+                <td>{{nurse.NurseTypeName}}</td>
+                <td>
+                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-raised p-button-success p-mr-1"
+                        (click)="editNurse(nurse)"></button>
+                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger p-button-raised"
+                        (click)="deleteNurse(nurse)"></button>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+            <div class="p-d-flex p-ai-center p-jc-between" style="font-weight: bold;">
+                {{nurses ? nurses.length : 0 }} nurse types.
+            </div>
+        </ng-template>
+    </p-table>
+</div>
+
+<p-dialog [(visible)]="nurseDialog" [style]="{width: '500px'}" header="Nurse Details" [modal]="true"
+    styleClass="p-fluid" >
+
+
+    
+    <ng-template pTemplate="content">
+        
+
+
+
+            <div class="p-field">
+                <label for="name">Nurse type</label>
+                <input type="text" pInputText id="name" [(ngModel)]="nurse.NurseTypeName" required autofocus />
+            </div>
+            <small class="p-error" *ngIf="submitted && !nurse.NurseTypeName">School name is required.</small>
+
+
+
+        
+
+    </ng-template>
+
+
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+        <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveNurse()"></button>
+    </ng-template>
+
+</p-dialog>
+
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
