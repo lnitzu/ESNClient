@@ -1,4 +1,4 @@
-import { Component, Injectable, OnInit,Input } from '@angular/core';
+import { Component, Injectable, OnInit, Input } from '@angular/core';
 
 
 import { StudentService } from '../shared/student.service';
@@ -32,7 +32,7 @@ import { ISchool } from '../ischool';
 
 
 export class StudentComponent implements OnInit {
- 
+
 
 
   students: any[] = [];
@@ -47,13 +47,13 @@ export class StudentComponent implements OnInit {
   cols: any[] = [];
   first: number = 0;
 
+  maxHours: number = 0;
+
+  message: any = '';
 
 
-  message:any='';
- 
-
-  leftLimit(): number { return Math.floor(this.cols.length / 2) +1;}
-  rightLimit(): number { return Math.floor(this.cols.length / 2);}
+  leftLimit(): number { return Math.floor(this.cols.length / 2) + 1; }
+  rightLimit(): number { return Math.floor(this.cols.length / 2); }
 
 
 
@@ -69,27 +69,26 @@ export class StudentComponent implements OnInit {
 
   }
 
- 
+
 
   ngOnInit(): void {
 
-    this.service.getStudentList().subscribe( data => 
+    this.service.getStudentList().subscribe(data => {
+      this.students = data;
       
-      {   
-        this.students = data;  
-      }      
+    }
 
 
-      )   ;
+    );
     this.lookupService.getLookupValues().subscribe(data => {
       [data].map((name) => {
-        
+
         this.nurses = JSON.parse(JSON.stringify(name)).nurse;
-        this.nurses.push({ID:null, NurseTyeName:''});
+        this.nurses.push({ ID: null, NurseTyeName: '' });
         this.schools = JSON.parse(JSON.stringify(name)).school;
-        this.schools.push({ID:null, SchoolName:''})
+        this.schools.push({ ID: null, SchoolName: '' })
         //console.log(this.schools);
-        
+
       })
     });
 
@@ -143,8 +142,8 @@ export class StudentComponent implements OnInit {
     this.primengConfig.ripple = true;
 
 
-  
-  
+
+
   }
 
   hideDialog() {
@@ -154,15 +153,15 @@ export class StudentComponent implements OnInit {
 
   editStudent(_student: any) {
     this.student = { ..._student };
-    
+
     //calendar control needs proper date
-    if (this.student.HireStartDate!=null) this.student.HireStartDate = new Date(this.student.HireStartDate);
-    if (this.student.FundingDate!=null) this.student.FundingDate = new Date(this.student.FundingDate);
-    if (this.student.PostingDate!=null) this.student.PostingDate = new Date(this.student.PostingDate);
-    if (this.student.AppliedDate!=null) this.student.AppliedDate = new Date(this.student.AppliedDate);
-    if (this.student.HiringFairDate!=null) this.student.HiringFairDate = new Date(this.student.HiringFairDate);
-    
-    
+    if (this.student.HireStartDate != null) this.student.HireStartDate = new Date(this.student.HireStartDate);
+    if (this.student.FundingDate != null) this.student.FundingDate = new Date(this.student.FundingDate);
+    if (this.student.PostingDate != null) this.student.PostingDate = new Date(this.student.PostingDate);
+    if (this.student.AppliedDate != null) this.student.AppliedDate = new Date(this.student.AppliedDate);
+    if (this.student.HiringFairDate != null) this.student.HiringFairDate = new Date(this.student.HiringFairDate);
+
+    this.doMaxHours();
     this.studentDialog = true;
   }
 
@@ -182,30 +181,30 @@ export class StudentComponent implements OnInit {
         //this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Created', life: 3000 });
       }
 
-      
+
 
       //save
-      this.service.updateStudent(this.student).subscribe( 
-        
-        (data)=>{
-        this.message= data,
-        this.messageService.add({ severity: 'success', summary: 'Successful', detail: this.message, life: 4000 });
-        this.students = [...this.students];
-      },
-      (err)=>{
-        this.message= err.error;
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: this.message.Message, life: 4000 });
-      });
-      
+      this.service.updateStudent(this.student).subscribe(
+
+        (data) => {
+          this.message = data,
+            this.messageService.add({ severity: 'success', summary: 'Successful', detail: this.message, life: 4000 });
+          this.students = [...this.students];
+        },
+        (err) => {
+          this.message = err.error;
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: this.message.Message, life: 4000 });
+        });
+
       this.studentDialog = false;
       this.student = {};
 
-      
+
 
     }
   }
 
-  
+
   deleteStudent(_student: any) {
 
     this.confirmationService.confirm({
@@ -213,21 +212,21 @@ export class StudentComponent implements OnInit {
       header: 'Confirm student delete',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-        
 
-        this.service.deleteStudent(_student).subscribe( 
-        
-          (data)=>{
-          this.message= data,
-          this.messageService.add({ severity: 'success', summary: 'Successful', detail: this.message, life: 4000 });
-          this.students = this.students.filter(val => val.ApplicantID !== _student.ApplicantID);
-        },
-        (err)=>{
-          this.message= err.error;
-          this.messageService.add({ severity: 'error', summary: 'Error', detail: this.message.Message, life: 4000 });
-        });
 
-      
+        this.service.deleteStudent(_student).subscribe(
+
+          (data) => {
+            this.message = data,
+              this.messageService.add({ severity: 'success', summary: 'Successful', detail: this.message, life: 4000 });
+            this.students = this.students.filter(val => val.ApplicantID !== _student.ApplicantID);
+          },
+          (err) => {
+            this.message = err.error;
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: this.message.Message, life: 4000 });
+          });
+
+
 
         //this.student = {};
         //this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Student Deleted', life: 4000 });
@@ -247,7 +246,15 @@ export class StudentComponent implements OnInit {
     return index;
   }
 
-
+  doMaxHours() {
+    if (this.student.FundingDate >= this.student.HireStartDate) {
+      let fdate = this.student.FundingDate;
+      let hdate = this.student.HireStartDate;
+      let d = Math.floor((Date.UTC(fdate.getFullYear(), fdate.getMonth(), fdate.getDate()) -
+        Date.UTC(hdate.getFullYear(), hdate.getMonth(), hdate.getDate())) / (1000 * 60 * 60 * 24));
+      this.maxHours = d;
+    }
+  }
 
 
 }
