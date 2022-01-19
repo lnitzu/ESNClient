@@ -75,7 +75,7 @@ export class StudentComponent implements OnInit {
 
     this.service.getStudentList().subscribe(data => {
       this.students = data;
-      
+
     }
 
 
@@ -87,7 +87,7 @@ export class StudentComponent implements OnInit {
         this.nurses.push({ ID: null, NurseTyeName: '' });
         this.schools = JSON.parse(JSON.stringify(name)).school;
         this.schools.push({ ID: null, SchoolName: '' })
-        //console.log(this.schools);
+        console.log(this.schools);
 
       })
     });
@@ -145,6 +145,15 @@ export class StudentComponent implements OnInit {
 
 
   }
+
+
+  getSchoolName(item: number): void {
+
+
+    return this.schools.find(i => i.ID === item).SchoolName;
+
+  }
+
 
   hideDialog() {
     this.studentDialog = false;
@@ -251,10 +260,10 @@ export class StudentComponent implements OnInit {
     if (this.student.FundingDate >= this.student.HireStartDate) {
       let fdate = this.student.FundingDate;
       let hdate = this.student.HireStartDate;
-      if (fdate!=null && hdate !=null){
-      let d = Math.floor((Date.UTC(fdate.getFullYear(), fdate.getMonth(), fdate.getDate()) -
-        Date.UTC(hdate.getFullYear(), hdate.getMonth(), hdate.getDate())) / (1000 * 60 * 60 * 24));
-      this.maxHours = d;
+      if (fdate != null && hdate != null) {
+        let d = Math.floor((Date.UTC(fdate.getFullYear(), fdate.getMonth(), fdate.getDate()) -
+          Date.UTC(hdate.getFullYear(), hdate.getMonth(), hdate.getDate())) / (1000 * 60 * 60 * 24));
+        this.maxHours = d;
       }
     }
   }

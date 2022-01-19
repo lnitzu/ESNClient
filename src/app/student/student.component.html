@@ -34,13 +34,11 @@
                 <td *ngIf="col.visible">
 
                     <div *ngSwitchCase="'SchoolID'">
-
-                        {{row[col.field]!=null ? this.schools[row[col.field]-1].SchoolName:'' }}
+                        {{getSchoolName(row[col.field])}}
                     </div>
 
                     <div *ngSwitchCase="'HireStartDate'">
                         {{row[col.field] | date : 'EE MMM d, y' }}
-
                     </div>
 
                     <div *ngSwitchDefault>
@@ -395,11 +393,6 @@
                                     appendTo="body" name="groupname" [binary]="true"
                                     [style]="{margin: '0 230px' }" >
                                 </p-checkbox>
-
-
-
-
-
 
                             </span>
                         </div>
