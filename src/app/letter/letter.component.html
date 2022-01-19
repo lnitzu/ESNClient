@@ -1,5 +1,10 @@
 <p-toast></p-toast>
 
+<div class="progress-spinner" *ngIf="viewSpinner">
+    <p-progressSpinner [style]="{width: '70px', height: '70px', opacity : '0.6'  }" styleClass="custom-spinner" strokeWidth="8" fill="var(--surface-ground)"
+     animationDuration=".8s"></p-progressSpinner>
+     <span style="font-weight: bold;font-size: large  ;" [style] = "{transition: 'opacity 0.5s linear 2s;' }" >Processing....</span>
+</div>
 
 <div class="p-grid"  >
     
@@ -72,8 +77,8 @@
                         <div class="product-list-action" >
                             <h5 class="p-mb-2">{{student.AppliedDate | date}}</h5>
                             
-                            <p-badge *ngIf="student.ApprovalStatus.toUpperCase() == 'APPROVED'" value="{{student.ApprovalStatus.toUpperCase()}}" size="medium" severity="success"></p-badge>
-                            <p-badge *ngIf="student.ApprovalStatus.toUpperCase() != 'APPROVED'" value="{{student.ApprovalStatus.toUpperCase()}}" size="medium" severity="warning"></p-badge>
+                            <p-badge *ngIf="student.ApprovalStatus !=null && student.ApprovalStatus.toUpperCase() == 'APPROVED'" value="{{student.ApprovalStatus.toUpperCase()}}" size="medium" severity="success"></p-badge>
+                            <p-badge *ngIf="student.ApprovalStatus !=null && student.ApprovalStatus.toUpperCase() != 'APPROVED'" value="{{student.ApprovalStatus.toUpperCase()}}" size="medium" severity="warning"></p-badge>
 
                             
                         </div>

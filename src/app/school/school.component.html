@@ -1,146 +1,152 @@
 <p-toast></p-toast>
 
-<div class="card">
 
 
-    <p-table #dt [value]="schools" [rows]="10" [paginator]="true" [globalFilterFields]="['SchoolName','Address']"
-        responsiveLayout="scroll" [paginator]="true" [rowsPerPageOptions]="[10,25,50]" [scrollable]="true"
-        scrollHeight="60vh" [(selection)]="selectedSchools" [rowHover]="true" dataKey="id"
-        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true"
-        sortField="SchoolName" >
-        <ng-template pTemplate="caption" >
-            <div class="p-d-flex p-ai-center p-jc-between">
-
-                <div class="p-inputgroup">
+<div class="container" #cont>
 
 
+    
 
-                    <span class="p-inputgroup-addon" style="color:green; font-size: 26px; font-family:'Alumni Sans', -apple-system, 
+
+<p-table #dt [value]="schools" [rows]="10" [paginator]="true" [globalFilterFields]="['SchoolName','Address']"
+    responsiveLayout="scroll" [paginator]="true" [rowsPerPageOptions]="[10,25,50]" [scrollable]="true"
+    scrollHeight="60vh" [(selection)]="selectedSchools" [rowHover]="true" dataKey="id"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true"
+    sortField="SchoolName">
+    <ng-template pTemplate="caption">
+        <div class="p-d-flex p-ai-center p-jc-between">
+
+            <div class="p-inputgroup">
+
+
+
+                <span class="p-inputgroup-addon"
+                    style="color:green; font-size: 26px; font-family:'Alumni Sans', -apple-system, 
                     BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;">
-                        Manage Schools
-                    </span>
-                    <span class="p-inputgroup-addon p-input-icon-right">
-                        <i class="pi pi-search" style="margin-right: 10px;"></i>
-                        <input style="width: 100%;" pInputText type="text"
-                            (input)="dt.filterGlobal($any($event.target).value, 'contains')"
-                            placeholder="Search name/address..." />
+                    Manage Schools
+                </span>
+                <span class="p-inputgroup-addon p-input-icon-right">
+                    <i class="pi pi-search" style="margin-right: 10px;"></i>
+                    <input style="width: 100%;" pInputText type="text"
+                        (input)="dt.filterGlobal($any($event.target).value, 'contains')"
+                        placeholder="Search name/address..." />
 
 
-                    </span>
-                    <span class="p-inputgroup-addon">
-                        <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success p-mr-2"
-                            (click)="openNew()"></button>
-                    </span>
-                </div>
-
-
+                </span>
+                <span class="p-inputgroup-addon">
+                    <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success p-mr-2"
+                        (click)="openNew()"></button>
+                </span>
             </div>
-            
-        </ng-template>
-        <ng-template pTemplate="header">
-            <tr>
-
-                <th pSortableColumn="SchoolName">Name <p-sortIcon field="SchoolName"></p-sortIcon>
-                </th>
-                <th pSortableColumn="Address">Address <p-sortIcon field="Address"></p-sortIcon>
-                </th>
-                <th pSortableColumn="City">City <p-sortIcon field="City"></p-sortIcon>
-                </th>
-                <th pSortableColumn="PostalCode">Postal Code <p-sortIcon field="PostalCode"></p-sortIcon>
-                </th>
-                <th pSortableColumn="PrimaryEmail">Primary Email <p-sortIcon field="PrimaryEmail"></p-sortIcon>
-                </th>
-                <th pSortableColumn="SecondaryEmail">Secondary Email <p-sortIcon field="SecondaryEmail"></p-sortIcon>
-                </th>
-                <th pSortableColumn="ContactPerson">Contact Person <p-sortIcon field="ContactPerson"></p-sortIcon>
-                </th>
-                <th></th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-school>
-            <tr>
 
 
-                <td>{{school.SchoolName}}</td>
-                <td>{{school.Address}}</td>
-                <td>{{school.City}}</td>
-                <td>{{school.PostalCode}}</td>
-                <td>{{school.PrimaryEmail}}</td>
-                <td>{{school.SecondaryEmail}}</td>
-                <td>{{school.ContactPerson}}</td>
-                <td>
-                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-raised p-button-success p-mr-1"
-                        (click)="editSchool(school)"></button>
-                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger p-button-raised"
-                        (click)="deleteSchool(school)"></button>
-                </td>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="summary">
-            <div class="p-d-flex p-ai-center p-jc-between" style="font-weight: bold;">
-                {{schools ? schools.length : 0 }} schools.
-            </div>
-        </ng-template>
-    </p-table>
-</div>
+        </div>
+
+    </ng-template>
+    <ng-template pTemplate="header">
+        <tr>
+
+            <th pSortableColumn="SchoolName">Name <p-sortIcon field="SchoolName"></p-sortIcon>
+            </th>
+            <th pSortableColumn="Address">Address <p-sortIcon field="Address"></p-sortIcon>
+            </th>
+            <th pSortableColumn="City">City <p-sortIcon field="City"></p-sortIcon>
+            </th>
+            <th pSortableColumn="PostalCode">Postal Code <p-sortIcon field="PostalCode"></p-sortIcon>
+            </th>
+            <th pSortableColumn="PrimaryEmail">Primary Email <p-sortIcon field="PrimaryEmail"></p-sortIcon>
+            </th>
+            <th pSortableColumn="SecondaryEmail">Secondary Email <p-sortIcon field="SecondaryEmail"></p-sortIcon>
+            </th>
+            <th pSortableColumn="ContactPerson">Contact Person <p-sortIcon field="ContactPerson"></p-sortIcon>
+            </th>
+            <th></th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-school>
+        <tr>
+
+
+            <td>{{school.SchoolName}}</td>
+            <td>{{school.Address}}</td>
+            <td>{{school.City}}</td>
+            <td>{{school.PostalCode}}</td>
+            <td>{{school.PrimaryEmail}}</td>
+            <td>{{school.SecondaryEmail}}</td>
+            <td>{{school.ContactPerson}}</td>
+            <td>
+                <button pButton pRipple icon="pi pi-pencil"
+                    class="p-button-rounded p-button-raised p-button-success p-mr-1"
+                    (click)="editSchool(school)"></button>
+                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger p-button-raised"
+                    (click)="deleteSchool(school)"></button>
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+        <div class="p-d-flex p-ai-center p-jc-between" style="font-weight: bold;">
+            {{schools ? schools.length : 0 }} schools.
+        </div>
+    </ng-template>
+</p-table>
+
+
+
 
 <p-dialog [(visible)]="schoolDialog" [style]="{width: '500px'}" header="School Details" [modal]="true"
     styleClass="p-fluid" >
 
 
-    
+
     <ng-template pTemplate="content">
-        
 
 
 
-            <div class="p-field">
-                <label for="name">Name</label>
-                <input type="text" pInputText id="name" [(ngModel)]="school.SchoolName" required autofocus />
-            </div>
-            <small class="p-error" *ngIf="submitted && !school.SchoolName">School name is required.</small>
-
-            <div class="p-field">
-                <label for="address">Adddress</label>
-                <textarea id="address" pInputTextarea [(ngModel)]="school.Address" required rows="3"
-                    cols="20"></textarea>
-            </div>
-
-            <div class="p-field">
-                <label for="city">City</label>
-                <input type="text" pInputText id="city" [(ngModel)]="school.City" />
-            </div>
-            <small class="p-error" *ngIf="submitted && !school.City">City is required.</small>            
 
 
-            <div class="p-field">
-                <label for="postalcode">Postal Code</label>
-                <input type="text" required  pInputText id="postalcode"
-                    [(ngModel)]="school.PostalCode" />
-            </div>
-            <small class="p-error" *ngIf="submitted && !school.PostalCode">Postal code is required.</small>
-            
-            <div class="p-field">
-                <label for="primaryemail">Primary Email</label>
-                <input type="text" pInputText id="primaryemail" [(ngModel)]="school.PrimaryEmail" />
-            </div>
-            <small class="p-error" *ngIf="submitted && !school.PrimaryEmail">Primary Email is required.</small>            
+        <div class="p-field">
+            <label for="name">Name</label>
+            <input type="text" pInputText id="name" [(ngModel)]="school.SchoolName" required autofocus />
+        </div>
+        <small class="p-error" *ngIf="submitted && !school.SchoolName">School name is required.</small>
 
-            
-            <div class="p-field">
-                <label for="secondaryemail">Secondary Email</label>
-                <input type="text" pInputText id="secondaryemail" [(ngModel)]="school.SecondaryEmail" />
-            </div>
-            <small class="p-error" *ngIf="submitted && !school.SecondaryEmail">Secondary Email is required.</small>            
+        <div class="p-field">
+            <label for="address">Adddress</label>
+            <textarea id="address" pInputTextarea [(ngModel)]="school.Address" required rows="3" cols="20"></textarea>
+        </div>
 
-            <div class="p-field">
-                <label for="contactperson">Contact Person</label>
-                <input type="text" pInputText id="contactperson" [(ngModel)]="school.ContactPerson" />
-            </div>
-            <small class="p-error" *ngIf="submitted && !school.ContactPerson">Contact Person required.</small>            
+        <div class="p-field">
+            <label for="city">City</label>
+            <input type="text" pInputText id="city" [(ngModel)]="school.City" />
+        </div>
+        <small class="p-error" *ngIf="submitted && !school.City">City is required.</small>
 
 
-        
+        <div class="p-field">
+            <label for="postalcode">Postal Code</label>
+            <input type="text" required pInputText id="postalcode" [(ngModel)]="school.PostalCode" />
+        </div>
+        <small class="p-error" *ngIf="submitted && !school.PostalCode">Postal code is required.</small>
+
+        <div class="p-field">
+            <label for="primaryemail">Primary Email</label>
+            <input type="text" pInputText id="primaryemail" [(ngModel)]="school.PrimaryEmail" />
+        </div>
+        <small class="p-error" *ngIf="submitted && !school.PrimaryEmail">Primary Email is required.</small>
+
+
+        <div class="p-field">
+            <label for="secondaryemail">Secondary Email</label>
+            <input type="text" pInputText id="secondaryemail" [(ngModel)]="school.SecondaryEmail" />
+        </div>
+        <small class="p-error" *ngIf="submitted && !school.SecondaryEmail">Secondary Email is required.</small>
+
+        <div class="p-field">
+            <label for="contactperson">Contact Person</label>
+            <input type="text" pInputText id="contactperson" [(ngModel)]="school.ContactPerson" />
+        </div>
+        <small class="p-error" *ngIf="submitted && !school.ContactPerson">Contact Person required.</small>
+
 
     </ng-template>
 
@@ -150,6 +156,14 @@
         <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveSchool()"></button>
     </ng-template>
 
+
+
+
 </p-dialog>
+
+
+
+</div>
+
 
 <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>

@@ -2,8 +2,14 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MenuItem, TreeNode } from 'primeng/api';
 import { PostofficeService } from '../shared/postoffice.service';
 import { LetterService } from '../shared/letter.service';
+import { Message, MessageService } from 'primeng/api';
 import { Tree } from 'primeng/tree';
 import { HttpResponse } from '@angular/common/http';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+
+
+
+
 
 @Component({
   selector: 'app-postoffice',
@@ -13,7 +19,9 @@ import { HttpResponse } from '@angular/common/http';
 export class PostofficeComponent implements OnInit {
 
 
-  @ViewChild('tt',{read: '',static:true}) dt: any;
+  viewSpinner: boolean = false;
+
+  @ViewChild('tt', { read: '', static: true }) dt: any;
 
   items: MenuItem[] = [];
 
@@ -26,29 +34,44 @@ export class PostofficeComponent implements OnInit {
   file: any = [];
   files: TreeNode[] = [];
 
-
+  message: any = '';
   selectedNode: any[] = [];
   cols: any[] = [];
 
-  constructor(private poService: PostofficeService, private letterService: LetterService) { }
+  constructor(private poService: PostofficeService, private letterService: LetterService, private messageService: MessageService) { }
 
-//doChange(event:any)
-//{
-//  alert(event);//
-//}
 
 
   nodeSelect(event: any) {
-    //if(!event.node.children) {
     this.selectedLetter = event;
-    //console.log(this.selectedLetter);
-    //this.getParentDetails(event.node)
-    //alert('fff');
-    //}
+  }
+
+
+  emailLetter() {
+
+    this.viewSpinner = true;
+    var startTime = performance.now();
+    let letterArray: number[] = [];
+    for (let t = 0; t < this.selectedLetter.length; t++) {
+      if (this.selectedLetter[t].data.WL_RecID != 0) {
+        letterArray.push(this.selectedLetter[t].data.WL_RecID);
+      }
+    }
+    this.poService.emailLetter(letterArray).subscribe(
+      data => {
+
+        this.viewSpinner = false;
+        var endTime = performance.now();
+      });
+
   }
 
   viewLetter() {
 
+
+    this.message = (this.selectedLetter.length - 1).toString() + " letters were concatenated in ";
+    this.viewSpinner = true;
+    var startTime = performance.now();
     let letterArray: number[] = [];
     for (let t = 0; t < this.selectedLetter.length; t++) {
       if (this.selectedLetter[t].data.WL_RecID != 0) {
@@ -57,8 +80,10 @@ export class PostofficeComponent implements OnInit {
     }
     this.poService.viewLetter(letterArray).subscribe(
 
+
       (response: HttpResponse<Blob>) => {
-        console.log(response.headers.get('content-disposition'));
+        //console.log(response.headers.get('content-disposition'));
+        console.log(response);
         let x = response.headers.get('content-disposition');
         if (x === null) return;
 
@@ -76,9 +101,14 @@ export class PostofficeComponent implements OnInit {
 
         document.body.removeChild(a);
         URL.revokeObjectURL(objectUrl);
+        this.viewSpinner = false;
+        var endTime = performance.now();
+        this.messageService.add({ severity: 'success', summary: 'Successful', detail: this.message + ' in ' + (Math.round((endTime - startTime) / 1000)).toString() + ' sec.', life: 4000 });
+        this.viewSpinner = false;
       }
-  
+
     );
+
 
   }
 
@@ -87,12 +117,14 @@ export class PostofficeComponent implements OnInit {
   }
   ngOnInit(): void {
 
+    this.viewSpinner = true;
     //get the applicants with letters
     this.poService.getLetters().subscribe(
 
       data => {
         this.files = <TreeNode[]>data;
         //console.log(this.files);
+        this.viewSpinner = false;
       }
 
     );
@@ -106,6 +138,10 @@ export class PostofficeComponent implements OnInit {
     this.cols = [
       { field: "name", header: "Applicant Name", icon: "icon" }
     ];
+
+
+
+
 
   }
 

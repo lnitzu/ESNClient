@@ -114,7 +114,7 @@ export class SchoolComponent implements OnInit {
   }
 
 
-    if ( this.school.SchoolName.trim()) {
+    if ( this.school!=null && this.school.SchoolName.trim()) {
      
         this.schools[this.findIndexById(this.school.ID)] = this.school;
         this.lookupService.updateSchool(this.school).subscribe(

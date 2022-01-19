@@ -247,12 +247,15 @@ export class StudentComponent implements OnInit {
   }
 
   doMaxHours() {
+    this.maxHours = 0;
     if (this.student.FundingDate >= this.student.HireStartDate) {
       let fdate = this.student.FundingDate;
       let hdate = this.student.HireStartDate;
+      if (fdate!=null && hdate !=null){
       let d = Math.floor((Date.UTC(fdate.getFullYear(), fdate.getMonth(), fdate.getDate()) -
         Date.UTC(hdate.getFullYear(), hdate.getMonth(), hdate.getDate())) / (1000 * 60 * 60 * 24));
       this.maxHours = d;
+      }
     }
   }
 

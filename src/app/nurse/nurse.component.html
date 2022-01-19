@@ -77,9 +77,9 @@
 
             <div class="p-field">
                 <label for="name">Nurse type</label>
-                <input type="text" pInputText id="name" [(ngModel)]="nurse.NurseTypeName" required autofocus />
+                <input type="text" pInputText id="name" [(ngModel)]="nurse.NurseTypeName" required autofocus #name="ngModel" />
             </div>
-            <small class="p-error" *ngIf="submitted && !nurse.NurseTypeName">School name is required.</small>
+            <small class="p-error" *ngIf="name.errors &&  (name.dirty || name.touched)">Nurse type name is required.</small>
 
 
 
@@ -90,7 +90,7 @@
 
     <ng-template pTemplate="footer">
         <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
-        <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveNurse()"></button>
+        <button pButton pRipple  label="Save" icon="pi pi-check" class="p-button-text" (click)="saveNurse()"></button>
     </ng-template>
 
 </p-dialog>

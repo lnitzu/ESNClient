@@ -3,7 +3,11 @@
 <p-toast></p-toast>
 
 
-
+<div class="progress-spinner" *ngIf="viewSpinner">
+    <p-progressSpinner [style]="{width: '70px', height: '70px', opacity : '0.6'  }" styleClass="custom-spinner" strokeWidth="8" fill="var(--surface-ground)"
+     animationDuration=".8s"></p-progressSpinner>
+     <span style="font-weight: bold;font-size: large  ;" [style] = "{transition: 'opacity 0.5s linear 2s;' }" >Processing....</span>
+</div>
 
 <!--(onNodeSelect)="nodeSelect($event)"-->
 
@@ -38,7 +42,7 @@
 
                     <button pButton pRipple  [disabled]="selectedLetter.length==0" label="View/Print" icon="pi pi-eye" (click)="viewLetter();"></button>
                     <span>&nbsp;</span>
-                    <button pButton pRipple  [disabled]="selectedLetter.length==0" label="Email" icon="pi pi-envelope" (click)="viewLetter();"></button>
+                    <button pButton pRipple  [disabled]="selectedLetter.length==0" label="Email" icon="pi pi-envelope" (click)="emailLetter();"></button>
               
                     
                 </span>                
@@ -71,4 +75,5 @@
         </tr>
     </ng-template>    
 </p-treeTable>
+
 

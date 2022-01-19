@@ -65,11 +65,33 @@ export class PostofficeService {
   };
   
 
-    
-    //let params = new HttpParams().set('values', JSON.stringify(list))
-    
-
     return this.http.post(this.ApiUrl + '/PostOffice/', JSON.stringify(list), {headers: headers, observe: "response",responseType: 'blob'});
+
+  }
+
+
+
+
+
+  emailLetter(list:number[]) :Observable<any>{
+
+    if (list.length==0) return null as any;
+    const headers = new HttpHeaders()
+    .set('content-type', 'application/json')
+    
+    .set('Access-Control-Allow-Origin', '*')
+    .set('Access-Control-Expose-Headers','*')
+    .set('Access-Control-Allow-Methods', "*");
+
+
+    const options = {
+      headers: headers,
+      observe: "response" as 'body', // to display the full response & as 'body' for type cast
+      responseType: "json"
+  };
+  
+
+    return this.http.post(this.ApiUrl + '/PostOffice/EmailLetters', JSON.stringify(list), {headers: headers, observe: "response",responseType: 'blob'});
 
   }
 

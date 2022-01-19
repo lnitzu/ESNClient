@@ -46,7 +46,7 @@ import {AvatarGroupModule} from 'primeng/avatargroup';
 import {CarouselModule} from 'primeng/carousel';
 import {PickListModule} from 'primeng/picklist';
 import {TreeModule} from 'primeng/tree';
-
+import {ProgressSpinnerModule} from 'primeng/progressspinner';
 
 
 import {TreeTableModule} from 'primeng/treetable';
@@ -137,7 +137,8 @@ import { NurseComponent } from './nurse/nurse.component';
     FieldsetModule,
     BadgeModule,
     TreeTableModule,
-    ToggleButtonModule
+    ToggleButtonModule,
+    ProgressSpinnerModule
     
   ],
   providers: [UserIdentityService, StudentService, MessageService],
