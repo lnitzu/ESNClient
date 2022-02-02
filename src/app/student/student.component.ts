@@ -147,10 +147,12 @@ export class StudentComponent implements OnInit {
   }
 
 
-  getSchoolName(item: number): void {
+  getSchoolName(item: number): string {
 
-
-    return this.schools.find(i => i.ID === item).SchoolName;
+    let x = this.schools.find(i => i.ID === item);
+    if (x != null)
+      return x.SchoolName;
+    return '';
 
   }
 

@@ -4,7 +4,7 @@ import { DataService } from '../shared/data.service';
 import { UserIdentityService } from '../shared/user-identity.service';
 
 import { ConfirmationService, PrimeTemplate, SelectItem } from 'primeng/api';
-import { ExchangeService } from '../shared/exchange.service';
+
 
 
 
@@ -28,7 +28,9 @@ export class SettingsComponent implements OnInit {
 
   constructor(private datafeed: DataService,
     private userService: UserIdentityService,
-    private messageService: MessageService, private confirmationService: ConfirmationService) { }
+    private messageService: MessageService, 
+    private confirmationService: ConfirmationService
+    ) { }
 
 
   ready: boolean = true;
@@ -149,8 +151,10 @@ export class SettingsComponent implements OnInit {
 
 
   ngOnInit(): void {
+
     this.getBatchList();
     this.userService.getUser().subscribe(data => { this.user = data; })
+    
   }
 
 }

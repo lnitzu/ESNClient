@@ -4,7 +4,27 @@
     <p-progressSpinner [style]="{width: '70px', height: '70px', opacity : '0.6'  }" styleClass="custom-spinner" strokeWidth="8" fill="var(--surface-ground)"
      animationDuration=".8s"></p-progressSpinner>
      <span style="font-weight: bold;font-size: large  ;" [style] = "{transition: 'opacity 0.5s linear 2s;' }" >Processing....</span>
-</div>
+</div>        
+
+
+<p-dialog [(visible)]="viewProgress" [style]="{width: '50%'}" header="Processing data..." [modal]="true"
+    styleClass="p-fluid p-grid" [closable]="false">
+
+    <ng-template pTemplate="content" >
+        
+            <p-card [style]="{'background-color': 'lightgray'}">
+
+                <p-progressBar [value]="statusNum" mode="determinate" [style]="{'width': '100%'}"></p-progressBar>
+                
+            </p-card>
+        
+    </ng-template> 
+</p-dialog>
+
+
+
+
+
 
 <div class="p-grid"  >
     

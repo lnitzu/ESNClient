@@ -94,7 +94,7 @@ import { NurseComponent } from './nurse/nurse.component';
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    HttpClientModule,
+    
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,

@@ -5,6 +5,8 @@ import { MenuItem, PrimeNGConfig } from 'primeng/api';
 import { Message, MessageService } from 'primeng/api';
 import { PickList } from 'primeng/picklist';
 
+import { interval, Observable, Subscription } from 'rxjs';
+declare var $: any;
 
 @Component({
   selector: 'app-letter',
@@ -15,11 +17,53 @@ import { PickList } from 'primeng/picklist';
 })
 export class LetterComponent implements OnInit {
 
+  private connection: any;
+  private proxy: any;
+  public serverMsg: any = '';
+  statusNum: number = 0;
+
+
+
+  public init() {
+
+
+    let url = 'http://localhost:1229';
+    this.connection = $.hubConnection(url);
+    this.proxy = this.connection.createHubProxy('SignalHub');
+
+    this.proxy.on('Hello', (data: any) => {
+      var y: number = +data;
+      console.log(y);
+      //console.log(this.selectedCandidates.length);
+      if (this.selectedCandidates.length > 0)
+        this.statusNum = Math.round(100 * y / (this.selectedCandidates.length));
+      //this.statusNum = Math.round(y);
+
+    });
+
+    this.connection.start().done((data: any) => {
+
+    });
+
+  }
+
+  public close() {
+    $.connection.hub.stop().done(function () {
+      // alert('stopped');
+    });
+  }
+
+  public broadcastMessage(x: string): void {
+
+    this.proxy.invoke('Hello', x)
+      .catch((error: any) => {
+        console.log('broadcastMessage error -> ' + error);
+      });
+
+  }
 
   viewSpinner: boolean = false;
-
-
-
+  viewProgress: boolean = false;
   availableCandidates: any[] = [];
   letterTemplates: any[] = [];
   selectedCandidates: any[] = [];
@@ -28,15 +72,23 @@ export class LetterComponent implements OnInit {
 
   message: any = '';
 
+
+
+
+
+
   contextMenu: MenuItem[] = [];
 
-  constructor(private letterService: LetterService, private primengConfig: PrimeNGConfig, private messageService: MessageService) { }
+  constructor(private letterService: LetterService, private primengConfig: PrimeNGConfig,
+    private messageService: MessageService
 
-  @ViewChild(PickList)
-  primarySampleComponent!: PickList;
+  ) { }
+
+
+
 
   tip(v: any): string {
-    //this.students[0].wll[0].TemplateFile
+
     let x: string;
     x = "<ul>";
     for (var k = 0; k < v.length; k++) {
@@ -75,11 +127,14 @@ export class LetterComponent implements OnInit {
 
   delete() {
 
-    this.viewSpinner = true;
+    this.statusNum=0;
+    this.init();
+    //this.viewSpinner = true;
+    this.viewProgress = true;
     var startTime = performance.now();
 
     var responseJson = JSON.parse(JSON.stringify(this.selectedCandidates));
-    var a = [];
+    let a = [];
     for (var i = 0; i < responseJson.length; i++) {
       var counter = responseJson[i];
       for (let k = 0; k < counter.wll.length; k++) {
@@ -90,27 +145,32 @@ export class LetterComponent implements OnInit {
     this.letterService.deleteLetters(this.selectedLetterTemplate, a).subscribe(
 
       (data) => {
+
         this.message = data.message;
         this.availableCandidates = data.candidates;
         this.selectedCandidates = [];
         var endTime = performance.now()
         this.messageService.add({ severity: 'success', summary: 'Successful', detail: this.message + ' in ' + (Math.round((endTime - startTime) / 1000)).toString() + ' sec.', life: 4000 });
-        this.viewSpinner = false; 
+        //this.viewSpinner = false;
+        this.viewProgress = false;
 
       },
       (err) => {
         this.message = err.error;
         this.messageService.add({ severity: 'error', summary: 'Error', detail: this.message.Message, life: 4000 });
-        this.viewSpinner = false; 
-      }    );
-      
-   
+        //this.viewSpinner = false;
+        this.viewProgress = false;
+      });
+
+
   }
   generate() {
-    this.viewSpinner = true;
+    this.statusNum=0;
+    this.init();
+    this.viewProgress = true;
     var startTime = performance.now();
     var responseJson = JSON.parse(JSON.stringify(this.selectedCandidates));
-    var a = [];
+    let a = [];
     for (var i = 0; i < responseJson.length; i++) {
       var counter = responseJson[i];
       var schID = counter.RecID
@@ -120,25 +180,27 @@ export class LetterComponent implements OnInit {
 
 
     this.letterService.generateLetters(a, this.selectedLetterTemplate, this.overWrite).subscribe(
-      
+
 
       (data) => {
-        
+
         this.message = data.message;
         this.availableCandidates = data.candidates;
         this.selectedCandidates = [];
         var endTime = performance.now()
         this.messageService.add({ severity: 'success', summary: 'Successful', detail: this.message + ' in ' + (Math.round((endTime - startTime) / 1000)).toString() + ' sec.', life: 4000 });
-        this.viewSpinner = false;        
+        this.viewProgress = false;
+
+
       },
-      (err) => {  
+      (err) => {
         this.message = err.error;
         this.messageService.add({ severity: 'error', summary: 'Error', detail: this.message.Message, life: 4000 });
-        this.viewSpinner = false;        
+        this.viewProgress = false;
       });
 
-    
 
+      close();
 
   }
 
@@ -160,6 +222,9 @@ export class LetterComponent implements OnInit {
 
 
   ngOnInit(): void {
+
+
+
     this.viewSpinner = true;
 
     this.primengConfig.ripple = true;

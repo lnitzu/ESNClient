@@ -43,7 +43,8 @@ export class LetterService {
       .set('Access-Control-Allow-Methods', "*");
       
       
-      return this.http.post<any>(this.ApiUrl + '/Letter/Generate/'+selectedLetterTemplate + '/'+overWrite , JSON.stringify(list), { 'headers': headers });
+      return this.http.post<any>(this.ApiUrl + '/Letter/Generate/'+selectedLetterTemplate +
+       '/'+overWrite , JSON.stringify(list), { 'headers': headers });
   }
 
   deleteLetters(letterID:number,list:any[] ): Observable<any> {
