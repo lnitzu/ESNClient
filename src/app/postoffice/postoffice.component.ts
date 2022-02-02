@@ -5,11 +5,9 @@ import { LetterService } from '../shared/letter.service';
 import { Message, MessageService } from 'primeng/api';
 import { Tree } from 'primeng/tree';
 import { HttpResponse } from '@angular/common/http';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 
-
-
+declare var $: any;
 
 @Component({
   selector: 'app-postoffice',
@@ -19,6 +17,56 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 export class PostofficeComponent implements OnInit {
 
 
+
+
+  private connection: any;
+  private proxy: any;
+  public serverMsg: any = '';
+  statusNum: number = 0;
+
+
+
+  public init() {
+
+
+    let url = 'http://localhost:1229';
+    this.connection = $.hubConnection(url);
+    this.proxy = this.connection.createHubProxy('SignalHub');
+
+    this.proxy.on('Hello', (data: any) => {
+      var y: number = +data;
+      console.log(y);
+      //console.log(this.selectedCandidates.length);
+      if (this.letterArray.length > 0)
+        this.statusNum = Math.round(100 * y / (this.letterArray.length));
+      //this.statusNum = Math.round(y);
+
+    });
+
+    this.connection.start().done((data: any) => {
+
+    });
+
+  }
+
+  public close() {
+    $.connection.hub.stop().done(function () {
+      // alert('stopped');
+    });
+  }
+
+  public broadcastMessage(x: string): void {
+
+    this.proxy.invoke('Hello', x)
+      .catch((error: any) => {
+        console.log('broadcastMessage error -> ' + error);
+      });
+
+  }
+
+  viewProgress: boolean = false;
+
+  letterArray: number[] = [];
   viewSpinner: boolean = false;
 
   @ViewChild('tt', { read: '', static: true }) dt: any;
@@ -38,7 +86,10 @@ export class PostofficeComponent implements OnInit {
   selectedNode: any[] = [];
   cols: any[] = [];
 
-  constructor(private poService: PostofficeService, private letterService: LetterService, private messageService: MessageService) { }
+  constructor(private poService: PostofficeService, private letterService: LetterService,
+    private messageService: MessageService
+
+  ) { }
 
 
 
@@ -49,18 +100,20 @@ export class PostofficeComponent implements OnInit {
 
   emailLetter() {
 
-    this.viewSpinner = true;
+    //this.viewSpinner = true;
+    this.viewProgress= true;
     var startTime = performance.now();
-    let letterArray: number[] = [];
+    //let letterArray: number[] = [];
     for (let t = 0; t < this.selectedLetter.length; t++) {
       if (this.selectedLetter[t].data.WL_RecID != 0) {
-        letterArray.push(this.selectedLetter[t].data.WL_RecID);
+        this.letterArray.push(this.selectedLetter[t].data.WL_RecID);
       }
     }
-    this.poService.emailLetter(letterArray).subscribe(
+    this.poService.emailLetter(this.letterArray).subscribe(
       data => {
 
-        this.viewSpinner = false;
+        //this.viewSpinner = false;
+        this.viewProgress= false
         var endTime = performance.now();
       });
 
@@ -71,6 +124,7 @@ export class PostofficeComponent implements OnInit {
 
     this.message = (this.selectedLetter.length - 1).toString() + " letters were concatenated in ";
     this.viewSpinner = true;
+    
     var startTime = performance.now();
     let letterArray: number[] = [];
     for (let t = 0; t < this.selectedLetter.length; t++) {
