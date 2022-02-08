@@ -87,7 +87,7 @@ export class StudentComponent implements OnInit {
         this.nurses.push({ ID: null, NurseTyeName: '' });
         this.schools = JSON.parse(JSON.stringify(name)).school;
         this.schools.push({ ID: null, SchoolName: '' })
-        console.log(this.schools);
+        //console.log(this.schools);
 
       })
     });

@@ -35,7 +35,7 @@ export class PostofficeComponent implements OnInit {
 
     this.proxy.on('Hello', (data: any) => {
       var y: number = +data;
-      console.log(y);
+      //console.log(y);
       //console.log(this.selectedCandidates.length);
       if (this.letterArray.length > 0)
         this.statusNum = Math.round(100 * y / (this.letterArray.length));
@@ -59,7 +59,7 @@ export class PostofficeComponent implements OnInit {
 
     this.proxy.invoke('Hello', x)
       .catch((error: any) => {
-        console.log('broadcastMessage error -> ' + error);
+        //console.log('broadcastMessage error -> ' + error);
       });
 
   }
@@ -101,11 +101,14 @@ export class PostofficeComponent implements OnInit {
   emailLetter() {
 
     //this.viewSpinner = true;
+    this.letterArray=[];
     this.viewProgress= true;
     var startTime = performance.now();
     //let letterArray: number[] = [];
     for (let t = 0; t < this.selectedLetter.length; t++) {
+      
       if (this.selectedLetter[t].data.WL_RecID != 0) {
+        ///console.log(this.selectedLetter[t]);
         this.letterArray.push(this.selectedLetter[t].data.WL_RecID);
       }
     }
@@ -137,7 +140,7 @@ export class PostofficeComponent implements OnInit {
 
       (response: HttpResponse<Blob>) => {
         //console.log(response.headers.get('content-disposition'));
-        console.log(response);
+        //console.log(response);
         let x = response.headers.get('content-disposition');
         if (x === null) return;
 
