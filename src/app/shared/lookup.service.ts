@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { ILookup } from '../ilookup';
 import { ISchool } from '../ischool';
 import {INurse} from '../inurse';
-
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -15,8 +15,9 @@ import {INurse} from '../inurse';
 
 export class LookupService {
 
-  readonly ApiUrl = 'http://localhost:1229/api';
-
+  //readonly ApiUrl = 'http://localhost:1229/api';
+  //readonly ApiUrl = 'http://localhost/ESNapi/api';
+  readonly ApiUrl = environment.ApiUrl;
 
 
   constructor(private http: HttpClient) { }

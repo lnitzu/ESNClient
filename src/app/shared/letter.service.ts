@@ -3,14 +3,17 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { HttpHeaders } from '@angular/common/http';
 import { literal } from '@angular/compiler/src/output/output_ast';
-
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LetterService {
 
-  readonly ApiUrl = 'http://localhost:1229/api';
+  //readonly ApiUrl = 'http://localhost:1229/api';
+  //readonly ApiUrl = 'http://localhost/esnapi/api';
+
+  readonly ApiUrl = environment.ApiUrl;
 
   constructor(private http: HttpClient) { }
 

@@ -6,6 +6,11 @@ import { Message, MessageService } from 'primeng/api';
 import { PickList } from 'primeng/picklist';
 
 import { interval, Observable, Subscription } from 'rxjs';
+
+import { environment } from 'src/environments/environment';
+
+
+
 declare var $: any;
 
 @Component({
@@ -27,17 +32,19 @@ export class LetterComponent implements OnInit {
   public init() {
 
 
-    let url = 'http://localhost:1229';
+    //let url = 'http://localhost:1229';
+    //let url = 'http://localhost/esnapi'; //address for signalr
+    let url = environment.url;
     this.connection = $.hubConnection(url);
     this.proxy = this.connection.createHubProxy('SignalHub');
 
     this.proxy.on('Hello', (data: any) => {
       var y: number = +data;
-      console.log(y);
-      //console.log(this.selectedCandidates.length);
+      
+      
       if (this.selectedCandidates.length > 0)
         this.statusNum = Math.round(100 * y / (this.selectedCandidates.length));
-      //this.statusNum = Math.round(y);
+      
 
     });
 

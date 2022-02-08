@@ -19,7 +19,7 @@ export class ExchangeService {
   
   
 
-  public   message: any='pula';
+  public   message: any='test';
 
    
   constructor() { }
@@ -34,13 +34,13 @@ export class ExchangeService {
 
       this.message = data;
       
-      console.log('La client:' +this.message);
+      //console.log('La client:' +this.message);
        
     });
 
     this.connection.start().done((data: any) => {
 
-      console.log('Connected to signalhub');
+      //('Connected to signalhub');
       this.broadcastMessage("Now we start talking");
       
     });
@@ -51,7 +51,7 @@ export class ExchangeService {
     
     this.proxy.invoke('Hello', x)
       .catch((error: any) => {
-        console.log('broadcastMessage error -> ' + error);
+        //console.log('broadcastMessage error -> ' + error);
       });
 
       

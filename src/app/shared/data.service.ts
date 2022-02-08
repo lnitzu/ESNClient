@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 import { UserComponent } from '../user/user.component';
-
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({
@@ -11,7 +11,10 @@ import { UserComponent } from '../user/user.component';
 export class DataService {
 
 
-  readonly ApiUrl = 'http://localhost:1229/api';
+  //readonly ApiUrl = 'http://localhost:1229/api';
+  //readonly ApiUrl = 'http://localhost/esnapi/api';
+  readonly ApiUrl = environment.ApiUrl;
+
   constructor(private http: HttpClient) { }
 
 
