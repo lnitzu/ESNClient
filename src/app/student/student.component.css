@@ -32,9 +32,11 @@
 
 
 .studentClass::ng-deep th {
-    background-color:rgb(80, 80, 80 ) !important;
+    background-color:rgb(80, 80, 80 ) !important; 
+    
     color: yellowgreen !important;
 }
+
 
 /*
 pi-sort-alt
